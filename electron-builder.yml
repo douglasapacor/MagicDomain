@@ -1,0 +1,22 @@
+appId: com.magic.domain
+productName: "magic-domain"
+copyright: "Copyright © 2023 Epic Quest"
+artifactName: "${productName}-setup-${version}.${ext}"
+directories:
+  output: "out"
+  buildResources: "resources"
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish:
+  provider: "github"
+  repo: "MagicDomain"
+  owner: "douglasapacor"
+  vPrefixedTagName: true
+  host: "github.com"
+  protocol: "https"
+  token: "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"
+  channel: "latest"
+  releaseType: "release"

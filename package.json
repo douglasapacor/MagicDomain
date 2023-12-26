@@ -8,8 +8,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "publish": "electron-forge publish"
   },
   "keywords": [],
   "author": {
@@ -40,6 +39,7 @@
     "typescript": "~4.5.4"
   },
   "dependencies": {
+    "@electron-forge/publisher-github": "^7.2.0",
     "electron-squirrel-startup": "^1.0.0"
   }
 }
