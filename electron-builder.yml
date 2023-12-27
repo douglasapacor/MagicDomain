@@ -1,0 +1,12 @@
+appId: com.magicdomain.game
+productName: Magic Domain
+copyright: Copyright © 2018 Yoshihide Shiono
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null
