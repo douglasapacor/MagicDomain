@@ -16,6 +16,7 @@ export class GameLoop {
     const timeStamp = new Date().getTime();
 
     let deltaTime = timeStamp - this.lastFrameTime;
+
     this.lastFrameTime = timeStamp;
 
     this.accumulatedTime += deltaTime;
@@ -32,7 +33,6 @@ export class GameLoop {
 
   stop = () => {
     if (this.rafId) clearInterval(this.rafId);
-
     this.isRunning = false;
   };
 }
