@@ -1,6 +1,5 @@
 export class GameLoop {
   private update: Function;
-  private renderer: Function;
   private lastFrameTime: number = 0;
   private accumulatedTime: number = 0;
   private timeStep: number = 1000 / 60;
@@ -35,10 +34,7 @@ export class GameLoop {
   };
 
   stop = () => {
-    if (this.rafId) {
-      clearInterval(this.rafId);
-    }
-
+    if (this.rafId) clearInterval(this.rafId);
     this.isRunning = false;
   };
 }

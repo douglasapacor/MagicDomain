@@ -26,9 +26,11 @@ else app.setPath("userData", `${app.getPath("userData")} (development)`);
     mainWindow.webContents.openDevTools();
   }
 
-  const gameLoop = new GameLoop(() => {});
+  const gl = new GameLoop((t) => {
+    console.log("aqui", t);
+  });
 
-  gameLoop.start();
+  gl.start();
 })();
 
 app.on("window-all-closed", () => {
