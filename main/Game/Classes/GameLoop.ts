@@ -7,9 +7,8 @@ export class GameLoop {
   private rafId: NodeJS.Timeout | null = null;
   private isRunning: boolean = false;
 
-  constructor(update: Function, renderer: Function) {
+  constructor(update: Function) {
     this.update = update;
-    this.renderer = renderer;
   }
 
   private mainLoop = () => {
@@ -18,28 +17,14 @@ export class GameLoop {
     const timeStamp = new Date().getTime();
 
     let deltaTime = timeStamp - this.lastFrameTime;
+
     this.lastFrameTime = timeStamp;
-    console.log("timeStamp", timeStamp);
 
     this.accumulatedTime += deltaTime;
 
-    while (this.accumulatedTime >= this.timeStep) {
-      // this.update(this.timeStep);
-      console.log(this.accumulatedTime);
-      console.log(this.timeStep);
+    this.update(deltaTime);
 
-      this.accumulatedTime -= this.timeStep;
-    }
-
-    console.log("timeStamp", timeStamp);
-
-    console.log("this.timeStep", this.timeStep);
-    console.log("this.accumulatedTime", this.accumulatedTime);
-    console.log("this.rafId", this.rafId);
-    console.log("this.lastFrameTime", this.lastFrameTime);
-    console.log("this.isRunning", this.isRunning);
-
-    // this.renderer();
+    this.accumulatedTime -= this.timeStep;
   };
 
   public start = () => {
