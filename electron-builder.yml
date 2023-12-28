@@ -1,6 +1,6 @@
 appId: com.magicdomain.game
 productName: Magic Domain
-copyright: Copyright © 2018 Yoshihide Shiono
+copyright: Copyright © 2023 Douglas Pacor
 directories:
   output: dist
   buildResources: resources
