@@ -1,7 +1,7 @@
 import { app, ipcMain } from "electron";
 import serve from "electron-serve";
 import path from "path";
-import { GameLoop } from "./Game/Classes/GameLoop";
+import { Engine } from "./Game/Classes/Engine";
 import { createWindow } from "./helpers";
 
 const isProd = process.env.NODE_ENV === "production";
@@ -21,16 +21,11 @@ else app.setPath("userData", `${app.getPath("userData")} (development)`);
   });
 
   if (isProd) await mainWindow.loadURL("app://./gameview");
-  else {
-    await mainWindow.loadURL(`http://localhost:${process.argv[2]}/gameview`);
-    mainWindow.webContents.openDevTools();
-  }
+  else await mainWindow.loadURL(`http://localhost:${process.argv[2]}/gameview`);
 
-  const gl = new GameLoop((t) => {
-    console.log("aqui", t);
-  });
+  // mainWindow.webContents.openDevTools();
 
-  gl.start();
+  new Engine();
 })();
 
 app.on("window-all-closed", () => {

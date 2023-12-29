@@ -1,3 +1,10 @@
+/**
+ * Game Object Class
+ * @fileoverview A Generic game class used like core for all other game classes.
+ * @author Douglas Pacor
+ * @version 1.0.0
+ */
+
 export class GameObject {
   private children: GameObject[];
   private parent: GameObject;
@@ -9,7 +16,7 @@ export class GameObject {
     this.hasReadyBeenCalled = false;
   }
 
-  stepEntry(delta, root) {
+  public stepEntry(delta: number, root: GameObject) {
     this.children.forEach((child) => child.stepEntry(delta, root));
 
     if (!this.hasReadyBeenCalled) {
@@ -24,25 +31,22 @@ export class GameObject {
 
   private step = (deltaTime: number) => {};
 
-  destroy() {
+  public destroy = () => {
     this.children.forEach((child) => {
       child.destroy();
     });
 
     this.parent.removeChild(this);
-  }
+  };
 
-  addChild(gameObject: GameObject) {
+  public addChild = (gameObject: GameObject) => {
     gameObject.parent = this;
-
     this.children.push(gameObject);
-  }
+  };
 
-  removeChild(gameObject: GameObject) {
-    // events.unsubscribe(gameObject);
-
+  public removeChild = (gameObject: GameObject) => {
     this.children = this.children.filter((g) => {
       return gameObject !== g;
     });
-  }
+  };
 }
