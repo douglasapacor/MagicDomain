@@ -8,7 +8,7 @@ export default function HomePage() {
       return;
     }
 
-    const context = canva.getContext("2d");
+    const context = canva.getContext("webgl");
     if (!context) {
       return;
     }

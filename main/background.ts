@@ -1,7 +1,6 @@
 import { app, ipcMain } from "electron";
 import serve from "electron-serve";
 import path from "path";
-import { Engine } from "./Game/Classes/Engine";
 import { createWindow } from "./helpers";
 
 const isProd = process.env.NODE_ENV === "production";
@@ -24,8 +23,6 @@ else app.setPath("userData", `${app.getPath("userData")} (development)`);
   else await mainWindow.loadURL(`http://localhost:${process.argv[2]}/gameview`);
 
   // mainWindow.webContents.openDevTools();
-
-  new Engine();
 })();
 
 app.on("window-all-closed", () => {

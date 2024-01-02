@@ -4,7 +4,6 @@
  * @author Douglas Pacor
  * @version 1.0.0
  */
-
 export class GameObject {
   private children: GameObject[];
   private parent: GameObject;
