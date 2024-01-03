@@ -1,4 +1,5 @@
 import { GameLoop } from "./classes/GameLoop";
+import { resources } from "./classes/Resources";
 import "./index.css";
 
 const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
@@ -10,6 +11,10 @@ const update = (deltaTime: number) => {
 
 const draw = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (resources.images.sky.isLoaded)
+    ctx.drawImage(resources.images.sky.image, 0, 0);
+
   ctx.save();
   ctx.restore();
 };

@@ -6,7 +6,7 @@ class Resources {
 
   constructor() {
     this.toLoad = {
-      sky: "/sprites/sky.png",
+      sky: "public/sky.png",
     };
 
     this.images = {};

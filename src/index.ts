@@ -14,12 +14,13 @@ const createWindow = (): void => {
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       nodeIntegration: true,
+      contextIsolation: true,
     },
   });
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 app.on("ready", createWindow);
