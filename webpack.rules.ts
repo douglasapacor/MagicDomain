@@ -28,7 +28,7 @@ export const rules: Required<ModuleOptions>["rules"] = [
   },
   {
     test: /\.(svg|png|jpg|gif)$/,
-    include: [path.resolve(__dirname, "public")],
+    include: [path.resolve(__dirname, "resources/images")],
     type: "asset/inline",
   },
 ];
