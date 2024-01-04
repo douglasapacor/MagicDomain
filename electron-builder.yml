@@ -1,21 +1,12 @@
-appId: com.magicdomain.game
-productName: Magic Domain
-copyright: Copyright © 2023 Douglas Pacor
+appId: com.example.nextron
+productName: My Nextron App
+copyright: Copyright © 2018 Yoshihide Shiono
 directories:
-  output: out
+  output: dist
   buildResources: resources
 files:
   - from: .
     filter:
       - package.json
       - app
-publish:
-  provider: "github"
-  repo: "MagicDomain"
-  owner: "douglasapacor"
-  vPrefixedTagName: true
-  host: "github.com"
-  protocol: "https"
-  token: "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"
-  channel: "latest"
-  releaseType: "release"
+publish: null
