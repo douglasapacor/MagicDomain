@@ -1,10 +1,14 @@
+import { resourceImagesType } from "../types/resourceImages";
+
 export class Resources {
   private toLoad: Record<string, string>;
-  public images: Record<string, { image: HTMLImageElement; isLoaded: boolean }>;
+  public images: Record<string, resourceImagesType>;
 
   constructor() {
     this.toLoad = {
       sky: "/sprites/sky.png",
+      areaOne: "/sprites/area1.png",
+      player: "/sprites/model_player.png",
     };
     this.images = {};
 

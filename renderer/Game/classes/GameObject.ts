@@ -1,5 +1,5 @@
-import { Camera } from "./Camera";
-import { events } from "./Event";
+import { events } from ".";
+import { Input } from "./Input";
 import { Vector2 } from "./Vector2";
 
 export class GameObject {
@@ -8,7 +8,7 @@ export class GameObject {
   public children: GameObject[];
   public parent: GameObject | null;
   private hasReadyBeenCalled: boolean;
-  public camera: Camera;
+  public input?: Input | null;
 
   constructor(position?: Vector2, name?: string) {
     this.name = name ?? "";

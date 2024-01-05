@@ -4,10 +4,12 @@ export const UP = "UP";
 export const DOWN = "DOWN";
 
 export class Input {
-  private heldDirections: string[];
+  private heldDirections: string[] = [];
 
   constructor() {
     document.addEventListener("keydown", (e) => {
+      console.log("keydown", e.code);
+
       if (e.code === "ArrowUp" || e.code === "KeyW") {
         this.onArrowPressed(UP);
       }
@@ -23,6 +25,7 @@ export class Input {
     });
 
     document.addEventListener("keyup", (e) => {
+      console.log("keyup", e.code);
       if (e.code === "ArrowUp" || e.code === "KeyW") {
         this.onArrowReleased(UP);
       }

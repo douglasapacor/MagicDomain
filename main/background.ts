@@ -12,8 +12,8 @@ else app.setPath("userData", `${app.getPath("userData")} (development)`);
   await app.whenReady();
 
   const mainWindow = createWindow("main", {
-    width: 1000,
-    height: 600,
+    width: 1280,
+    height: 720,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
@@ -24,14 +24,10 @@ else app.setPath("userData", `${app.getPath("userData")} (development)`);
   } else {
     const port = process.argv[2];
     await mainWindow.loadURL(`http://localhost:${port}/game`);
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
   }
 })();
 
 app.on("window-all-closed", () => {
   app.quit();
 });
-
-// ipcMain.on("message", async (event, arg) => {
-//   event.reply("message", `${arg} World!`);
-// });

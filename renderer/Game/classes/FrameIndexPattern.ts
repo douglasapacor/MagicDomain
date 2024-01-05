@@ -1,15 +1,11 @@
+import { animationConfigType } from "../types/animationConfigType";
+
 export class FrameIndexPattern {
   public currentTime: number;
-  private animationConfig: {
-    duration: number;
-    frames: { time: number; frame: number }[];
-  };
+  private animationConfig: animationConfigType;
   private duration: any;
 
-  constructor(animationConfig: {
-    duration: number;
-    frames: { time: number; frame: number }[];
-  }) {
+  constructor(animationConfig: animationConfigType) {
     this.currentTime = 0;
     this.animationConfig = animationConfig;
     this.duration = animationConfig.duration ?? 500;

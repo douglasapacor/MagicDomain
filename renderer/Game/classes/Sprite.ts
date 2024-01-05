@@ -1,16 +1,17 @@
+import { resourceImagesType } from "../types/resourceImages";
 import { Animations } from "./Animations";
 import { GameObject } from "./GameObject";
 import { Vector2 } from "./Vector2";
 
 export class Sprite extends GameObject {
-  private resource: { image: HTMLImageElement; isLoaded: boolean };
+  private resource: resourceImagesType;
   private frameSize: Vector2;
   private hFrames: number;
   private vFrames: number;
   private frame: number;
   private frameMap: Map<number, Vector2>;
   private scale: number;
-  private animations: Animations;
+  public animations: Animations;
 
   constructor({
     position = null,
@@ -25,7 +26,7 @@ export class Sprite extends GameObject {
   }) {
     super(position ?? new Vector2(0, 0), name);
     this.resource = resource;
-    this.frameSize = frameSize ?? new Vector2(16, 16);
+    this.frameSize = frameSize ?? new Vector2(16, 32);
     this.hFrames = hFrames ?? 1;
     this.vFrames = vFrames ?? 1;
     this.frame = frame ?? 0;
