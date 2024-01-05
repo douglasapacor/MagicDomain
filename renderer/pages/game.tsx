@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Camera } from "../Game/Camera";
 import { GameLoop } from "../Game/GameLoop";
 import { GameObject } from "../Game/GameObject";
 import { Resources } from "../Game/Resources";
@@ -21,25 +22,29 @@ export default function Game() {
 
     const resources = new Resources();
     const mainScene = new GameObject(new Vector2(0, 0));
+    const camera = new Camera();
+
+    mainScene.camera = camera;
 
     const skySprite = new Sprite({
       resource: resources.images.sky,
       frameSize: new Vector2(320, 180),
     });
 
-    const MasterUpdate = (_delta: number) => {
+    const Update = (_delta: number) => {
       mainScene.stepEntry(_delta, mainScene);
     };
 
-    const MasterDraw = () => {
+    const Draw = () => {
       context.clearRect(0, 0, canvas.width, canvas.height);
       skySprite.draw(context, 0, 0);
       context.save();
+      context.translate(camera.position.x, camera.position.y);
       mainScene.draw(context, 0, 0);
       context.restore();
     };
 
-    const gameLoop = new GameLoop(MasterUpdate, MasterDraw);
+    const gameLoop = new GameLoop(Update, Draw);
     gameLoop.start();
 
     return () => {};
