@@ -28,15 +28,17 @@ export class Player extends GameObject {
   private destinationPosition: Vector2;
   private lastX: number;
   private lastY: number;
+  private speed: number;
 
   constructor(x: number, y: number, resource: resourceImagesType) {
     super(new Vector2(x, y));
+    this.speed = 3.3;
 
     this.body = new Sprite({
       resource: resource,
       frameSize: new Vector2(64, 64),
-      hFrames: 13,
-      vFrames: 21,
+      hFrames: 9,
+      vFrames: 4,
       frame: 1,
       position: new Vector2(-8, -20),
       animations: new Animations({
@@ -57,10 +59,10 @@ export class Player extends GameObject {
   }
 
   step(delta, root) {
-    const distance = moveTowards(this, this.destinationPosition, 1);
+    const distance = moveTowards(this, this.destinationPosition, this.speed);
 
     const hasArrived = distance <= 1;
-    // Attempt to move again if the hero is at his position
+
     if (hasArrived) {
       this.tryMove(root);
     }
@@ -69,9 +71,9 @@ export class Player extends GameObject {
   }
 
   tryEmitPosition() {
-    if (this.lastX === this.position.x && this.lastY === this.position.y) {
+    if (this.lastX === this.position.x && this.lastY === this.position.y)
       return;
-    }
+
     this.lastX = this.position.x;
     this.lastY = this.position.y;
 
@@ -125,8 +127,7 @@ export class Player extends GameObject {
 
     this.facingDirection = input.direction ?? this.facingDirection;
 
-    if (isSpaceFree(walls, nextX, nextY)) {
+    if (isSpaceFree(walls, nextX, nextY))
       this.destinationPosition = new Vector2(nextX, nextY);
-    }
   }
 }

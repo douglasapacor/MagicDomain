@@ -19,6 +19,7 @@ export function moveTowards(person, destinationPosition, speed) {
     // Recalculate remaining distance after the move
     distanceToTravelX = destinationPosition.x - person.position.x;
     distanceToTravelY = destinationPosition.y - person.position.y;
+
     distance = Math.sqrt(distanceToTravelX ** 2 + distanceToTravelY ** 2);
   }
 

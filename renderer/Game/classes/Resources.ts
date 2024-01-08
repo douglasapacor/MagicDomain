@@ -8,7 +8,7 @@ export class Resources {
     this.toLoad = {
       sky: "/sprites/sky.png",
       areaOne: "/sprites/area1.png",
-      player: "/sprites/model_player.png",
+      player: "/sprites/character_walk.png",
     };
     this.images = {};
 

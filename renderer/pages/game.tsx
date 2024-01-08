@@ -36,10 +36,10 @@ export default function Game() {
 
     mainScene.addChild(camera);
 
-    const skySprite = new Sprite({
-      resource: resources.images.sky,
-      frameSize: new Vector2(320, 180),
-    });
+    // const skySprite = new Sprite({
+    //   resource: resources.images.sky,
+    //   frameSize: new Vector2(320, 180),
+    // });
 
     const areaSprite = new Sprite({
       resource: resources.images.areaOne,
@@ -64,7 +64,7 @@ export default function Game() {
     const Draw = () => {
       context.clearRect(0, 0, canvas.width, canvas.height);
 
-      skySprite.draw(context, 0, 0);
+      // skySprite.draw(context, 0, 0);
 
       context.save();
 
@@ -83,7 +83,58 @@ export default function Game() {
   }, []);
 
   return (
-    <div id="GameMainContainer">
+    <div style={{ width: "100%", height: "100%", position: "absolute" }}>
+      <div
+        style={{
+          position: "absolute",
+          width: 220,
+          background: "#607D8B",
+          top: 10,
+          left: 10,
+          display: "inline-block",
+          boxSizing: "border-box",
+          padding: 5,
+        }}
+      >
+        <div
+          style={{
+            border: "1px solid #000",
+            width: "100%",
+            height: 40,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: 3,
+          }}
+        >
+          <div style={{ width: "33%" }}>icn</div>
+          <div style={{ width: "66%" }}>
+            <div style={{ width: "100%" }}>nome do player</div>
+            <div style={{ width: "100%" }}>Lvl: 10 | Warrior</div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            border: "1px solid #000",
+            width: "100%",
+            marginBottom: 3,
+            background: "#D32F2F",
+          }}
+        >
+          Life
+        </div>
+
+        <div
+          style={{
+            border: "1px solid #000",
+            width: "100%",
+            background: "#1A237E",
+          }}
+        >
+          mana
+        </div>
+      </div>
       <canvas
         ref={canvasRef}
         width={gameParams.resolution.w}
