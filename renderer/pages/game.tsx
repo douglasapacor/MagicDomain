@@ -36,11 +36,6 @@ export default function Game() {
 
     mainScene.addChild(camera);
 
-    // const skySprite = new Sprite({
-    //   resource: resources.images.sky,
-    //   frameSize: new Vector2(320, 180),
-    // });
-
     const areaSprite = new Sprite({
       resource: resources.images.areaOne,
       frameSize: new Vector2(480, 320),
@@ -53,6 +48,7 @@ export default function Game() {
       gridCells(6),
       resources.images.player
     );
+
     mainScene.addChild(player);
 
     mainScene.input = new Input();
@@ -64,8 +60,6 @@ export default function Game() {
     const Draw = () => {
       context.clearRect(0, 0, canvas.width, canvas.height);
 
-      // skySprite.draw(context, 0, 0);
-
       context.save();
 
       context.translate(camera.position.x, camera.position.y);
@@ -76,7 +70,6 @@ export default function Game() {
     };
 
     const gameLoop = new GameLoop(Update, Draw);
-
     gameLoop.start();
 
     return () => {};
