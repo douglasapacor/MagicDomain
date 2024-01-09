@@ -10,7 +10,7 @@ import { DOWN, LEFT, RIGHT, UP } from "../../classes/Input";
 import { isSpaceFree } from "../../helpers/grid";
 import { moveTowards } from "../../helpers/moveTowards";
 import { walls } from "../../levels/level1";
-import { resourceImagesType } from "../../types/resourceImages";
+import { resourceImagesType } from "../../types/resourceImagesType";
 import {
   STAND_DOWN,
   STAND_LEFT,

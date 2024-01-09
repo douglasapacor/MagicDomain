@@ -1,4 +1,4 @@
-import { resourceImagesType } from "../types/resourceImages";
+import { resourceImagesType } from "../types/resourceImagesType";
 import { Animations } from "./Animations";
 import { GameObject } from "./GameObject";
 import { Vector2 } from "./Vector2";
