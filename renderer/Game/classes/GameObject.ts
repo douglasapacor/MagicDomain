@@ -1,5 +1,4 @@
 import { events } from ".";
-import { Input } from "./Input";
 import { Vector2 } from "./Vector2";
 
 export class GameObject {
@@ -8,7 +7,6 @@ export class GameObject {
   public children: GameObject[];
   public parent: GameObject | null;
   private hasReadyBeenCalled: boolean;
-  public input?: Input | null;
 
   constructor(position?: Vector2, name?: string) {
     this.name = name ?? "";
@@ -51,12 +49,12 @@ export class GameObject {
     this.parent.removeChild(this);
   }
 
-  addChild(gameObject) {
+  addChild(gameObject: GameObject) {
     gameObject.parent = this;
     this.children.push(gameObject);
   }
 
-  removeChild(gameObject) {
+  removeChild(gameObject: GameObject) {
     events.unsubscribe(gameObject);
     this.children = this.children.filter((g) => {
       return gameObject !== g;

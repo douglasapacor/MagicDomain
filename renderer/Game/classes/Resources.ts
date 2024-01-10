@@ -4,12 +4,8 @@ export class Resources {
   private toLoad: Record<string, string>;
   public images: Record<string, resourceImagesType>;
 
-  constructor() {
-    this.toLoad = {
-      sky: "/sprites/sky.png",
-      areaOne: "/sprites/area1.png",
-      player: "/sprites/character_walk.png",
-    };
+  constructor(staticResources: Record<string, string>) {
+    this.toLoad = staticResources;
 
     this.images = {};
 
