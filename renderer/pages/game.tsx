@@ -29,6 +29,7 @@ export default function Game() {
           left: 0,
           right: 0,
         }}
+        className="pix-gamer"
       >
         interface comando
       </div>

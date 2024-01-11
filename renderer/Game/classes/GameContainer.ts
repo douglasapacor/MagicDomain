@@ -1,5 +1,5 @@
 import { GameLoop, GameScene, Resources } from ".";
-import { mainSceneConstructor } from "../scenes/mainScene";
+import { gameDataInfoScene } from "../scenes/gameDataInfoScene";
 import { staticResources } from "../statics/resources";
 import { gameContainerSceneType } from "../types/gameContainerSceneType";
 
@@ -37,14 +37,21 @@ export class GameContainer {
   loadGAME = () => {
     const resources = new Resources(staticResources);
 
-    const { scene, extras } = mainSceneConstructor({
-      groundResource: resources.images.areaOne,
-      playerResource: resources.images.player,
+    const { gameInfoScene } = gameDataInfoScene({
       canvasWidth: this.canvas.width,
       canvasHeigth: this.canvas.height,
     });
 
-    this.addSCENE(scene.name, scene, true);
+    this.addSCENE(gameInfoScene.name, gameInfoScene, true);
+
+    // const { scene, extras } = mainSceneConstructor({
+    //   groundResource: resources.images.areaOne,
+    //   playerResource: resources.images.player,
+    //   canvasWidth: this.canvas.width,
+    //   canvasHeigth: this.canvas.height,
+    // });
+
+    // this.addSCENE(scene.name, scene, true);
 
     const update = (delta) => {
       this.loadedScene.scene.stepEntry(delta, this.loadedScene.scene);
@@ -55,17 +62,17 @@ export class GameContainer {
 
       this.context.save();
 
-      this.context.translate(
-        extras.camera.position.x,
-        extras.camera.position.y
-      );
+      // this.context.translate(
+      //   extras.camera.position.x,
+      //   extras.camera.position.y
+      // );
 
       this.loadedScene.scene.draw(this.context, 0, 0);
 
       this.context.restore();
 
-      extras.characterFrame.draw(this.context, 10, 10);
-      extras.miniMap.draw(this.context, this.canvas.width - 110, 100);
+      // extras.characterFrame.draw(this.context, 10, 10);
+      // extras.miniMap.draw(this.context, this.canvas.width - 110, 100);
     };
 
     this.gameLoop = new GameLoop(update, draw);
