@@ -6,9 +6,10 @@ export class Resources {
 
   constructor(staticResources: Record<string, string>) {
     this.toLoad = staticResources;
-
     this.images = {};
+  }
 
+  public loadResources = (): void => {
     Object.keys(this.toLoad).forEach((key) => {
       const img = new Image();
 
@@ -23,5 +24,5 @@ export class Resources {
         this.images[key].isLoaded = true;
       };
     });
-  }
+  };
 }

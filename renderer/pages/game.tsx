@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
-import { GameContainer } from "../Game/classes";
+import { Game } from "../Game/classes";
 import { staticGameParams } from "../Game/statics/gameParams";
 
-export default function Game() {
+export default function GameView() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    const gameContainer = new GameContainer(canvasRef.current);
-    gameContainer.loadGAME();
+    const game = new Game(canvasRef.current);
+    game.loadGAME();
     return () => {};
   }, []);
 
@@ -17,22 +17,7 @@ export default function Game() {
         ref={canvasRef}
         width={staticGameParams.resolution.w}
         height={staticGameParams.resolution.h}
-        style={{ background: "blue" }}
       ></canvas>
-
-      <div
-        style={{
-          backgroundColor: "white",
-          position: "absolute",
-          height: 100,
-          bottom: 0,
-          left: 0,
-          right: 0,
-        }}
-        className="pix-gamer"
-      >
-        interface comando
-      </div>
     </div>
   );
 }
