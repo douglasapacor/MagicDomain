@@ -1,5 +1,4 @@
-import { GameLoop, GameScene, Vector2, masterEvents, resources } from "..";
-import { PlayerCharacterUI } from "../../GUI/PlayerCharacterUI";
+import { GameLoop, GameScene, masterEvents, resources } from "..";
 import { gameDataInfoScene } from "../../scenes/gameDataInfoScene";
 import { mainSceneConstructor } from "../../scenes/mainScene";
 import { gameContainerSceneType } from "../../types/gameContainerSceneType";
@@ -80,8 +79,6 @@ export class Game {
       }, 700);
     }, 5000);
 
-    const bla = new PlayerCharacterUI(new Vector2(10, 10));
-
     const draw = () => {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.context.save();
@@ -114,8 +111,6 @@ export class Game {
       this.loadedScene.scene.draw(this.context, 0, 0);
 
       this.context.restore();
-
-      bla.draw(this.context);
 
       // extras.characterFrame.draw(this.context, 10, 10);
       // extras.miniMap.draw(this.context, this.canvas.width - 110, 100);

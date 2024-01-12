@@ -1,18 +1,17 @@
-import { Dimension } from "../core/Dimension";
+import { Dimension2 } from "../core/Dimension2";
 import { Vector2 } from "../core/Vector2";
-import { UI } from "./UI";
+import { UIComponent } from "./UIComponent";
 
-export class ButtonUI extends UI {
+export class ButtonUI extends UIComponent {
   public text: string;
   public fillColor: string;
   public textColor: string;
-  public onClick?: () => void;
 
   constructor(
     text: string,
     fillColor: string,
     textColor: string,
-    dimension?: Dimension,
+    dimension?: Dimension2,
     position?: Vector2
   ) {
     super(position, dimension);
@@ -30,7 +29,7 @@ export class ButtonUI extends UI {
     );
   }
 
-  public draw(ctx: CanvasRenderingContext2D): void {
+  draw(ctx: CanvasRenderingContext2D): void {
     // draw the button body
     ctx.fillStyle = this.fillColor;
     ctx.fillRect(
@@ -39,6 +38,7 @@ export class ButtonUI extends UI {
       this.dimension.width,
       this.dimension.height
     );
+
     // draw the button text
     ctx.textBaseline = "middle";
     ctx.font = "18px arial";
