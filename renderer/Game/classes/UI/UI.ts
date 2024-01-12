@@ -24,6 +24,9 @@ export class UI {
 
   public draw = (ctx: CanvasRenderingContext2D) => {
     this.components.forEach((c) => c.draw(ctx));
+    const ad = ctx.getImageData(1, 1, 1, 1);
+
+    const dsdd = ad.data;
   };
 
   removeChild(component: UIComponent) {
