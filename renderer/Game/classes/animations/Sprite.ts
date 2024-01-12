@@ -1,7 +1,7 @@
-import { resourceImagesType } from "../types/resourceImagesType";
+import { resourceImagesType } from "../../types/resourceImagesType";
+import { GameObject } from "../core/GameObject";
+import { Vector2 } from "../core/Vector2";
 import { Animations } from "./Animations";
-import { GameObject } from "./GameObject";
-import { Vector2 } from "./Vector2";
 
 export class Sprite extends GameObject {
   private resource: resourceImagesType;

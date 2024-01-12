@@ -1,4 +1,4 @@
-import { resourceImagesType } from "../types/resourceImagesType";
+import { resourceImagesType } from "../../types/resourceImagesType";
 
 export class Resources {
   private toLoad: Record<string, string>;

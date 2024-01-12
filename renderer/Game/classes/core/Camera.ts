@@ -1,4 +1,4 @@
-import { events } from ".";
+import { events } from "..";
 import { GameObject } from "./GameObject";
 import { Vector2 } from "./Vector2";
 

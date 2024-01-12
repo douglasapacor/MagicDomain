@@ -1,6 +1,7 @@
-import { eventCallBacksType } from "../types/eventCallBacksType";
+import { eventCallBacksType } from "../../types/eventCallBacksType";
+import { GameObject } from "./GameObject";
 
-export class MasterEvents {
+export class Events {
   private callbacks: eventCallBacksType[] = [];
   private nextId: number = 0;
 
@@ -12,7 +13,7 @@ export class MasterEvents {
     });
   }
 
-  on(eventName: string, caller: any, callback: Function) {
+  on(eventName: string, caller: GameObject, callback: Function) {
     this.nextId += 1;
 
     this.callbacks.push({
@@ -29,7 +30,7 @@ export class MasterEvents {
     this.callbacks = this.callbacks.filter((stored) => stored.id !== id);
   }
 
-  unsubscribe(caller: any) {
+  unsubscribe(caller: GameObject) {
     this.callbacks = this.callbacks.filter(
       (stored) => stored.caller !== caller
     );

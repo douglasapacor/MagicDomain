@@ -1,4 +1,4 @@
-import { GameObject } from "../../classes/GameObject";
+import { GameObject } from "../../classes/core/GameObject";
 
 export class GameInfo extends GameObject {
   private size: { width: number; heigth: number };
@@ -9,6 +9,9 @@ export class GameInfo extends GameObject {
   }
 
   draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+    ctx.fillStyle = "green";
+    ctx.fillRect(0, 0, this.size.width, this.size.heigth);
+
     ctx.font = "30px PixGamer";
     ctx.fillStyle = "white";
     ctx.fillText("Magic Domain Game By Epic Quest", 50, 50);

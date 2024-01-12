@@ -5,8 +5,8 @@ import {
   Vector2,
   events,
 } from "../../classes";
-import { GameObject } from "../../classes/GameObject";
-import { DOWN, LEFT, RIGHT, UP } from "../../classes/Input";
+import { GameObject } from "../../classes/core/GameObject";
+import { DOWN, LEFT, RIGHT, UP } from "../../classes/core/Input";
 import { isSpaceFree } from "../../helpers/grid";
 import { moveTowards } from "../../helpers/moveTowards";
 import { walls } from "../../levels/level1";

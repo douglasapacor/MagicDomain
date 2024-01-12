@@ -1,4 +1,4 @@
-import { events } from ".";
+import { events } from "..";
 import { Vector2 } from "./Vector2";
 
 export class GameObject {

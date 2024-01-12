@@ -1,4 +1,4 @@
-export const walls = new Set();
+export const walls = new Set<string>();
 
 walls.add(`64,48`); // tree
 

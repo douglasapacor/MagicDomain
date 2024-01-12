@@ -1,4 +1,4 @@
-import { GameObject } from "../classes/GameObject";
+import { GameObject } from "../classes/core/GameObject";
 
 export type eventCallBacksType = {
   id: number;
