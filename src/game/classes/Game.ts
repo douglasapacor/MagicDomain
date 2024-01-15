@@ -25,27 +25,19 @@ export class Game {
 
     this.canvas = document.createElement("canvas");
     this.context = this.canvas.getContext("2d");
+
     this.gameContainer = document.createElement("div");
     this.gameContainer.id = "GameContainer";
     this.gameContainer.appendChild(this.canvas);
 
     document.body.appendChild(this.gameContainer);
 
-    this.scenes.gameInfo = new GameScene("gameInfo");
-    this.scenes.gameInfo.isInitialScene = true;
-    this.loadedScene = {
-      name: this.scenes.gameInfo.name,
-      scene: this.scenes.gameInfo,
-    };
-
-    this.scenes.gameInfo = new GameScene("companyLogo");
-    this.scenes.gameInfo = new GameScene("Main");
-
     this.gameLoop = new GameLoop(this.update, this.draw);
   }
 
   private update = (delta: number) => {
-    this.loadedScene.scene.stepEntry(delta, this.loadedScene.scene);
+    if (this.loadedScene)
+      this.loadedScene.scene.stepEntry(delta, this.loadedScene.scene);
   };
 
   private draw = () => {

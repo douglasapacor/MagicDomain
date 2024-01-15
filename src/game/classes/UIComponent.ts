@@ -1,10 +1,11 @@
-import { Dimension, UI, Vector2 } from "./";
+import { Dimension, GameScene, UI, Vector2 } from "./";
 
 export class UIComponent {
   public parent: UI | null;
   public name: string;
   public position: Vector2;
   public dimension: Dimension;
+  private hasReadyBeenCalled: boolean;
   public onClick?: () => void;
   public onMouseOver?: () => void;
 
@@ -23,5 +24,29 @@ export class UIComponent {
     );
   };
 
-  draw(ctx: CanvasRenderingContext2D) {}
+  ready() {}
+
+  step(_delta: number, root: GameScene) {}
+
+  public stepEntry = (delta: number, root: GameScene): void => {
+    if (!this.hasReadyBeenCalled) {
+      this.hasReadyBeenCalled = true;
+      this.ready();
+    }
+
+    this.step(delta, root);
+  };
+
+  draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
+    const drawPosX = x + this.position.x;
+    const drawPosY = y + this.position.y;
+
+    this.drawImage(ctx, drawPosX, drawPosY);
+  }
+
+  drawImage(
+    ctx: CanvasRenderingContext2D,
+    drawPosX: number,
+    drawPosY: number
+  ) {}
 }
