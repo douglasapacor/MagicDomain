@@ -6,5 +6,5 @@ export const isSpaceFree = (walls: Set<string>, x: number, y: number) => {
 };
 
 export const gridCells = (n: number) => {
-  return n * 16;
+  return n * 32;
 };

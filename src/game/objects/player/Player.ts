@@ -2,6 +2,7 @@ import {
   Animation,
   FrameIndexPattern,
   GameObject,
+  GameScene,
   Sprite,
   Vector2,
   gameEvents,
@@ -60,7 +61,7 @@ export class Player extends GameObject {
     this.destinationPosition = this.position.duplicate();
   }
 
-  step(delta: number, root: GameObject) {
+  step(delta: number, root: GameScene) {
     const distance = moveTowards(this, this.destinationPosition, this.speed);
 
     const hasArrived = distance <= 1;
@@ -82,7 +83,7 @@ export class Player extends GameObject {
     gameEvents.emit("player_position", this.position);
   }
 
-  tryMove(root: any) {
+  tryMove(root: GameScene) {
     const { input } = root;
 
     if (!input.direction) {

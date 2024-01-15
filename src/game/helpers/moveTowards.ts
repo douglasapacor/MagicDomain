@@ -1,4 +1,8 @@
-export function moveTowards(person, destinationPosition, speed): number {
+export function moveTowards(
+  person: { position: { x: number; y: number } },
+  destinationPosition: { x: number; y: number },
+  speed: number
+): number {
   let distanceToTravelX: number = destinationPosition.x - person.position.x;
   let distanceToTravelY: number = destinationPosition.y - person.position.y;
 
@@ -10,8 +14,8 @@ export function moveTowards(person, destinationPosition, speed): number {
     person.position.x = destinationPosition.x;
     person.position.y = destinationPosition.y;
   } else {
-    let normalizedX = distanceToTravelX / distance;
-    let normalizedY = distanceToTravelY / distance;
+    const normalizedX = distanceToTravelX / distance;
+    const normalizedY = distanceToTravelY / distance;
 
     person.position.x += normalizedX * speed;
     person.position.y += normalizedY * speed;

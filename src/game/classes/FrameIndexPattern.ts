@@ -3,7 +3,7 @@ import { animationConfigType } from "../types/animationConfigType";
 export class FrameIndexPattern {
   public currentTime: number;
   private animationConfig: animationConfigType;
-  private duration: any;
+  private duration: number;
 
   constructor(animationConfig: animationConfigType) {
     this.currentTime = 0;

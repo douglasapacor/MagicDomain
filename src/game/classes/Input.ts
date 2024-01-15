@@ -8,36 +8,29 @@ export class Input {
 
   constructor() {
     document.addEventListener("keydown", (e) => {
-      console.log("keydown", e.code);
+      if (e.code === "ArrowUp" || e.code === "KeyW") this.onArrowPressed(UP);
 
-      if (e.code === "ArrowUp" || e.code === "KeyW") {
-        this.onArrowPressed(UP);
-      }
-      if (e.code === "ArrowDown" || e.code === "KeyS") {
+      if (e.code === "ArrowDown" || e.code === "KeyS")
         this.onArrowPressed(DOWN);
-      }
-      if (e.code === "ArrowLeft" || e.code === "KeyA") {
+
+      if (e.code === "ArrowLeft" || e.code === "KeyA")
         this.onArrowPressed(LEFT);
-      }
-      if (e.code === "ArrowRight" || e.code === "KeyD") {
+
+      if (e.code === "ArrowRight" || e.code === "KeyD")
         this.onArrowPressed(RIGHT);
-      }
     });
 
     document.addEventListener("keyup", (e) => {
-      console.log("keyup", e.code);
-      if (e.code === "ArrowUp" || e.code === "KeyW") {
-        this.onArrowReleased(UP);
-      }
-      if (e.code === "ArrowDown" || e.code === "KeyS") {
+      if (e.code === "ArrowUp" || e.code === "KeyW") this.onArrowReleased(UP);
+
+      if (e.code === "ArrowDown" || e.code === "KeyS")
         this.onArrowReleased(DOWN);
-      }
-      if (e.code === "ArrowLeft" || e.code === "KeyA") {
+
+      if (e.code === "ArrowLeft" || e.code === "KeyA")
         this.onArrowReleased(LEFT);
-      }
-      if (e.code === "ArrowRight" || e.code === "KeyD") {
+
+      if (e.code === "ArrowRight" || e.code === "KeyD")
         this.onArrowReleased(RIGHT);
-      }
     });
   }
 

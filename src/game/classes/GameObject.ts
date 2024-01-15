@@ -1,4 +1,5 @@
-import { gameEvents, Vector2 } from ".";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { gameEvents, GameScene, Vector2 } from ".";
 
 export class GameObject {
   public readonly name?: string;
@@ -15,7 +16,7 @@ export class GameObject {
     this.hasReadyBeenCalled = false;
   }
 
-  public stepEntry = (delta: number, root: GameObject): void => {
+  public stepEntry = (delta: number, root: GameScene): void => {
     this.children.forEach((child) => child.stepEntry(delta, root));
 
     if (!this.hasReadyBeenCalled) {
@@ -28,7 +29,7 @@ export class GameObject {
 
   ready() {}
 
-  step(_delta: number, root: GameObject) {}
+  step(_delta: number, root: GameScene) {}
 
   draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
     const drawPosX = x + this.position.x;

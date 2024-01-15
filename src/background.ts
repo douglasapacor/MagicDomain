@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, Menu } from "electron";
 import serve from "electron-serve";
 const isProd = process.env.NODE_ENV === "production";
 process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
@@ -26,6 +26,8 @@ const createWindow = (): void => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   mainWindow.webContents.openDevTools();
 };
+
+Menu.setApplicationMenu(null);
 
 app.on("ready", createWindow);
 
