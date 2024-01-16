@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Animation,
   FrameIndexPattern,
   GameObject,
-  GameScene,
   Sprite,
   Vector2,
   gameEvents,
@@ -24,6 +24,7 @@ import {
 } from "./playerAnimation";
 
 export class Player extends GameObject {
+  public position: Vector2;
   private body: Sprite;
   private facingDirection: string;
   private destinationPosition: Vector2;
@@ -56,12 +57,12 @@ export class Player extends GameObject {
       }),
     });
 
-    this.addChild(this.body);
+    this.addGameObject(this.body);
     this.facingDirection = DOWN;
     this.destinationPosition = this.position.duplicate();
   }
 
-  step(delta: number, root: GameScene) {
+  step(delta: number, root: any) {
     const distance = moveTowards(this, this.destinationPosition, this.speed);
 
     const hasArrived = distance <= 1;
@@ -83,7 +84,7 @@ export class Player extends GameObject {
     gameEvents.emit("player_position", this.position);
   }
 
-  tryMove(root: GameScene) {
+  tryMove(root: any) {
     const { input } = root;
 
     if (!input.direction) {

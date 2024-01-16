@@ -12,6 +12,7 @@ export class UI {
 
   constructor(name: string, position?: Vector2, dimension?: Dimension) {
     this.name = name;
+    this.components = [];
     this.parent = null;
     this.position = position ?? new Vector2(0, 0);
     this.show = true;
@@ -29,13 +30,9 @@ export class UI {
     this.step(delta, root);
   };
 
-  ready() {
-    throw new Error("method not implemented");
-  }
+  ready() {}
 
-  step(_delta: number, root: GameScene) {
-    throw new Error("method not implemented");
-  }
+  step(_delta: number, root: GameScene) {}
 
   draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
     const drawPosX = x + this.position.x;
