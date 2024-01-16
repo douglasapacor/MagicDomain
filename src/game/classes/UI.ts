@@ -37,21 +37,35 @@ export class UI {
     throw new Error("method not implemented");
   }
 
-  public addUIComponent = (component: UIComponent = null): void => {
-    if (!component) return;
-    component.parent = this;
-    this.components.push(component);
-  };
-
   draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
     const drawPosX = x + this.position.x;
     const drawPosY = y + this.position.y;
 
     this.drawImage(ctx, drawPosX, drawPosY);
+
     this.components.forEach((child) => child.draw(ctx, drawPosX, drawPosY));
   }
 
-  drawImage(ctx: CanvasRenderingContext2D, drawPosX: number, drawPosY: number) {
-    throw new Error("method not implemented");
+  drawImage(
+    ctx: CanvasRenderingContext2D,
+    drawPosX: number,
+    drawPosY: number
+  ) {}
+
+  destroyUIComponents() {
+    this.components.forEach((child) => {
+      child.destroyUIComponent();
+    });
+  }
+
+  addUIComponents(components: UIComponent) {
+    components.parent = this;
+    this.components.push(components);
+  }
+
+  removeUIComponents(components: UIComponent) {
+    this.components = this.components.filter((g) => {
+      return components !== g;
+    });
   }
 }

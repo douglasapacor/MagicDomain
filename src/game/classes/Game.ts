@@ -1,5 +1,6 @@
 /* eslint-disable import/namespace */
 import { resources } from ".";
+import * as allScenes from "../scenes";
 import { gameContainerSceneType } from "../types/gameContainerSceneType";
 import { viewEffectsType } from "../types/viewEffectsType";
 import { GameLoop } from "./GameLoop";
@@ -31,6 +32,16 @@ export class Game {
     this.gameContainer.appendChild(this.canvas);
 
     document.body.appendChild(this.gameContainer);
+
+    Object.keys(allScenes).forEach((scn) => {
+      this.scenes[scn] = allScenes[scn as keyof typeof allScenes];
+
+      if (allScenes[scn as keyof typeof allScenes].isInitialScene)
+        this.loadedScene = {
+          name: allScenes[scn as keyof typeof allScenes].name,
+          scene: allScenes[scn as keyof typeof allScenes],
+        };
+    });
 
     this.gameLoop = new GameLoop(this.update, this.draw);
   }
@@ -64,7 +75,7 @@ export class Game {
 
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.loadedScene.scene.draw(this.context, 0, 0);
+    if (this.loadedScene) this.loadedScene.scene.draw(this.context, 0, 0);
 
     this.context.restore();
   };

@@ -12,8 +12,13 @@ export class GameScene {
   public gameObjects: GameObject[];
   public gui: UI[];
   private hasReadyBeenCalled: boolean;
-  public step: (_delta: number, root: GameScene) => void;
-  public ready: () => void;
+  public step?: (_delta: number, root: GameScene) => void;
+  public ready?: () => void;
+  public drawImage?: (
+    ctx: CanvasRenderingContext2D,
+    drawPosX: number,
+    drawPosY: number
+  ) => void;
 
   constructor(name?: string) {
     this.position = new Vector2(0, 0);
@@ -28,46 +33,52 @@ export class GameScene {
 
     if (!this.hasReadyBeenCalled) {
       this.hasReadyBeenCalled = true;
-      this.ready();
+      if (this.ready) this.ready();
     }
 
-    this.step(delta, root);
+    if (this.step) this.step(delta, root);
   };
 
-  draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
+  public draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
     const drawPosX = x + this.position.x;
     const drawPosY = y + this.position.y;
 
-    this.drawImage(ctx, drawPosX, drawPosY);
+    if (this.drawImage) this.drawImage(ctx, drawPosX, drawPosY);
 
     this.gameObjects.forEach((child) => child.draw(ctx, drawPosX, drawPosY));
     this.gui.forEach((ui) => ui.draw(ctx, drawPosX, drawPosY));
   }
 
-  drawImage(
-    ctx: CanvasRenderingContext2D,
-    drawPosX: number,
-    drawPosY: number
-  ) {}
-
-  destroyGameObject() {
+  public destroyGameObject() {
     this.gameObjects.forEach((child) => {
-      child.destroy();
+      child.destroyGameObject();
     });
   }
 
-  addGameObject(gameObject: GameObject) {
+  public addGameObject(gameObject: GameObject) {
     this.gameObjects.push(gameObject);
   }
 
-  removeGameObject(gameObject: GameObject) {
+  public removeGameObject(gameObject: GameObject) {
     this.gameObjects = this.gameObjects.filter((g) => {
       return gameObject !== g;
     });
   }
 
-  addUI(ui: UI) {
+  public destroyUI() {
+    this.gui.forEach((child) => {
+      child.destroyUIComponents();
+    });
+  }
+
+  public addUI(ui: UI) {
     ui.parent = this;
     this.gui.push(ui);
+  }
+
+  public removeUI(ui: UI) {
+    this.gui = this.gui.filter((g) => {
+      return ui !== g;
+    });
   }
 }

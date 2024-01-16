@@ -49,4 +49,8 @@ export class UIComponent {
     drawPosX: number,
     drawPosY: number
   ) {}
+
+  destroyUIComponent() {
+    this.parent.removeUIComponents(this);
+  }
 }

@@ -46,20 +46,22 @@ export class GameObject {
     drawPosY: number
   ) {}
 
-  destroy() {
+  destroyGameObject() {
     this.children.forEach((child) => {
-      child.destroy();
+      child.destroyGameObject();
     });
-    this.parent.removeChild(this);
+
+    this.parent.removeGameObject(this);
   }
 
-  addChild(gameObject: GameObject) {
+  addGameObject(gameObject: GameObject) {
     gameObject.parent = this;
     this.children.push(gameObject);
   }
 
-  removeChild(gameObject: GameObject) {
+  removeGameObject(gameObject: GameObject) {
     gameEvents.unsubscribe(gameObject);
+
     this.children = this.children.filter((g) => {
       return gameObject !== g;
     });
