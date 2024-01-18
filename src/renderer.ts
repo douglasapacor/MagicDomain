@@ -1,5 +1,6 @@
-import { Game } from "./game/classes";
+import { Game } from "./gameLogic/Classes/Game";
 import "./styles/main.css";
 
 const game = new Game();
-game.StartGame();
+
+game.Start();
