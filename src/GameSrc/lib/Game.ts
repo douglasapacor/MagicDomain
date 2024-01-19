@@ -1,3 +1,4 @@
+import { GUI } from "./GUI";
 import { GameLoop } from "./GameLoop";
 import { Html } from "./Html";
 import { Scene } from "./Scene";
@@ -7,11 +8,13 @@ export class Game {
   private scene: Scene | null;
   private scenes: Record<string, Scene>;
   private html: Html;
+  private gui: GUI;
 
   constructor() {
     this.html = new Html();
     this.loop = new GameLoop(this.update, this.draw);
     this.scene = null;
+
     this.scenes = {
       gameInformation: new Scene("gameInformation"),
       loading: new Scene("loading"),
@@ -20,15 +23,8 @@ export class Game {
       character: new Scene("character"),
       main: new Scene("main"),
     };
-  }
 
-  private loadScene(sceneName: string) {
-    const gameScene = this.scenes[sceneName as keyof typeof this.scene];
-
-    if (!gameScene) return;
-
-    this.scene = null;
-    this.scene = gameScene;
+    this.gui = new GUI();
   }
 
   private update = (delta: number) => {
@@ -51,6 +47,8 @@ export class Game {
     );
 
     if (this.scene) this.scene.Draw(this.html.context, 0, 0);
+
+    this.gui.Draw(this.html.context, 0, 0);
 
     this.html.context.restore();
   };

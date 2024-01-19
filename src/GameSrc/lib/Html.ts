@@ -14,7 +14,6 @@ export class Html {
     container.appendChild(this.canva);
 
     document.body.appendChild(container);
-
     this.context = this.canva.getContext("2d");
   }
 }
