@@ -2,12 +2,12 @@ export class Vector2 {
   public readonly x: number;
   public readonly y: number;
 
-  constructor(x = 0, y = 0) {
+  constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
   }
 
-  public duplicate = (): Vector2 => {
+  duplicate() {
     return new Vector2(this.x, this.y);
-  };
+  }
 }

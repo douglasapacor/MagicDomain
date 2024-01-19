@@ -1,17 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Scene } from "./Scene";
 import { Vector2 } from "./Vector2";
-
-export class GameObject {
+/* eslint-disable @typescript-eslint/no-unused-vars */
+export class UI {
   public readonly name: string;
-  public parent: GameObject | null;
-  public children: GameObject[];
+  public parent: UI | null;
+  public children: UI[];
   public hasReadyBeenCalled: boolean;
   public position: Vector2;
   public scene: Scene | null;
 
   constructor(name = "", position?: Vector2) {
-    this.name = `${name}_gameobject`;
+    this.name = `${name}_ui`;
     this.children = [];
     this.hasReadyBeenCalled = false;
     this.position = position ? position : new Vector2(0, 0);
@@ -52,24 +51,25 @@ export class GameObject {
 
   public setScene = (scene: Scene) => {
     this.scene = scene;
-    this.children.forEach((go) => go.setScene(scene));
+    this.children.forEach((go) => go.setScene(this.scene));
   };
 
-  addChild(gameObject: GameObject) {
-    gameObject.parent = this;
-    this.children.push(gameObject);
+  addChild(ui: UI) {
+    ui.parent = this;
+    this.children.push(ui);
   }
 
   destroy() {
     this.children.forEach((child) => {
       child.destroy();
     });
+
     this.parent.removeChild(this);
   }
 
-  removeChild(gameObject: GameObject) {
-    this.children = this.children.filter((g) => {
-      return gameObject !== g;
+  removeChild(ui: UI) {
+    this.children = this.children.filter((u) => {
+      return ui !== u;
     });
   }
 }
