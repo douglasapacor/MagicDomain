@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { gameEvents } from "..";
 import { GameObject } from "./GameObject";
 import { UI } from "./UI";
 import { Vector2 } from "./Vector2";
@@ -53,6 +54,8 @@ export class Scene {
     this.uis.forEach((child) => {
       child.destroy();
     });
+
+    gameEvents.emit("unload_scene", {});
   }
 
   public addUI(ui: UI) {

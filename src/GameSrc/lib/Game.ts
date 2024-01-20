@@ -1,4 +1,4 @@
-import { Loop, Scene } from "..";
+import { Loop, Scene, gameEvents } from "..";
 import { Html } from "./Html";
 
 export class Game {
@@ -12,6 +12,10 @@ export class Game {
     this.scene = null;
     this.scenes = [];
     this.html = new Html();
+
+    gameEvents.on("unload_scene", this, () => {
+      this.scene = null;
+    });
   }
 
   private update = (delta: number): void => {
