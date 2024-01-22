@@ -30,6 +30,8 @@ export class Scene {
     this.Step(delta, this);
   }
 
+  public AssembleScene() {}
+
   public Ready(): void {}
 
   public Step(delta: number, scene: Scene): void {}

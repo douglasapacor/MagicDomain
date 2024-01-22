@@ -22,4 +22,8 @@ export class Camera {
       );
     });
   }
+
+  get cameraPosition() {
+    return { x: this.position.x, y: this.position.y };
+  }
 }

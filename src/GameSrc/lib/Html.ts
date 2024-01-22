@@ -13,7 +13,7 @@ export class Html {
     this.canvas.width = 1280;
     this.canvas.height = 720;
 
-    const container = this.htmlTool.createDiv("GameContainer");
+    const container = this.htmlTool.createDiv({ id: "GameContainer" });
 
     container.appendChild(this.canvas);
     document.body.appendChild(container);

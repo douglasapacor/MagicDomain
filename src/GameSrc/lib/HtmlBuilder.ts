@@ -6,7 +6,7 @@ type htmlBuilderParams = {
 };
 
 export class HtmlBuilder {
-  public createDiv = (params: htmlBuilderParams): HTMLDivElement => {
+  public createDiv = (params?: htmlBuilderParams): HTMLDivElement => {
     const element = document.createElement("div");
     if (params.id) element.id = params.id;
     if (params.classes) element.className = params.classes;
@@ -15,12 +15,16 @@ export class HtmlBuilder {
     return element;
   };
 
-  public createCanvas = (params: htmlBuilderParams): HTMLCanvasElement => {
+  public createCanvas = (params?: htmlBuilderParams): HTMLCanvasElement => {
     const element = document.createElement("canvas");
-    if (params.id) element.id = params.id;
-    if (params.classes) element.className = params.classes;
-    if (params.width) element.style.width = params.width;
-    if (params.height) element.style.height = params.height;
+
+    if (params) {
+      if (params.id) element.id = params.id;
+      if (params.classes) element.className = params.classes;
+      if (params.width) element.style.width = params.width;
+      if (params.height) element.style.height = params.height;
+    }
+
     return element;
   };
 }

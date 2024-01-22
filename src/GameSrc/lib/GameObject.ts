@@ -55,19 +55,19 @@ export class GameObject {
     this.children.forEach((go) => go.setScene(scene));
   };
 
-  addChild(gameObject: GameObject) {
+  public addChild(gameObject: GameObject) {
     gameObject.parent = this;
     this.children.push(gameObject);
   }
 
-  destroy() {
+  public destroy() {
     this.children.forEach((child) => {
       child.destroy();
     });
     this.parent.removeChild(this);
   }
 
-  removeChild(gameObject: GameObject) {
+  public removeChild(gameObject: GameObject) {
     this.children = this.children.filter((g) => {
       return gameObject !== g;
     });
