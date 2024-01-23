@@ -14,6 +14,7 @@ export class Loop {
     this.timeStep = 1000 / 60;
     this.update = update;
     this.draw = draw;
+    this.isRunning = false;
   }
 
   private Main = (): void => {

@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { gameEvents } from "..";
+import { Camera, gameEvents } from "..";
 import { GameObject } from "./GameObject";
 import { UI } from "./UI";
 import { Vector2 } from "./Vector2";
 
 export class Scene {
   public readonly name: string;
+  public sceneCamera: Camera;
   private uis: UI[];
   private gameObjects: GameObject[];
   private hasReadyBeenCalled: boolean;

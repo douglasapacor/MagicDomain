@@ -9,6 +9,7 @@ import { Loop } from "./lib/Loop";
 import { Scene } from "./lib/Scene";
 import { UI } from "./lib/UI";
 import { Vector2 } from "./lib/Vector2";
+import { PresentationScene } from "./scenes/PresentationScene";
 const gameEvents = new Events();
 
 export {
@@ -19,6 +20,7 @@ export {
   Html,
   HtmlBuilder,
   Loop,
+  PresentationScene,
   Scene,
   UI,
   Vector2,

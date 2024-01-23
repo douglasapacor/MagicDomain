@@ -6,6 +6,7 @@ export class PresentationScene extends Scene {
 
   constructor({ width, heigth }: { width: number; heigth: number }) {
     super("presentation");
+
     this.properties = {
       width: width,
       heigth: heigth,
@@ -21,5 +22,11 @@ export class PresentationScene extends Scene {
     };
 
     this.addUI(blackUi);
+
+    // this.sceneCamera = new Camera(
+    //   32,
+    //   this.properties.width,
+    //   this.properties.heigth
+    // );
   }
 }
