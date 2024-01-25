@@ -1,11 +1,10 @@
 import { Scene } from "../lib/Scene";
 import { UI } from "../lib/UI";
 
-export class PresentationScene extends Scene {
+export class StudioScene extends Scene {
   private properties: { width: number; heigth: number };
-
   constructor({ width, heigth }: { width: number; heigth: number }) {
-    super("presentation");
+    super("studio");
 
     this.properties = {
       width: width,
@@ -14,13 +13,13 @@ export class PresentationScene extends Scene {
   }
 
   public AssembleScene(): void {
-    const blackUi = new UI("blackBackground");
+    const ui = new UI();
 
-    blackUi.DrawImage = (ctx: CanvasRenderingContext2D) => {
+    ui.DrawImage = (ctx: CanvasRenderingContext2D) => {
       ctx.fillStyle = "#212121";
       ctx.fillRect(0, 0, this.properties.width, this.properties.heigth);
     };
 
-    this.addUI(blackUi);
+    this.addUI(ui);
   }
 }

@@ -1,28 +1,29 @@
-import { Html, Loop, Scene, gameEvents } from "..";
+import { Html, Loop, Scene, StudioScene, gameEvents } from "..";
 import { PresentationScene } from "../scenes/PresentationScene";
+
+type gameLog = {
+  startedAt: Date;
+  elapsedTime: {
+    days: number;
+    hour: number;
+    minute: number;
+    seconds: number;
+    miliseconds: number;
+  };
+};
 
 export class Game {
   private scene: Scene | null;
   private scenes: Scene[];
   private loop: Loop;
   private html: Html;
-  private gameLog: {
-    startedAt: Date;
-    elapsedTime: {
-      days: number;
-      hour: number;
-      minute: number;
-      seconds: number;
-      miliseconds: number;
-    };
-  };
+  private gameLog: gameLog;
 
   constructor() {
     this.scene = null;
     this.scenes = [];
     this.loop = new Loop(this.update, this.draw);
     this.html = new Html();
-
     this.gameLog = {
       startedAt: new Date(),
       elapsedTime: {
@@ -33,9 +34,12 @@ export class Game {
         miliseconds: 0,
       },
     };
-
     this.scenes.push(
       new PresentationScene({
+        width: this.html.canvas.width,
+        heigth: this.html.canvas.height,
+      }),
+      new StudioScene({
         width: this.html.canvas.width,
         heigth: this.html.canvas.height,
       })
@@ -100,13 +104,12 @@ export class Game {
 
     this.html.ctx.save();
 
-    this.html.ctx.font = "32px PixGamer";
-    // this.html.ctx.textAlign = "center";
-    this.html.ctx.fillText(
-      `Magic Domain D:${this.gameLog.elapsedTime.hour} H:${this.gameLog.elapsedTime.hour} M:${this.gameLog.elapsedTime.minute} S:${this.gameLog.elapsedTime.seconds}`,
-      200,
-      100
-    );
+    // this.html.ctx.font = "22px PixGamer";
+    // this.html.ctx.fillText(
+    //   `Magic Domain® v1.0.0 - ${this.gameLog.elapsedTime.hour}d ${this.gameLog.elapsedTime.hour}h ${this.gameLog.elapsedTime.minute}m ${this.gameLog.elapsedTime.seconds}s`,
+    //   20,
+    //   30
+    // );
 
     if (this.scene) {
       if (this.scene.sceneCamera)
