@@ -1,5 +1,4 @@
-import { gameEvents } from "..";
-import { Vector2 } from "./Vector2";
+import { gameEvents, Vector2 } from "..";
 
 export class Camera {
   private halfSize: number;

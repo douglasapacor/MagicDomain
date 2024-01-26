@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Scene } from "./Scene";
-import { Vector2 } from "./Vector2";
+import { Scene, Vector2 } from "..";
 
 export class GameObject {
   public readonly name: string;

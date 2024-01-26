@@ -1,6 +1,6 @@
-import { Scene } from "./Scene";
-import { Vector2 } from "./Vector2";
+import { Scene, Vector2 } from "..";
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 export class UI {
   public readonly name: string;
   public parent: UI | null;

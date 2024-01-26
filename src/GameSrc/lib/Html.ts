@@ -1,4 +1,4 @@
-import { HtmlBuilder } from "./HtmlBuilder";
+import { HtmlBuilder } from "..";
 
 export class Html {
   public canvas: HTMLCanvasElement;

@@ -1,4 +1,4 @@
-import { FrameIndexPattern } from "./FrameIndexPattern";
+import { FrameIndexPattern } from "..";
 
 export class Animation {
   public patterns: Record<string, FrameIndexPattern>;
