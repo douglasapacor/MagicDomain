@@ -1,6 +1,8 @@
 import { gridCells, isSpaceFree } from "./helpers/grid";
+import { Animation } from "./lib/Animation";
 import { Camera } from "./lib/Camera";
 import { Events } from "./lib/Events";
+import { FrameIndexPattern } from "./lib/FrameIndexPattern";
 import { Game } from "./lib/Game";
 import { GameObject } from "./lib/GameObject";
 import { Html } from "./lib/Html";
@@ -19,8 +21,10 @@ const gameEvents = new Events();
 const resources = new Resources(localFiles);
 
 export {
+  Animation,
   Camera,
   Events,
+  FrameIndexPattern,
   Game,
   GameObject,
   Html,

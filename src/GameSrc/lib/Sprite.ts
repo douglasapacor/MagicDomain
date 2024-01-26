@@ -1,8 +1,25 @@
-import { Vector2 } from "./Vector2";
+import { Animation, Vector2 } from "..";
+
+type spriteConstructorType = {
+  resource: resourceType;
+  name?: string;
+  frameSize?: Vector2;
+  hFrames?: number;
+  vFrames?: number;
+  frame?: number;
+  scale?: number;
+  position?: Vector2;
+  animations?: Animation;
+};
+
+type resourceType = {
+  image: HTMLImageElement;
+  isLoaded: boolean;
+};
 
 export class Sprite {
   public readonly name: string;
-  public resource: HTMLImageElement;
+  public resource: resourceType;
   public frameSize: Vector2;
   public hFrames: number;
   public vFrames: number;
@@ -14,6 +31,7 @@ export class Sprite {
 
   constructor({
     resource,
+    name,
     frameSize,
     hFrames,
     vFrames,
@@ -21,16 +39,8 @@ export class Sprite {
     scale,
     position,
     animations,
-  }: {
-    resource: HTMLImageElement;
-    frameSize?: Vector2;
-    hFrames?: number;
-    vFrames?: number;
-    frame?: number;
-    scale?: number;
-    position?: Vector2;
-    animations?: Animation;
-  }) {
+  }: spriteConstructorType) {
+    this.name = name;
     this.resource = resource;
     this.frameSize = frameSize ?? new Vector2(16, 16);
     this.hFrames = hFrames ?? 1;
@@ -59,16 +69,15 @@ export class Sprite {
     if (!this.animations) {
       return;
     }
-    // this.animations.step(delta);
-    // this.frame = this.animations.frame;
+    this.animations.step(delta);
+    this.frame = this.animations.frame;
   }
 
   drawImage(ctx: CanvasRenderingContext2D, x: number, y: number) {
-    // if (!this.resource.isLoaded) {
-    //   return;
-    // }
+    if (!this.resource.isLoaded) {
+      return;
+    }
 
-    // Find the correct sprite sheet frame to use
     let frameCoordX = 0;
     let frameCoordY = 0;
 
@@ -83,15 +92,15 @@ export class Sprite {
     const frameSizeY = this.frameSize.y;
 
     ctx.drawImage(
-      this.resource,
+      this.resource.image,
       frameCoordX,
-      frameCoordY, // Top Y corner of frame
-      frameSizeX, //How much to crop from the sprite sheet (X)
-      frameSizeY, //How much to crop from the sprite sheet (Y)
-      x, //Where to place this on canvas tag X (0)
-      y, //Where to place this on canvas tag Y (0)
-      frameSizeX * this.scale, //How large to scale it (X)
-      frameSizeY * this.scale //How large to scale it (Y)
+      frameCoordY,
+      frameSizeX,
+      frameSizeY,
+      x,
+      y,
+      frameSizeX * this.scale,
+      frameSizeY * this.scale
     );
   }
 }
