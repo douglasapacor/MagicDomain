@@ -62,12 +62,12 @@ export class Game {
     const days = Math.floor(totalMilliseconds / millisecondsInDay);
     const remainingMillisecondsAfterDays =
       totalMilliseconds % millisecondsInDay;
-    const hours = Math.floor(
+    const hour = Math.floor(
       remainingMillisecondsAfterDays / millisecondsInHour
     );
     const remainingMillisecondsAfterHours =
       remainingMillisecondsAfterDays % millisecondsInHour;
-    const minutes = Math.floor(
+    const minute = Math.floor(
       remainingMillisecondsAfterHours / millisecondsInMinute
     );
     const remainingMillisecondsAfterMinutes =
@@ -77,14 +77,14 @@ export class Game {
     );
     const remainingMillisecondsAfterSeconds =
       remainingMillisecondsAfterMinutes % millisecondsInSecond;
-    const milliseconds = remainingMillisecondsAfterSeconds;
+    const miliseconds = remainingMillisecondsAfterSeconds;
 
     this.gameLog.elapsedTime = {
       days,
-      hour: hours,
-      minute: minutes,
+      hour,
+      minute,
       seconds,
-      miliseconds: milliseconds,
+      miliseconds,
     };
   }
 
