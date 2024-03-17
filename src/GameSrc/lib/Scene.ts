@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Camera, gameEvents, GameObject, UI, Vector2 } from "..";
+import { Camera, gameEvents, GameObject, generateKey, UI, Vector2 } from "..";
 
 export class Scene {
   public readonly name: string;
@@ -10,7 +10,7 @@ export class Scene {
   public position: Vector2;
 
   constructor(name = "") {
-    this.name = `${name}_scene`;
+    this.name = `${name ? name : generateKey(7)}_scene`;
     this.uis = [];
     this.gameObjects = [];
     this.position = new Vector2(0, 0);
@@ -34,17 +34,17 @@ export class Scene {
 
   public Step(delta: number, scene: Scene): void {}
 
-  public Draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+  public draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
     const drawPosX = x + this.position.x;
     const drawPosY = y + this.position.y;
 
-    this.DrawImage(ctx, drawPosX, drawPosY);
+    this.drawImage(ctx, drawPosX, drawPosY);
 
     this.gameObjects.forEach((go) => go.Draw(ctx, drawPosX, drawPosY));
     this.uis.forEach((u) => u.Draw(ctx, drawPosX, drawPosY));
   }
 
-  public DrawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {}
+  public drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {}
 
   public destroy() {
     this.gameObjects.forEach((child) => {

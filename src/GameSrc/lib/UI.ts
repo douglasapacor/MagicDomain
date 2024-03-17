@@ -1,4 +1,4 @@
-import { Scene, Vector2 } from "..";
+import { Scene, Vector2, generateKey } from "..";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 export class UI {
@@ -10,7 +10,7 @@ export class UI {
   public scene: Scene | null;
 
   constructor(name = "", position?: Vector2) {
-    this.name = `${name}_ui`;
+    this.name = `${name ? name : generateKey(7)}_ui`;
     this.children = [];
     this.hasReadyBeenCalled = false;
     this.position = position ? position : new Vector2(0, 0);

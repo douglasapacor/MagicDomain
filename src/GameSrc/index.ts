@@ -1,4 +1,13 @@
 import { gridCells, isSpaceFree } from "./helpers/grid";
+import {
+  generateKey,
+  generateLowerRandomString,
+  generateRandomNumber,
+  generateRandomRangeNumber,
+  generateRandomString,
+  generateRecoveryPasswordKey,
+  generateUpperRandomString,
+} from "./helpers/randoms";
 import { Animation } from "./lib/Animation";
 import { Camera } from "./lib/Camera";
 import { Events } from "./lib/Events";
@@ -15,6 +24,7 @@ import { UI } from "./lib/UI";
 import { Vector2 } from "./lib/Vector2";
 import { PresentationScene } from "./scenes/PresentationScene";
 import { StudioScene } from "./scenes/StudioScene";
+import { commomNumbers, lowerAlphabet, upperAlphabet } from "./static/base";
 import localFiles from "./static/localFiles";
 
 const gameEvents = new Events();
@@ -37,8 +47,18 @@ export {
   StudioScene,
   UI,
   Vector2,
+  commomNumbers,
   gameEvents,
+  generateKey,
+  generateLowerRandomString,
+  generateRandomNumber,
+  generateRandomRangeNumber,
+  generateRandomString,
+  generateRecoveryPasswordKey,
+  generateUpperRandomString,
   gridCells,
   isSpaceFree,
+  lowerAlphabet,
   resources,
+  upperAlphabet,
 };

@@ -1,5 +1,11 @@
-import { Html, Loop, Scene, StudioScene, gameEvents } from "..";
-import { PresentationScene } from "../scenes/PresentationScene";
+import {
+  Html,
+  Loop,
+  PresentationScene,
+  Scene,
+  StudioScene,
+  gameEvents,
+} from "..";
 
 type gameLog = {
   startedAt: Date;
@@ -22,7 +28,7 @@ export class Game {
   constructor() {
     this.scene = null;
     this.scenes = [];
-    this.loop = new Loop(this.update, this.draw);
+    this.loop = new Loop(this.Update, this.Draw);
     this.html = new Html();
     this.gameLog = {
       startedAt: new Date(),
@@ -34,16 +40,8 @@ export class Game {
         miliseconds: 0,
       },
     };
-    this.scenes.push(
-      new PresentationScene({
-        width: this.html.canvas.width,
-        heigth: this.html.canvas.height,
-      }),
-      new StudioScene({
-        width: this.html.canvas.width,
-        heigth: this.html.canvas.height,
-      })
-    );
+
+    this.loadScenes();
 
     gameEvents.on("unload_scene", this, () => {
       this.scene = null;
@@ -88,13 +86,13 @@ export class Game {
     };
   }
 
-  private update = (delta: number): void => {
+  private Update = (delta: number): void => {
     if (this.scene) this.scene.StepEntry(delta);
 
     this.calculateElapsedTime();
   };
 
-  private draw = (): void => {
+  private Draw = (): void => {
     this.html.ctx.clearRect(
       0,
       0,
@@ -104,12 +102,12 @@ export class Game {
 
     this.html.ctx.save();
 
-    // this.html.ctx.font = "22px PixGamer";
-    // this.html.ctx.fillText(
-    //   `Magic Domain® v1.0.0 - ${this.gameLog.elapsedTime.hour}d ${this.gameLog.elapsedTime.hour}h ${this.gameLog.elapsedTime.minute}m ${this.gameLog.elapsedTime.seconds}s`,
-    //   20,
-    //   30
-    // );
+    this.html.ctx.font = "22px PixGamer";
+    this.html.ctx.fillText(
+      `Magic Domain® v1.0.0 - ${this.gameLog.elapsedTime.hour}d ${this.gameLog.elapsedTime.hour}h ${this.gameLog.elapsedTime.minute}m ${this.gameLog.elapsedTime.seconds}s`,
+      20,
+      30
+    );
 
     if (this.scene) {
       if (this.scene.sceneCamera)
@@ -118,7 +116,7 @@ export class Game {
           this.scene.sceneCamera.position.y
         );
 
-      this.scene.Draw(this.html.ctx, 0, 0);
+      this.scene.draw(this.html.ctx, 0, 0);
     }
 
     this.html.ctx.restore();
@@ -126,5 +124,18 @@ export class Game {
 
   public Start = (): void => {
     this.loop.Start();
+  };
+
+  private loadScenes = (): void => {
+    this.scenes.push(
+      new PresentationScene({
+        width: this.html.canvas.width,
+        heigth: this.html.canvas.height,
+      }),
+      new StudioScene({
+        width: this.html.canvas.width,
+        heigth: this.html.canvas.height,
+      })
+    );
   };
 }

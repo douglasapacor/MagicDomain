@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Scene, Vector2 } from "..";
+import { Scene, Vector2, generateKey } from "..";
 
 export class GameObject {
   public readonly name: string;
@@ -10,7 +10,7 @@ export class GameObject {
   public scene: Scene | null;
 
   constructor(name = "", position?: Vector2) {
-    this.name = `${name}_gameobject`;
+    this.name = `${name ? name : generateKey(7)}_gameobject`;
     this.children = [];
     this.hasReadyBeenCalled = false;
     this.position = position ? position : new Vector2(0, 0);

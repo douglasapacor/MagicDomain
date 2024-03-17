@@ -1,4 +1,4 @@
-import { Animation, Vector2 } from "..";
+import { Animation, Vector2, generateKey } from "..";
 
 type spriteConstructorType = {
   resource: resourceType;
@@ -40,7 +40,7 @@ export class Sprite {
     position,
     animations,
   }: spriteConstructorType) {
-    this.name = name;
+    this.name = `${name ? name : generateKey(7)}_sprite`;
     this.resource = resource;
     this.frameSize = frameSize ?? new Vector2(16, 16);
     this.hFrames = hFrames ?? 1;
