@@ -1,6 +1,6 @@
 {
-  "name": "my-new-app",
-  "productName": "my-new-app",
+  "name": "magicdomain",
+  "productName": "magicdomain",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
@@ -8,8 +8,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "publish": "electron-forge publish"
   },
   "keywords": [],
   "author": {

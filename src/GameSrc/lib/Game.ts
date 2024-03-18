@@ -1,51 +1,19 @@
-import {
-  Html,
-  Loop,
-  PresentationScene,
-  Scene,
-  StudioScene,
-  gameEvents,
-} from "..";
-
-type gameLog = {
-  startedAt: Date;
-  elapsedTime: {
-    days: number;
-    hour: number;
-    minute: number;
-    seconds: number;
-    miliseconds: number;
-  };
-};
+import { GameLog } from "./GameLog";
+import { Html } from "./Html";
+import { Loop } from "./Loop";
+import { Scene } from "./Scene";
+import { SceneFactory } from "./SceneFactory";
 
 export class Game {
-  private scene: Scene | null;
-  private scenes: Scene[];
   private loop: Loop;
   private html: Html;
-  private gameLog: gameLog;
+  private gameLog: GameLog;
+  private currentScene: Scene | null;
 
   constructor() {
-    this.scene = null;
-    this.scenes = [];
     this.loop = new Loop(this.Update, this.Draw);
     this.html = new Html();
-    this.gameLog = {
-      startedAt: new Date(),
-      elapsedTime: {
-        days: 0,
-        hour: 0,
-        minute: 0,
-        seconds: 0,
-        miliseconds: 0,
-      },
-    };
-
-    this.loadScenes();
-
-    gameEvents.on("unload_scene", this, () => {
-      this.scene = null;
-    });
+    this.gameLog = new GameLog();
   }
 
   private calculateElapsedTime(): void {
@@ -86,12 +54,6 @@ export class Game {
     };
   }
 
-  private Update = (delta: number): void => {
-    if (this.scene) this.scene.StepEntry(delta);
-
-    this.calculateElapsedTime();
-  };
-
   private Draw = (): void => {
     this.html.ctx.clearRect(
       0,
@@ -102,40 +64,19 @@ export class Game {
 
     this.html.ctx.save();
 
-    this.html.ctx.font = "22px PixGamer";
-    this.html.ctx.fillText(
-      `Magic Domain® v1.0.0 - ${this.gameLog.elapsedTime.hour}d ${this.gameLog.elapsedTime.hour}h ${this.gameLog.elapsedTime.minute}m ${this.gameLog.elapsedTime.seconds}s`,
-      20,
-      30
-    );
-
-    if (this.scene) {
-      if (this.scene.sceneCamera)
-        this.html.ctx.translate(
-          this.scene.sceneCamera.position.x,
-          this.scene.sceneCamera.position.y
-        );
-
-      this.scene.draw(this.html.ctx, 0, 0);
-    }
+    if (this.currentScene) this.currentScene.Draw(this.html.ctx, 0, 0);
 
     this.html.ctx.restore();
   };
 
-  public Start = (): void => {
-    this.loop.Start();
+  private Update = (delta: number): void => {
+    this.currentScene && this.currentScene.StepEntry(delta);
+    this.calculateElapsedTime();
   };
 
-  private loadScenes = (): void => {
-    this.scenes.push(
-      new PresentationScene({
-        width: this.html.canvas.width,
-        heigth: this.html.canvas.height,
-      }),
-      new StudioScene({
-        width: this.html.canvas.width,
-        heigth: this.html.canvas.height,
-      })
-    );
-  };
+  public Start = (): void => this.loop.Start();
+
+  public loadScene(sceneName: string): void {
+    this.currentScene = SceneFactory.create(sceneName);
+  }
 }

@@ -1,23 +1,18 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Scene, Vector2, generateKey } from "..";
+import { Vector2 } from "./Vector2";
 
 export class GameObject {
-  public readonly name: string;
+  public readonly name?: string;
   public parent: GameObject | null;
   public children: GameObject[];
   public hasReadyBeenCalled: boolean;
   public position: Vector2;
-  public scene: Scene | null;
 
   constructor(name = "", position?: Vector2) {
-    this.name = `${name ? name : generateKey(7)}_gameobject`;
+    this.name = name;
     this.children = [];
     this.hasReadyBeenCalled = false;
     this.position = position ? position : new Vector2(0, 0);
-    this.scene = null;
   }
-
-  public Assemble = () => {};
 
   public StepEntry = (delta: number): void => {
     this.children.forEach((go) => go.StepEntry(delta));
@@ -27,12 +22,14 @@ export class GameObject {
       this.Ready();
     }
 
-    this.Step(delta, this.scene);
+    this.Step(delta);
+  };
+
+  public Step = (delta: number): void => {
+    // A implementar
   };
 
   public Ready = (): void => {};
-
-  public Step = (delta: number, scene: Scene): void => {};
 
   public Draw = (ctx: CanvasRenderingContext2D, x: number, y: number): void => {
     const drawPosX = x + this.position.x;
@@ -47,11 +44,8 @@ export class GameObject {
     ctx: CanvasRenderingContext2D,
     x: number,
     y: number
-  ): void => {};
-
-  public setScene = (scene: Scene) => {
-    this.scene = scene;
-    this.children.forEach((go) => go.setScene(scene));
+  ): void => {
+    // A implementar
   };
 
   public addChild(gameObject: GameObject) {
