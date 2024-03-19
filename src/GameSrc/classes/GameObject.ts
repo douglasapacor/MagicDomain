@@ -1,6 +1,7 @@
+import { IGameObject } from "./Interfaces/IGameObject";
 import { Vector2 } from "./Vector2";
 
-export class GameObject {
+export class GameObject implements IGameObject {
   public readonly name?: string;
   public parent: GameObject | null;
   public children: GameObject[];
@@ -26,10 +27,12 @@ export class GameObject {
   };
 
   public Step = (delta: number): void => {
-    // A implementar
+    throw new Error(`Error in: ${delta}: Implement a step method.`);
   };
 
-  public Ready = (): void => {};
+  public Ready = (): void => {
+    throw new Error(`Error: Implement a Ready method.`);
+  };
 
   public Draw = (ctx: CanvasRenderingContext2D, x: number, y: number): void => {
     const drawPosX = x + this.position.x;
@@ -45,7 +48,9 @@ export class GameObject {
     x: number,
     y: number
   ): void => {
-    // A implementar
+    throw new Error(
+      `Error: Implement a DrawImage method. Content: ctx: ${ctx} | x: ${x} | y: ${y}`
+    );
   };
 
   public addChild(gameObject: GameObject) {

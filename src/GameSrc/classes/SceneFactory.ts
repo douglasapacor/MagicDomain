@@ -3,6 +3,8 @@ import { Scene } from "./Scene";
 export class SceneFactory {
   private static readonly registry: Map<string, typeof Scene> = new Map();
 
+  private constructor() {}
+
   public static registerSceneClass(
     sceneName: string,
     sceneClass: typeof Scene

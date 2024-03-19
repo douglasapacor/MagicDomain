@@ -1,10 +1,8 @@
+import { IEventCallback } from "./Interfaces/IEventCallback";
+import { IEventRegistration } from "./Interfaces/IEventRegistration";
+
 export class Events {
-  public callbacks: {
-    id: number;
-    eventName: string;
-    caller: unknown;
-    callback: Function;
-  }[];
+  public callbacks: IEventRegistration[] = [];
   public nextId: number;
 
   constructor() {
@@ -12,7 +10,7 @@ export class Events {
     this.callbacks = [];
   }
 
-  emit(eventName: string, value: unknown) {
+  public emit(eventName: string, value: unknown): void {
     this.callbacks.forEach((stored) => {
       if (stored.eventName === eventName) {
         stored.callback(value);
@@ -20,7 +18,11 @@ export class Events {
     });
   }
 
-  on(eventName: string, caller: unknown, callback: Function) {
+  public on(
+    eventName: string,
+    caller: unknown,
+    callback: IEventCallback
+  ): number {
     this.nextId += 1;
     this.callbacks.push({
       id: this.nextId,
@@ -31,11 +33,11 @@ export class Events {
     return this.nextId;
   }
 
-  off(id: number) {
+  public off(id: number): void {
     this.callbacks = this.callbacks.filter((stored) => stored.id !== id);
   }
 
-  unsubscribe(caller: unknown) {
+  public unsubscribe(caller: unknown): void {
     this.callbacks = this.callbacks.filter(
       (stored) => stored.caller !== caller
     );

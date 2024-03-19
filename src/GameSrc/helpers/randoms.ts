@@ -1,4 +1,8 @@
-import { commomNumbers, lowerAlphabet, upperAlphabet } from "../statics/base";
+import {
+  commomNumbers,
+  lowerAlphabet,
+  upperAlphabet,
+} from "../../statics/base";
 
 const generateRandomNumber = (): number => {
   return parseInt(`${Math.random() * (999999 - 1) + 1}`);

@@ -1,9 +1,4 @@
-type htmlBuilderParams = {
-  id?: string;
-  classes?: string;
-  width?: string;
-  height?: string;
-};
+import { htmlBuilderParams } from "./types/htmlBuilderParams";
 
 export class Builder {
   public createCanvas = (params?: htmlBuilderParams): HTMLCanvasElement => {

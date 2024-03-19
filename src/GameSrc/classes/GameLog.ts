@@ -1,12 +1,8 @@
+import { momentRegister } from "./types/momentRegister";
+
 export class GameLog {
   public startedAt: Date;
-  public elapsedTime: {
-    days: number;
-    hour: number;
-    minute: number;
-    seconds: number;
-    miliseconds: number;
-  };
+  public elapsedTime: momentRegister;
 
   constructor() {
     this.startedAt = new Date();

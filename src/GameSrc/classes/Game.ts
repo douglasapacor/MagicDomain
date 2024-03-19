@@ -79,4 +79,8 @@ export class Game {
   public loadScene(sceneName: string): void {
     this.currentScene = SceneFactory.create(sceneName);
   }
+
+  public registerScenes(): void {
+    // SceneFactory.registerSceneClass("MainScene");
+  }
 }
