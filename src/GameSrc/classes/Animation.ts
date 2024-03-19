@@ -88,7 +88,7 @@ export class Animation {
   public addEventListener(
     name: string,
     event: string,
-    listener: IEventCallback
+    listener: IEventCallback,
   ): number {
     if (!this.patterns[name] !== undefined) {
       throw new Error(`Animation '${name}' does not exist`);

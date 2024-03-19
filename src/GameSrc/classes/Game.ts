@@ -29,17 +29,17 @@ export class Game {
     const remainingMillisecondsAfterDays =
       totalMilliseconds % millisecondsInDay;
     const hour = Math.floor(
-      remainingMillisecondsAfterDays / millisecondsInHour
+      remainingMillisecondsAfterDays / millisecondsInHour,
     );
     const remainingMillisecondsAfterHours =
       remainingMillisecondsAfterDays % millisecondsInHour;
     const minute = Math.floor(
-      remainingMillisecondsAfterHours / millisecondsInMinute
+      remainingMillisecondsAfterHours / millisecondsInMinute,
     );
     const remainingMillisecondsAfterMinutes =
       remainingMillisecondsAfterHours % millisecondsInMinute;
     const seconds = Math.floor(
-      remainingMillisecondsAfterMinutes / millisecondsInSecond
+      remainingMillisecondsAfterMinutes / millisecondsInSecond,
     );
     const remainingMillisecondsAfterSeconds =
       remainingMillisecondsAfterMinutes % millisecondsInSecond;
@@ -59,7 +59,7 @@ export class Game {
       0,
       0,
       this.html.canvas.width,
-      this.html.canvas.height
+      this.html.canvas.height,
     );
 
     this.html.ctx.save();

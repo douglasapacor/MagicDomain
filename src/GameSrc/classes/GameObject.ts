@@ -16,7 +16,7 @@ export class GameObject implements IGameObject {
   }
 
   public StepEntry = (delta: number): void => {
-    this.children.forEach((go) => go.StepEntry(delta));
+    this.children.forEach(go => go.StepEntry(delta));
 
     if (!this.hasReadyBeenCalled) {
       this.hasReadyBeenCalled = true;
@@ -40,16 +40,16 @@ export class GameObject implements IGameObject {
 
     this.DrawImage(ctx, drawPosX, drawPosY);
 
-    this.children.forEach((go) => go.Draw(ctx, drawPosX, drawPosY));
+    this.children.forEach(go => go.Draw(ctx, drawPosX, drawPosY));
   };
 
   public DrawImage = (
     ctx: CanvasRenderingContext2D,
     x: number,
-    y: number
+    y: number,
   ): void => {
     throw new Error(
-      `Error: Implement a DrawImage method. Content: ctx: ${ctx} | x: ${x} | y: ${y}`
+      `Error: Implement a DrawImage method. Content: ctx: ${ctx} | x: ${x} | y: ${y}`,
     );
   };
 
@@ -59,14 +59,14 @@ export class GameObject implements IGameObject {
   }
 
   public destroy() {
-    this.children.forEach((child) => {
+    this.children.forEach(child => {
       child.destroy();
     });
     this.parent.removeChild(this);
   }
 
   public removeChild(gameObject: GameObject) {
-    this.children = this.children.filter((g) => {
+    this.children = this.children.filter(g => {
       return gameObject !== g;
     });
   }

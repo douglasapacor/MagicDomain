@@ -14,7 +14,7 @@ export class Resources {
   }
 
   loadAllResources = () => {
-    Object.keys(this.toLoad).forEach((key) => {
+    Object.keys(this.toLoad).forEach(key => {
       const img = new Image();
       img.src = this.toLoad[key];
 
