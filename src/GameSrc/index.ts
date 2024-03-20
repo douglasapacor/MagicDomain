@@ -10,6 +10,7 @@ import { Html } from "./classes/Html";
 import { IEventCallback } from "./classes/Interfaces/IEventCallback";
 import { IEventRegistration } from "./classes/Interfaces/IEventRegistration";
 import { IGameObject } from "./classes/Interfaces/IGameObject";
+import { IHtmlBuilderParams } from "./classes/Interfaces/IHtmlBuilderParams";
 import { Loop } from "./classes/Loop";
 import { Map } from "./classes/Map";
 import { MapProvider } from "./classes/MapProvider";
@@ -21,7 +22,6 @@ import { UIComponent } from "./classes/UIComponent";
 import { Vector2 } from "./classes/Vector2";
 import { animationConfig } from "./classes/types/animationConfig";
 import { frameConfigTime } from "./classes/types/frameConfigTime";
-import { htmlBuilderParams } from "./classes/types/htmlBuilderParams";
 import { momentRegister } from "./classes/types/momentRegister";
 import { resourceTypes } from "./classes/types/resourceTypes";
 import { spriteConstructor } from "./classes/types/spriteConstructor";
@@ -62,10 +62,10 @@ export {
   generateUpperRandomString,
   gridCells,
   Html,
-  htmlBuilderParams,
   IEventCallback,
   IEventRegistration,
   IGameObject,
+  IHtmlBuilderParams,
   isSpaceFree,
   Loop,
   Map,

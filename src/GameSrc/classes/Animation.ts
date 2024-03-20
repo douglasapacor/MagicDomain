@@ -1,4 +1,6 @@
-import { animationEvents, FrameIndexPattern, IEventCallback } from "..";
+import { animationEvents } from "..";
+import { FrameIndexPattern } from "./FrameIndexPattern";
+import { IEventCallback } from "./Interfaces/IEventCallback";
 
 export class Animation {
   public patterns: Record<string, FrameIndexPattern>;
@@ -90,7 +92,7 @@ export class Animation {
     listener: IEventCallback,
   ): number {
     if (!this.patterns[name] !== undefined) {
-      throw new Error(`Animation '${name}' does not exist`);
+      throw new Error(`Animação '${name}' Não existe`);
     }
 
     const id = animationEvents.on(`${name}:${event}`, this, listener);
@@ -100,14 +102,14 @@ export class Animation {
 
   public notifyEvent(name: string, event: string, value: unknown): void {
     if (!this.patterns[name] !== undefined)
-      throw new Error(`Animation '${name}' does not exist`);
+      throw new Error(`Animação '${name}' Não existe`);
 
     animationEvents.emit(`${name}:${event}`, value);
   }
 
   public removeEventListener(name: string, listenerId: number): void {
     if (!this.patterns[name] !== undefined) {
-      throw new Error(`Animation '${name}' does not exist`);
+      throw new Error(`Animação '${name}' Não existe`);
     }
 
     animationEvents.off(listenerId);

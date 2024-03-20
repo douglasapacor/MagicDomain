@@ -7,13 +7,13 @@ export interface IGameObject {
   children: GameObject[];
   hasReadyBeenCalled: boolean;
   position: Vector2;
-
-  StepEntry: (delta: number) => void;
-  Step: (delta: number) => void;
-  Ready: () => void;
-  Draw: (ctx: CanvasRenderingContext2D, x: number, y: number) => void;
-  DrawImage: (ctx: CanvasRenderingContext2D, x: number, y: number) => void;
+  stepEntry(delta: number): void;
+  step(delta: number): void;
+  ready(): void;
+  draw(ctx: CanvasRenderingContext2D, x: number, y: number): void;
+  drawImage: (ctx: CanvasRenderingContext2D, x: number, y: number) => void;
   addChild(gameObject: GameObject): void;
   destroy(): void;
   removeChild(gameObject: GameObject): void;
 }
+

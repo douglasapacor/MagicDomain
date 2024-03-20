@@ -1,29 +1,27 @@
-import { htmlBuilderParams } from "..";
+import { IHtmlBuilderParams } from "./Interfaces/IHtmlBuilderParams";
 
 export class Builder {
-  public createCanvas = (params?: htmlBuilderParams): HTMLCanvasElement => {
-    const element = document.createElement("canvas");
+  public createElement<T extends HTMLElement>(
+    tagName: keyof HTMLElementTagNameMap,
+    params?: IHtmlBuilderParams,
+  ): T {
+    const element = document.createElement(tagName);
 
     if (params) {
-      if (params.id) element.id = params.id;
-      if (params.classes) element.className = params.classes;
-      if (params.width) element.style.width = params.width;
-      if (params.height) element.style.height = params.height;
+      this.setAttribute(element, params);
+      this.setStyle(element, params);
     }
 
-    return element;
-  };
+    return element as T;
+  }
 
-  public createDiv = (params?: htmlBuilderParams): HTMLDivElement => {
-    const element = document.createElement("div");
-
-    if (params) {
-      if (params.id) element.id = params.id;
-      if (params.classes) element.className = params.classes;
-      if (params.width) element.style.width = params.width;
-      if (params.height) element.style.height = params.height;
+  private setAttribute(element: HTMLElement, params: IHtmlBuilderParams): void {
+    for (const [key, value] of Object.entries(params)) {
+      if (key !== "style") element.setAttribute(key, value);
     }
+  }
 
-    return element;
-  };
+  private setStyle(element: HTMLElement, params: IHtmlBuilderParams): void {
+    if (params.style) Object.assign(element.style, params.style);
+  }
 }

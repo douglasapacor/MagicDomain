@@ -1,4 +1,7 @@
-import { Map as GameMap, Vector2 } from "..";
+// import { Map as GameMap, Vector2 } from "..";
+
+import { Map as GameMap } from "./Map";
+import { Vector2 } from "./Vector2";
 
 export class MapProvider {
   private isLoaded: boolean;
@@ -30,11 +33,11 @@ export class MapProvider {
     this.maps.delete(gameMapName);
   }
 
-  public getMap(): GameMap | null {
+  public get getMap(): GameMap | null {
     return this.currentyMap;
   }
 
-  public getDimensions(): Vector2 {
+  public get getDimensions(): Vector2 {
     return new Vector2(this.currentyMap.width, this.currentyMap.height);
   }
 

@@ -1,4 +1,8 @@
-import { GameLog, Html, Loop, Scene, SceneFactory } from "..";
+import { GameLog } from "./GameLog";
+import { Html } from "./Html";
+import { Loop } from "./Loop";
+import { Scene } from "./Scene";
+import { SceneFactory } from "./SceneFactory";
 
 export class Game {
   private loop: Loop;
@@ -51,22 +55,22 @@ export class Game {
   }
 
   private Draw = (): void => {
-    this.html.ctx.clearRect(
+    this.html.context.clearRect(
       0,
       0,
-      this.html.canvas.width,
-      this.html.canvas.height,
+      this.html.canvasElement.width,
+      this.html.canvasElement.height,
     );
 
-    this.html.ctx.save();
+    this.html.context.save();
 
-    if (this.currentScene) this.currentScene.Draw(this.html.ctx, 0, 0);
+    if (this.currentScene) this.currentScene.draw(this.html.context, 0, 0);
 
-    this.html.ctx.restore();
+    this.html.context.restore();
   };
 
   private Update = (delta: number): void => {
-    this.currentScene && this.currentScene.StepEntry(delta);
+    this.currentScene && this.currentScene.stepEntry(delta);
     this.calculateElapsedTime();
   };
 

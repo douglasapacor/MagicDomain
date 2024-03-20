@@ -1,4 +1,5 @@
-import { gameEvents, mapProvider, Vector2 } from "..";
+import { gameEvents, mapProvider } from "..";
+import { Vector2 } from "./Vector2";
 
 export class Camera {
   private halfSize: number;
@@ -38,7 +39,7 @@ export class Camera {
         )
       ) {
         if (mapProvider.mapIsLoaded) {
-          const mapDimensions = mapProvider.getDimensions();
+          const mapDimensions = mapProvider.getDimensions;
 
           const clampedX = Math.max(this.position.x, 0);
           const clampedXMax = Math.min(

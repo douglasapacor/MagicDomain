@@ -25,4 +25,3 @@ export class UIComponent {
     return this.element;
   }
 }
-

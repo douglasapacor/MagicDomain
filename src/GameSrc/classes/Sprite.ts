@@ -1,10 +1,11 @@
 import { generateKey } from "../helpers/randoms";
 import { Animation } from "./Animation";
+import { GameObject } from "./GameObject";
 import { Vector2 } from "./Vector2";
 import { resourceTypes } from "./types/resourceTypes";
 import { spriteConstructor } from "./types/spriteConstructor";
 
-export class Sprite {
+export class Sprite extends GameObject {
   public readonly name: string;
   public resource: resourceTypes;
   public frameSize: Vector2;
@@ -27,6 +28,7 @@ export class Sprite {
     position,
     animations,
   }: spriteConstructor) {
+    super();
     this.name = `${name ? name : generateKey(7)}_sprite`;
     this.resource = resource;
     this.frameSize = frameSize ?? new Vector2(16, 16);
@@ -54,7 +56,7 @@ export class Sprite {
     }
   }
 
-  step(delta: number) {
+  public override step(delta: number) {
     if (!this.animations) {
       return;
     }
@@ -62,7 +64,11 @@ export class Sprite {
     this.frame = this.animations.frame;
   }
 
-  drawImage(ctx: CanvasRenderingContext2D, x: number, y: number) {
+  public override drawImage(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+  ): void {
     if (!this.resource.isLoaded) {
       return;
     }

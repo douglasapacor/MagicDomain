@@ -1,4 +1,5 @@
-import { IGameObject, Vector2 } from "..";
+import { IGameObject } from "./Interfaces/IGameObject";
+import { Vector2 } from "./Vector2";
 
 export class GameObject implements IGameObject {
   public readonly name?: string;
@@ -14,43 +15,39 @@ export class GameObject implements IGameObject {
     this.position = position ? position : new Vector2(0, 0);
   }
 
-  public StepEntry = (delta: number): void => {
-    this.children.forEach(go => go.StepEntry(delta));
+  public stepEntry(delta: number): void {
+    this.children.forEach(go => go.stepEntry(delta));
 
     if (!this.hasReadyBeenCalled) {
       this.hasReadyBeenCalled = true;
-      this.Ready();
+      this.ready();
     }
 
-    this.Step(delta);
-  };
+    this.step(delta);
+  }
 
-  public Step = (delta: number): void => {
+  public step(delta: number): void {
     throw new Error(`Error in: ${delta}: Implement a step method.`);
-  };
+  }
 
-  public Ready = (): void => {
+  public ready(): void {
     throw new Error(`Error: Implement a Ready method.`);
-  };
+  }
 
-  public Draw = (ctx: CanvasRenderingContext2D, x: number, y: number): void => {
+  public draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
     const drawPosX = x + this.position.x;
     const drawPosY = y + this.position.y;
 
-    this.DrawImage(ctx, drawPosX, drawPosY);
+    this.drawImage(ctx, drawPosX, drawPosY);
 
-    this.children.forEach(go => go.Draw(ctx, drawPosX, drawPosY));
-  };
+    this.children.forEach(go => go.draw(ctx, drawPosX, drawPosY));
+  }
 
-  public DrawImage = (
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-  ): void => {
+  public drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {
     throw new Error(
       `Error: Implement a DrawImage method. Content: ctx: ${ctx} | x: ${x} | y: ${y}`,
     );
-  };
+  }
 
   public addChild(gameObject: GameObject) {
     gameObject.parent = this;

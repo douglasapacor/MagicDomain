@@ -1,4 +1,5 @@
-import { IEventCallback, IEventRegistration } from "..";
+import { IEventCallback } from "./Interfaces/IEventCallback";
+import { IEventRegistration } from "./Interfaces/IEventRegistration";
 
 export class Events {
   public callbacks: IEventRegistration[] = [];

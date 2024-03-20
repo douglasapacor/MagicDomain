@@ -1,11 +1,13 @@
-import { animationConfig } from "..";
+import { GameObject } from "./GameObject";
+import { animationConfig } from "./types/animationConfig";
 
-export class FrameIndexPattern {
+export class FrameIndexPattern extends GameObject {
   public currentTime: number;
   public duration: number;
   public animationConfig: animationConfig;
 
   constructor(animationConfig: animationConfig) {
+    super();
     this.currentTime = 0;
     this.animationConfig = animationConfig;
     this.duration = animationConfig.duration ?? 500;
@@ -21,7 +23,7 @@ export class FrameIndexPattern {
     throw "O tempo é anterior ao primeiro quadro-chave";
   }
 
-  step(delta: number) {
+  public override step(delta: number) {
     this.currentTime += delta;
     if (this.currentTime >= this.duration) {
       this.currentTime = 0;
