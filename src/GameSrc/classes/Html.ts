@@ -3,11 +3,9 @@ import { Builder } from "./Builder";
 export class Html {
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
-  public builder: Builder;
 
   constructor() {
-    this.builder = new Builder();
-    this.canvas = this.builder.createElement("canvas");
+    this.canvas = Builder.createElement("canvas", { width: 1280, height: 768 });
     this.ctx = this.canvas.getContext("2d");
   }
 

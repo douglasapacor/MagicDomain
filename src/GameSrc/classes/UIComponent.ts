@@ -1,9 +1,13 @@
+import { Builder } from "./Builder";
+
 export class UIComponent {
   protected element: HTMLElement;
   private parent?: UIComponent;
 
-  constructor(parent?: UIComponent) {
-    this.element = document.createElement("div");
+  constructor(tagName?: keyof HTMLElementTagNameMap, parent?: UIComponent) {
+    if (tagName) this.element = Builder.createElement(tagName);
+    else this.element = Builder.createElement("div");
+
     this.parent = parent;
   }
 

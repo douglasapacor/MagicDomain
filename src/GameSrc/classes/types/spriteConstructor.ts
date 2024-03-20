@@ -13,3 +13,4 @@ export type spriteConstructor = {
   position?: Vector2;
   animations?: Animation;
 };
+

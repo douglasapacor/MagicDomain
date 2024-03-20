@@ -13,7 +13,7 @@ export class Resources {
     this.images = {};
   }
 
-  loadAllResources = () => {
+  public loadAllResources(): void {
     Object.keys(this.toLoad).forEach(key => {
       const img = new Image();
       img.src = this.toLoad[key];
@@ -27,9 +27,9 @@ export class Resources {
         this.images[key].isLoaded = true;
       };
     });
-  };
+  }
 
-  loadResourceByName = (name: string) => {
+  public loadResourceByName(name: string): void {
     const img = new Image();
     img.src = this.toLoad[name];
 
@@ -41,13 +41,13 @@ export class Resources {
     img.onload = () => {
       this.images[name].isLoaded = true;
     };
-  };
+  }
 
-  unloadResourceByName = (name: string) => {
+  public unloadResourceByName(name: string): void {
     delete this.images[name];
-  };
+  }
 
-  loadResourceList = (name: string[]) => {
+  public loadResourceList(name: string[]): void {
     for (let i = 0; i < name.length; i++) {
       const img = new Image();
 
@@ -62,11 +62,10 @@ export class Resources {
         this.images[name[i]].isLoaded = true;
       };
     }
-  };
+  }
 
-  unloadResourceList = (name: string[]) => {
-    for (let i = 0; i < name.length; i++) {
-      delete this.images[name[i]];
-    }
-  };
+  public unloadResourceList(name: string[]): void {
+    for (let i = 0; i < name.length; i++) delete this.images[name[i]];
+  }
 }
+

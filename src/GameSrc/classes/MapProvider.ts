@@ -6,21 +6,22 @@ import { Vector2 } from "./Vector2";
 export class MapProvider {
   private isLoaded: boolean;
   private currentyMap: GameMap | null;
-  private readonly maps: Map<string, GameMap>;
+  private readonly maps: Map<string, typeof GameMap>;
 
   constructor() {
     this.isLoaded = false;
     this.currentyMap = null;
-    this.maps = new Map<string, GameMap>();
+    this.maps = new Map<string, typeof GameMap>();
   }
 
-  public registerGameMap(gameMapName: string, gameMap: GameMap): void {
+  public registerGameMap(gameMapName: string, gameMap: typeof GameMap): void {
     this.maps.set(gameMapName, gameMap);
   }
 
-  public loadMap(gameMapName: string): void {
+  public createAndLoadMap(gameMapName: string): void {
     const mapClass = this.maps.get(gameMapName);
-    this.currentyMap = mapClass;
+
+    this.currentyMap = new mapClass(100, 100, gameMapName);
     this.isLoaded = true;
   }
 
@@ -30,6 +31,11 @@ export class MapProvider {
   }
 
   public deleteMap(gameMapName: string): void {
+    if (this.currentyMap.name === gameMapName) {
+      this.currentyMap = null;
+      this.isLoaded = false;
+    }
+
     this.maps.delete(gameMapName);
   }
 

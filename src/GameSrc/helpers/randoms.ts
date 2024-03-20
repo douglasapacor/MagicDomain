@@ -28,7 +28,7 @@ const generateKey = (keySize?: number): string => {
     if (typeCharacter === 0) {
       const indexCharacters = generateRandomRangeNumber(
         0,
-        lowerAlphabet.length
+        lowerAlphabet.length,
       );
       newKey += lowerAlphabet[indexCharacters];
     }
@@ -36,7 +36,7 @@ const generateKey = (keySize?: number): string => {
     if (typeCharacter === 1) {
       const indexCharacters = generateRandomRangeNumber(
         0,
-        upperAlphabet.length
+        upperAlphabet.length,
       );
       newKey += upperAlphabet[indexCharacters];
     }
@@ -44,7 +44,7 @@ const generateKey = (keySize?: number): string => {
     if (typeCharacter === 2) {
       const indexCharacters = generateRandomRangeNumber(
         0,
-        commomNumbers.length
+        commomNumbers.length,
       );
       newKey += commomNumbers[indexCharacters];
     }
@@ -98,3 +98,4 @@ export {
   generateRecoveryPasswordKey,
   generateUpperRandomString,
 };
+

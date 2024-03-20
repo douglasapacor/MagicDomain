@@ -14,6 +14,6 @@ export class SceneFactory {
 
   public static create(sceneName: string): Scene {
     const sceneClass = this.registry.get(sceneName);
-    return new sceneClass();
+    return new sceneClass(sceneName);
   }
 }

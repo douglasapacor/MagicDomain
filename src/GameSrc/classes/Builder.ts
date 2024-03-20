@@ -1,27 +1,32 @@
-import { IHtmlBuilderParams } from "./Interfaces/IHtmlBuilderParams";
+import { IHtmlBuilderAttributes } from "./Interfaces/IHtmlBuilderAttributes";
 
 export class Builder {
-  public createElement<T extends HTMLElement>(
+  public static createElement<T extends HTMLElement>(
     tagName: keyof HTMLElementTagNameMap,
-    params?: IHtmlBuilderParams,
+    attributes?: IHtmlBuilderAttributes,
+    style?: CSSStyleDeclaration,
   ): T {
     const element = document.createElement(tagName);
 
-    if (params) {
-      this.setAttribute(element, params);
-      this.setStyle(element, params);
-    }
+    if (attributes) this.setAttribute(element, attributes);
+    if (style) this.setStyle(element, style);
 
     return element as T;
   }
 
-  private setAttribute(element: HTMLElement, params: IHtmlBuilderParams): void {
+  private static setAttribute(
+    element: HTMLElement,
+    params: IHtmlBuilderAttributes,
+  ): void {
     for (const [key, value] of Object.entries(params)) {
-      if (key !== "style") element.setAttribute(key, value);
+      element.setAttribute(key, value);
     }
   }
 
-  private setStyle(element: HTMLElement, params: IHtmlBuilderParams): void {
-    if (params.style) Object.assign(element.style, params.style);
+  private static setStyle(
+    element: HTMLElement,
+    style: CSSStyleDeclaration,
+  ): void {
+    if (style) Object.assign(element.style, style);
   }
 }

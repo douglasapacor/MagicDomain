@@ -5,7 +5,6 @@ export interface IGameObject {
   readonly name?: string;
   parent: GameObject | null;
   children: GameObject[];
-  hasReadyBeenCalled: boolean;
   position: Vector2;
   stepEntry(delta: number): void;
   step(delta: number): void;

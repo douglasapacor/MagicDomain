@@ -1,9 +1,8 @@
-export interface IHtmlBuilderParams {
+export interface IHtmlBuilderAttributes {
   id?: string;
+  width?: number;
+  height?: number;
   classes?: string;
-  style?: {
-    [key: string]: string;
-  };
   children?: HTMLElement[];
   data?: {
     [key: string]: string;

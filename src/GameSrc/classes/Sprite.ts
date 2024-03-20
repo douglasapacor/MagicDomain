@@ -28,8 +28,7 @@ export class Sprite extends GameObject {
     position,
     animations,
   }: spriteConstructor) {
-    super();
-    this.name = `${name ? name : generateKey(7)}_sprite`;
+    super(name ? name + "_sprite" : `${generateKey(5)}__sprite`);
     this.resource = resource;
     this.frameSize = frameSize ?? new Vector2(16, 16);
     this.hFrames = hFrames ?? 1;

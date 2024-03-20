@@ -1,3 +1,4 @@
+import { generateKey } from "../helpers/randoms";
 import { GameObject } from "./GameObject";
 import { animationConfig } from "./types/animationConfig";
 
@@ -6,8 +7,12 @@ export class FrameIndexPattern extends GameObject {
   public duration: number;
   public animationConfig: animationConfig;
 
-  constructor(animationConfig: animationConfig) {
-    super();
+  constructor(animationConfig: animationConfig, name?: string) {
+    super(
+      name
+        ? name + "_frameIndexPattern"
+        : `${generateKey(5)}_frameIndexPattern`,
+    );
     this.currentTime = 0;
     this.animationConfig = animationConfig;
     this.duration = animationConfig.duration ?? 500;
