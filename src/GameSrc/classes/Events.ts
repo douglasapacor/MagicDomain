@@ -1,5 +1,4 @@
-import { IEventCallback } from "./Interfaces/IEventCallback";
-import { IEventRegistration } from "./Interfaces/IEventRegistration";
+import { IEventCallback, IEventRegistration } from "..";
 
 export class Events {
   public callbacks: IEventRegistration[] = [];
@@ -11,7 +10,7 @@ export class Events {
   }
 
   public emit(eventName: string, value: unknown): void {
-    this.callbacks.forEach((stored) => {
+    this.callbacks.forEach(stored => {
       if (stored.eventName === eventName) {
         stored.callback(value);
       }
@@ -21,7 +20,7 @@ export class Events {
   public on(
     eventName: string,
     caller: unknown,
-    callback: IEventCallback
+    callback: IEventCallback,
   ): number {
     this.nextId += 1;
     this.callbacks.push({
@@ -34,12 +33,10 @@ export class Events {
   }
 
   public off(id: number): void {
-    this.callbacks = this.callbacks.filter((stored) => stored.id !== id);
+    this.callbacks = this.callbacks.filter(stored => stored.id !== id);
   }
 
   public unsubscribe(caller: unknown): void {
-    this.callbacks = this.callbacks.filter(
-      (stored) => stored.caller !== caller
-    );
+    this.callbacks = this.callbacks.filter(stored => stored.caller !== caller);
   }
 }

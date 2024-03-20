@@ -1,4 +1,4 @@
-import { animationConfig } from "./types/animationConfig";
+import { animationConfig } from "..";
 
 export class FrameIndexPattern {
   public currentTime: number;

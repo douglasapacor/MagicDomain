@@ -1,5 +1,4 @@
-import { gameEvents, mapProvider } from "..";
-import { Vector2 } from "./Vector2";
+import { gameEvents, mapProvider, Vector2 } from "..";
 
 export class Camera {
   private halfSize: number;
@@ -34,8 +33,8 @@ export class Camera {
         !this.position.equals(
           (this.position = new Vector2(
             -this.target.x + halfWidth,
-            -this.target.y + halfHeight
-          ))
+            -this.target.y + halfHeight,
+          )),
         )
       ) {
         if (mapProvider.mapIsLoaded) {
@@ -44,14 +43,14 @@ export class Camera {
           const clampedX = Math.max(this.position.x, 0);
           const clampedXMax = Math.min(
             clampedX,
-            mapDimensions.x - this.canvasWidth
+            mapDimensions.x - this.canvasWidth,
           );
 
           // const clampedY = Math.max(this.position.y, 0);
 
           const clampedYMax = Math.min(
             mapDimensions.y - this.canvasHeight,
-            this.position.y
+            this.position.y,
           );
 
           this.position = new Vector2(clampedXMax, clampedYMax);

@@ -1,4 +1,4 @@
-import { GameObject } from "./GameObject";
+import { GameObject } from "..";
 
 export class Scene extends GameObject {
   constructor() {

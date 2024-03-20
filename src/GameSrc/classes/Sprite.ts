@@ -47,7 +47,7 @@ export class Sprite {
       for (let h = 0; h < this.hFrames; h++) {
         this.frameMap.set(
           frameCount,
-          new Vector2(this.frameSize.x * h, this.frameSize.y * v)
+          new Vector2(this.frameSize.x * h, this.frameSize.y * v),
         );
         frameCount++;
       }
@@ -89,7 +89,7 @@ export class Sprite {
       x,
       y,
       frameSizeX * this.scale,
-      frameSizeY * this.scale
+      frameSizeY * this.scale,
     );
   }
 }

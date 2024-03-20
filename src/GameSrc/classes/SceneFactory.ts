@@ -1,4 +1,4 @@
-import { Scene } from "./Scene";
+import { Scene } from "..";
 
 export class SceneFactory {
   private static readonly registry: Map<string, typeof Scene> = new Map();
@@ -7,7 +7,7 @@ export class SceneFactory {
 
   public static registerSceneClass(
     sceneName: string,
-    sceneClass: typeof Scene
+    sceneClass: typeof Scene,
   ): void {
     this.registry.set(sceneName, sceneClass);
   }

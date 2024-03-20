@@ -1,8 +1,4 @@
-import { GameLog } from "./GameLog";
-import { Html } from "./Html";
-import { Loop } from "./Loop";
-import { Scene } from "./Scene";
-import { SceneFactory } from "./SceneFactory";
+import { GameLog, Html, Loop, Scene, SceneFactory } from "..";
 
 export class Game {
   private loop: Loop;

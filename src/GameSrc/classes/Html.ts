@@ -1,4 +1,4 @@
-import { Builder } from "./Builder";
+import { Builder } from "..";
 
 export class Html {
   public canvas: HTMLCanvasElement;

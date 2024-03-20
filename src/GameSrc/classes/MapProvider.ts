@@ -1,5 +1,4 @@
-import { Map as GameMap } from "./Map";
-import { Vector2 } from "./Vector2";
+import { Map as GameMap, Vector2 } from "..";
 
 export class MapProvider {
   private isLoaded: boolean;

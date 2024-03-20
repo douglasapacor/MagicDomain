@@ -1,4 +1,4 @@
-import { momentRegister } from "./types/momentRegister";
+import { momentRegister } from "..";
 
 export class GameLog {
   public startedAt: Date;

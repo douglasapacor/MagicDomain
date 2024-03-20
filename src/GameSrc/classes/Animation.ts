@@ -1,5 +1,4 @@
-import { IEventCallback, animationEvents } from "..";
-import { FrameIndexPattern } from "./FrameIndexPattern";
+import { animationEvents, FrameIndexPattern, IEventCallback } from "..";
 
 export class Animation {
   public patterns: Record<string, FrameIndexPattern>;

@@ -1,5 +1,4 @@
-import { IGameObject } from "./Interfaces/IGameObject";
-import { Vector2 } from "./Vector2";
+import { IGameObject, Vector2 } from "..";
 
 export class GameObject implements IGameObject {
   public readonly name?: string;
