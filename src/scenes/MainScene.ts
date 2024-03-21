@@ -1,4 +1,4 @@
-import { Scene } from "../gamesrc/classes/Scene";
+import { Scene } from "../lib/classes/Scene";
 
 export class MainScene extends Scene {
   constructor() {
@@ -9,4 +9,3 @@ export class MainScene extends Scene {
 
   public drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {}
 }
-
