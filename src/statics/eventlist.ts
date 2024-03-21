@@ -1,0 +1,4 @@
+export enum MAIN_EVENTS {
+  LOAD_MAP_MANIFEST = "LOAD_MAP_MANIFEST",
+}
+

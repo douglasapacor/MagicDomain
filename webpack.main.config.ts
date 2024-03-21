@@ -3,7 +3,7 @@ import { plugins } from "./webpack.plugins";
 import { rules } from "./webpack.rules";
 
 export const mainConfig: Configuration = {
-  entry: "./src/background.ts",
+  entry: "./src/structure/background.ts",
   mode: "development",
   module: {
     rules,

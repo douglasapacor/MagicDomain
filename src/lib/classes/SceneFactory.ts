@@ -5,10 +5,7 @@ export class SceneFactory {
 
   private constructor() {}
 
-  public static registerSceneClass(
-    sceneName: string,
-    sceneClass: typeof Scene,
-  ): void {
+  public static register(sceneName: string, sceneClass: typeof Scene): void {
     this.registry.set(sceneName, sceneClass);
   }
 

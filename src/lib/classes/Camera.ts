@@ -1,4 +1,4 @@
-import { gameEvents, mapProvider } from "..";
+import { gameEvents } from "..";
 import { Vector2 } from "./Vector2";
 
 export class Camera {
@@ -38,25 +38,21 @@ export class Camera {
           )),
         )
       ) {
-        if (mapProvider.mapIsLoaded) {
-          const mapDimensions = mapProvider.getDimensions;
-
-          const clampedX = Math.max(this.position.x, 0);
-          const clampedXMax = Math.min(
-            clampedX,
-            mapDimensions.x - this.canvasWidth,
-          );
-
-          // const clampedY = Math.max(this.position.y, 0);
-
-          const clampedYMax = Math.min(
-            mapDimensions.y - this.canvasHeight,
-            this.position.y,
-          );
-
-          this.position = new Vector2(clampedXMax, clampedYMax);
-          gameEvents.emit("camera_moved", this.position);
-        }
+        // if (mapProvider.mapIsLoaded) {
+        //   const mapDimensions = mapProvider.getDimensions;
+        // const clampedX = Math.max(this.position.x, 0);
+        // const clampedXMax = Math.min(
+        //   clampedX,
+        //   mapDimensions.x - this.canvasWidth,
+        // );
+        // // const clampedY = Math.max(this.position.y, 0);
+        // const clampedYMax = Math.min(
+        //   mapDimensions.y - this.canvasHeight,
+        //   this.position.y,
+        // );
+        // this.position = new Vector2(clampedXMax, clampedYMax);
+        // gameEvents.emit("camera_moved", this.position);
+        // }
       }
     }
   }

@@ -11,4 +11,3 @@ export abstract class DataHolder {
 
   abstract getData(): unknown;
 }
-

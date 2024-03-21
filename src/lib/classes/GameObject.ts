@@ -3,14 +3,14 @@ import { IGameObject } from "./Interfaces/IGameObject";
 import { Vector2 } from "./Vector2";
 
 export class GameObject implements IGameObject {
-  public readonly name?: string;
+  public readonly name: string;
   public parent: GameObject | null;
   public children: GameObject[];
   private hasReadyBeenCalled: boolean;
   public position: Vector2;
 
-  constructor(name = "", position?: Vector2) {
-    this.name = name ? name + "_gameobject" : `${generateKey(9)}_gameobject`;
+  constructor(name: string, position?: Vector2) {
+    this.name = `${name}_${generateKey(5)}_gameobject`;
     this.children = [];
     this.hasReadyBeenCalled = false;
     this.position = position ? position : new Vector2(0, 0);

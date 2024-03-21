@@ -1,14 +1,10 @@
-import { generateKey } from "../helpers/randoms";
+import { Dimensions } from "./Dimensions";
 import { GameObject } from "./GameObject";
 
 export class Map extends GameObject {
-  public width: number;
-  public height: number;
+  public dimensions: Dimensions;
 
-  constructor(w: number, h: number, name?: string) {
-    super(name ? name + "_map" : `${generateKey(5)}_map`);
-    this.width = w;
-    this.height = h;
+  constructor(name: string) {
+    super(`${name}_map`);
   }
 }
-

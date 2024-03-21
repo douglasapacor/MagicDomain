@@ -2,6 +2,7 @@ import { Animation } from "./classes/Animation";
 import { Builder } from "./classes/Builder";
 import { Camera } from "./classes/Camera";
 import { DataHolder } from "./classes/DataHolder";
+import { Dimensions } from "./classes/Dimensions";
 import { Entity } from "./classes/Entity";
 import { Events } from "./classes/Events";
 import { FrameIndexPattern } from "./classes/FrameIndexPattern";
@@ -16,7 +17,7 @@ import { IGameObject } from "./classes/Interfaces/IGameObject";
 import { IHtmlBuilderAttributes } from "./classes/Interfaces/IHtmlBuilderAttributes";
 import { Loop } from "./classes/Loop";
 import { Map } from "./classes/Map";
-import { MapProvider } from "./classes/MapProvider";
+import { MapFactory } from "./classes/MapFactory";
 import { Resources } from "./classes/Resources";
 import { Scene } from "./classes/Scene";
 import { SceneFactory } from "./classes/SceneFactory";
@@ -39,15 +40,9 @@ import {
   generateRecoveryPasswordKey,
   generateUpperRandomString,
 } from "./helpers/randoms";
-
-// Events Instances
 const gameEvents = new Events();
 const animationEvents = new Events();
 const keyboardEvents = new Events();
-
-// Providers Instances
-const mapProvider = new MapProvider();
-
 export {
   Animation,
   animationConfig,
@@ -55,6 +50,7 @@ export {
   Builder,
   Camera,
   DataHolder,
+  Dimensions,
   Entity,
   Events,
   frameConfigTime,
@@ -81,7 +77,7 @@ export {
   keyboardEvents,
   Loop,
   Map,
-  mapProvider,
+  MapFactory,
   momentRegister,
   moveTowards,
   Resources,

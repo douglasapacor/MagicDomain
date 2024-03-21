@@ -1,9 +1,7 @@
-import { MainScene } from "../../scenes/MainScene";
 import { GameLog } from "./GameLog";
 import { Html } from "./Html";
 import { Loop } from "./Loop";
 import { Scene } from "./Scene";
-import { SceneFactory } from "./SceneFactory";
 
 export class Game {
   private loop: Loop;
@@ -15,8 +13,6 @@ export class Game {
     this.loop = new Loop(this.Update, this.Draw);
     this.html = new Html();
     this.gameLog = new GameLog();
-    this.registerScenes();
-    this.loadScene("MainScene");
   }
 
   private calculateElapsedTime(): void {
@@ -78,12 +74,4 @@ export class Game {
   };
 
   public Start = (): void => this.loop.Start();
-
-  public loadScene(sceneName: string): void {
-    this.currentScene = SceneFactory.create(sceneName);
-  }
-
-  public registerScenes(): void {
-    SceneFactory.registerSceneClass("MainScene", MainScene);
-  }
 }
