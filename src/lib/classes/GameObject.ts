@@ -27,28 +27,21 @@ export class GameObject implements IGameObject {
     this.step(delta);
   }
 
-  public step(delta: number): void {
-    throw new Error(`Error in: ${delta}: Implement a step method.`);
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public step(delta: number): void {}
 
-  public ready(): void {
-    throw new Error(`Error: Implement a Ready method.`);
-  }
+  public ready(): void {}
 
   public draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
     const drawPosX = x + this.position.x;
     const drawPosY = y + this.position.y;
 
     this.drawImage(ctx, drawPosX, drawPosY);
-
     this.children.forEach(go => go.draw(ctx, drawPosX, drawPosY));
   }
 
-  public drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {
-    throw new Error(
-      `Error: Implement a DrawImage method. Content: ctx: ${ctx} | x: ${x} | y: ${y}`,
-    );
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {}
 
   public addChild(gameObject: GameObject) {
     gameObject.parent = this;

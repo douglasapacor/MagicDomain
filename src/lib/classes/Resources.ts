@@ -68,4 +68,3 @@ export class Resources {
     for (let i = 0; i < name.length; i++) delete this.images[name[i]];
   }
 }
-

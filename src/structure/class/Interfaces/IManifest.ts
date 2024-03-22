@@ -1,7 +1,7 @@
 export interface IManifest {
   version: string;
   paths: {
-    root: string;
+    home: string;
     artifacts: string;
     logs: string;
     maps: string;

@@ -10,8 +10,8 @@ export class Game {
   private currentScene: Scene | null;
 
   constructor() {
-    this.loop = new Loop(this.Update, this.Draw);
     this.html = new Html();
+    this.loop = new Loop(this.Update, this.Draw);
     this.gameLog = new GameLog();
   }
 

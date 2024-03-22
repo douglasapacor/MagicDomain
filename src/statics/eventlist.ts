@@ -1,4 +1,4 @@
-export enum MAIN_EVENTS {
+export enum GAME_EVENTS {
   LOAD_MAP_MANIFEST = "LOAD_MAP_MANIFEST",
 }
 
