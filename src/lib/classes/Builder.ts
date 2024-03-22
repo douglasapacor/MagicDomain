@@ -4,17 +4,17 @@ export class Builder {
   public static createElement<T extends HTMLElement>(
     tagName: keyof HTMLElementTagNameMap,
     attributes?: IHtmlBuilderAttributes,
-    style?: CSSStyleDeclaration,
+    style?: unknown,
   ): T {
     const element = document.createElement(tagName);
 
     if (attributes) this.setAttribute(element, attributes);
-    if (style) this.setStyle(element, style);
+    if (style) this.setStyle(element, style as CSSStyleDeclaration);
 
     return element as T;
   }
 
-  private static setAttribute(
+  public static setAttribute(
     element: HTMLElement,
     params: IHtmlBuilderAttributes,
   ): void {
@@ -23,10 +23,7 @@ export class Builder {
     }
   }
 
-  private static setStyle(
-    element: HTMLElement,
-    style: CSSStyleDeclaration,
-  ): void {
+  public static setStyle(element: HTMLElement, style: unknown): void {
     if (style) Object.assign(element.style, style);
   }
 }

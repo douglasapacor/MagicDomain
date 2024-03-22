@@ -1,3 +1,4 @@
+import { StartScene } from "../../scenes/StartScene";
 import { GameLog } from "./GameLog";
 import { Html } from "./Html";
 import { Loop } from "./Loop";
@@ -13,6 +14,7 @@ export class Game {
     this.html = new Html();
     this.loop = new Loop(this.Update, this.Draw);
     this.gameLog = new GameLog();
+    this.loadScene();
   }
 
   private calculateElapsedTime(): void {
@@ -74,4 +76,37 @@ export class Game {
   };
 
   public Start = (): void => this.loop.Start();
+
+  private async loadScene(): Promise<void> {
+    if (this.currentScene) {
+      await this.fadeOut(3000);
+    }
+    this.currentScene = new StartScene();
+    await this.fadeIn(3000);
+  }
+
+  private async fadeOut(duracao: number): Promise<void> {
+    let opacidade = 1;
+    const intervaloFade = setInterval(() => {
+      opacidade -= 0.01;
+      this.html.overlay.style.opacity = opacidade.toString();
+      if (opacidade <= 0) {
+        clearInterval(intervaloFade);
+      }
+    }, duracao / 100);
+    await new Promise(resolve => setTimeout(resolve, duracao));
+  }
+
+  private async fadeIn(duracao: number): Promise<void> {
+    let opacidade = 0;
+    const intervaloFade = setInterval(() => {
+      opacidade += 0.01;
+      this.html.overlay.style.opacity = opacidade.toString();
+      if (opacidade >= 1) {
+        clearInterval(intervaloFade);
+        this.html.overlay.style.opacity = "1"; // Garanta opacidade total
+      }
+    }, duracao / 100);
+    await new Promise(resolve => setTimeout(resolve, duracao));
+  }
 }

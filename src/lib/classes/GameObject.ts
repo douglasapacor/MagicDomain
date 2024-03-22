@@ -6,7 +6,7 @@ export class GameObject implements IGameObject {
   public readonly name: string;
   public parent: GameObject | null;
   public children: GameObject[];
-  private hasReadyBeenCalled: boolean;
+  public hasReadyBeenCalled: boolean;
   public position: Vector2;
 
   constructor(name: string, position?: Vector2) {

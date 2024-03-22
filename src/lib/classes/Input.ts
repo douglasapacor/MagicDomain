@@ -40,4 +40,3 @@ export class Input {
     return Array.from(this.heldDirections);
   }
 }
-

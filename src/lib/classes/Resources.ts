@@ -1,5 +1,7 @@
+import localFiles from "../../statics/localFiles";
+
 export class Resources {
-  private toLoad: Record<string, string>;
+  public toLoad: Record<string, string>;
   public images: Record<
     string,
     {
@@ -8,8 +10,8 @@ export class Resources {
     }
   >;
 
-  constructor(toLoadStatics: Record<string, string>) {
-    this.toLoad = toLoadStatics;
+  constructor() {
+    this.toLoad = localFiles;
     this.images = {};
   }
 

@@ -1,5 +1,4 @@
 import { Scene } from "../lib/classes/Scene";
-
 const SCENE_NAME = "start_scene";
 
 export class StartScene extends Scene {
@@ -7,7 +6,11 @@ export class StartScene extends Scene {
     super(SCENE_NAME);
   }
 
-  public stepEntry(delta: number): void {}
+  public override preLoad(): void {
+    console.log("preload");
+  }
 
-  public drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {}
+  public override step(delta: number): void {
+    console.log("step in delta: ", delta);
+  }
 }

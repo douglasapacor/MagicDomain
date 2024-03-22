@@ -43,6 +43,7 @@ import {
 const gameEvents = new Events();
 const animationEvents = new Events();
 const keyboardEvents = new Events();
+const resources = new Resources();
 export {
   Animation,
   animationConfig,
@@ -81,6 +82,7 @@ export {
   momentRegister,
   moveTowards,
   Resources,
+  resources,
   resourceTypes,
   Scene,
   SceneFactory,
