@@ -7,10 +7,10 @@ export class StartScene extends Scene {
   }
 
   public override preLoad(): void {
-    console.log("preload");
+    // console.log("preload");
   }
 
   public override step(delta: number): void {
-    console.log("step in delta: ", delta);
+    // console.log("StartScene: ", delta);
   }
 }

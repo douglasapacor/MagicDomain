@@ -78,14 +78,13 @@ export class Game {
   public Start = (): void => this.loop.Start();
 
   private async loadScene(): Promise<void> {
-    if (this.currentScene) {
-      await this.fadeOut(3000);
-    }
+    if (this.currentScene) await this.fadeOut(3000);
     this.currentScene = new StartScene();
     await this.fadeIn(3000);
   }
 
   private async fadeOut(duracao: number): Promise<void> {
+    console.log("fadeOut");
     let opacidade = 1;
     const intervaloFade = setInterval(() => {
       opacidade -= 0.01;
@@ -98,13 +97,14 @@ export class Game {
   }
 
   private async fadeIn(duracao: number): Promise<void> {
+    console.log("fadeIn");
     let opacidade = 0;
     const intervaloFade = setInterval(() => {
       opacidade += 0.01;
       this.html.overlay.style.opacity = opacidade.toString();
       if (opacidade >= 1) {
         clearInterval(intervaloFade);
-        this.html.overlay.style.opacity = "1"; // Garanta opacidade total
+        this.html.overlay.style.opacity = "1";
       }
     }, duracao / 100);
     await new Promise(resolve => setTimeout(resolve, duracao));

@@ -14,14 +14,19 @@ export class GamePaths {
   ): void {
     this.paths.set("webpack", webpack);
     this.paths.set("preload", preload);
+
     const home = app.getPath("userData");
     const finalHome = path.join(mode ? home : `${home} (development)`);
+
     this.paths.set("home", finalHome);
+
     const artifact = path.join(finalHome, "artifacts");
+
     this.paths.set("artifact", artifact);
     this.paths.set("logs", path.join(artifact, "logs"));
     this.paths.set("maps", path.join(artifact, "maps"));
     this.paths.set("languages", path.join(artifact, "languages"));
+    this.paths.set("assets", path.join(artifact, "assets"));
     this.paths.set("manifest", path.join(artifact, "manifest.json"));
   }
 
@@ -57,6 +62,10 @@ export class GamePaths {
     return this.paths.get("manifest");
   }
 
+  public static get assets(): string {
+    return this.paths.get("assets");
+  }
+
   public static get getManifestContent(): IManifestContent {
     return {
       home: this.paths.get("home"),
@@ -64,6 +73,7 @@ export class GamePaths {
       logs: this.paths.get("logs"),
       maps: this.paths.get("maps"),
       language: this.paths.get("languages"),
+      assets: this.paths.get("assets"),
       manifest: this.paths.get("manifest"),
     };
   }

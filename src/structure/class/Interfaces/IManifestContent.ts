@@ -4,6 +4,7 @@ export interface IManifestContent {
   logs: string;
   maps: string;
   language: string;
+  assets: string;
   manifest: string;
 }
 

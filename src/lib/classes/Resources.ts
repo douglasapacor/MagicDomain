@@ -1,5 +1,3 @@
-import localFiles from "../../statics/localFiles";
-
 export class Resources {
   public toLoad: Record<string, string>;
   public images: Record<
@@ -11,24 +9,7 @@ export class Resources {
   >;
 
   constructor() {
-    this.toLoad = localFiles;
     this.images = {};
-  }
-
-  public loadAllResources(): void {
-    Object.keys(this.toLoad).forEach(key => {
-      const img = new Image();
-      img.src = this.toLoad[key];
-
-      this.images[key] = {
-        image: img,
-        isLoaded: false,
-      };
-
-      img.onload = () => {
-        this.images[key].isLoaded = true;
-      };
-    });
   }
 
   public loadResourceByName(name: string): void {

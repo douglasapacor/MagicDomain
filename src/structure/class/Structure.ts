@@ -1,20 +1,17 @@
-import { app, BrowserWindow, ipcMain, Menu, powerSaveBlocker } from "electron";
+import { app, BrowserWindow, Menu, powerSaveBlocker } from "electron";
 import serve from "electron-serve";
-import { GAME_EVENTS } from "../../statics/eventlist";
 import { GameFileSistem } from "./GameFileSistem";
 import { GamePaths } from "./GamePaths";
 import { IManifest } from "./Interfaces/IManifest";
-import { Ipc } from "./Ipc";
 
 export class Structure {
   private readonly isProd: boolean;
-  private readonly lpc: Ipc;
+  private browserWindow: BrowserWindow;
 
-  constructor(entry: string, preload: string) {
+  constructor(entry: string, preload: string, bw: BrowserWindow) {
     this.isProd = process.env.NODE_ENV === "production";
-    GamePaths.registerPaths(this.isProd, entry, preload);
 
-    this.lpc = new Ipc(ipcMain, GAME_EVENTS);
+    GamePaths.registerPaths(this.isProd, entry, preload);
   }
 
   private async createDirectories() {
@@ -29,6 +26,9 @@ export class Structure {
 
     if (!(await GameFileSistem.existFile(GamePaths.language)))
       await GameFileSistem.createDirectory(GamePaths.language);
+
+    if (!(await GameFileSistem.existFile(GamePaths.assets)))
+      await GameFileSistem.createDirectory(GamePaths.assets);
   }
 
   private async createManifest() {
@@ -44,6 +44,7 @@ export class Structure {
   public async initialize() {
     try {
       process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
+
       powerSaveBlocker.start("prevent-app-suspension");
 
       if (process.env.NODE_ENV === "production") serve({ directory: "app" });
@@ -55,7 +56,7 @@ export class Structure {
       if (require("electron-squirrel-startup")) app.quit();
 
       const createWindow = (): void => {
-        const mainWindow = new BrowserWindow({
+        this.browserWindow = new BrowserWindow({
           width: 1280,
           height: 720,
           webPreferences: {
@@ -63,9 +64,9 @@ export class Structure {
             nodeIntegration: true,
           },
         });
+        this.browserWindow.loadURL(GamePaths.webpack);
 
-        mainWindow.loadURL(GamePaths.webpack);
-        if (!this.isProd) mainWindow.webContents.openDevTools();
+        if (!this.isProd) this.browserWindow.webContents.openDevTools();
       };
 
       Menu.setApplicationMenu(null);
@@ -77,8 +78,6 @@ export class Structure {
       app.on("activate", () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
       });
-
-      this.lpc.initialize();
     } catch (error) {
       console.log("ERRORORORORORO", error);
     }
