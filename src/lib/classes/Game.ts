@@ -75,7 +75,9 @@ export class Game {
     this.calculateElapsedTime();
   };
 
-  public Start = (): void => this.loop.Start();
+  public Start = (): void => {
+    this.loop.Start();
+  };
 
   private async loadScene(): Promise<void> {
     if (this.currentScene) await this.fadeOut(3000);

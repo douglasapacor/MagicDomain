@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from "electron";
 
-const bridge = {
+export const bridge = {
   send(channel: string, ...args: unknown[]) {
     ipcRenderer.send(channel, args);
   },

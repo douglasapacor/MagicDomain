@@ -1,83 +1,76 @@
 import { app, BrowserWindow, Menu, powerSaveBlocker } from "electron";
 import serve from "electron-serve";
-import { GameFileSistem } from "./GameFileSistem";
-import { GamePaths } from "./GamePaths";
-import { IManifest } from "./Interfaces/IManifest";
+import path from "path";
+import { GAME_EVENTS } from "../../statics/eventlist";
+import { GameListeners } from "./GameListeners";
 
 export class Structure {
   private readonly isProd: boolean;
+  private readonly gameListeners: GameListeners;
+  private readonly entry: string;
+  private readonly preload: string;
+  private readonly home: string;
   private browserWindow: BrowserWindow;
 
-  constructor(entry: string, preload: string, bw: BrowserWindow) {
+  constructor(entry: string, preload: string) {
     this.isProd = process.env.NODE_ENV === "production";
+    this.entry = entry;
+    this.preload = preload;
 
-    GamePaths.registerPaths(this.isProd, entry, preload);
-  }
+    const homeString = app.getPath("userData");
 
-  private async createDirectories() {
-    if (!(await GameFileSistem.existFile(GamePaths.artifact)))
-      await GameFileSistem.createDirectory(GamePaths.artifact);
+    this.home = path.join(
+      this.isProd ? homeString : `${homeString} (development)`,
+    );
 
-    if (!(await GameFileSistem.existFile(GamePaths.logs)))
-      await GameFileSistem.createDirectory(GamePaths.logs);
-
-    if (!(await GameFileSistem.existFile(GamePaths.maps)))
-      await GameFileSistem.createDirectory(GamePaths.maps);
-
-    if (!(await GameFileSistem.existFile(GamePaths.language)))
-      await GameFileSistem.createDirectory(GamePaths.language);
-
-    if (!(await GameFileSistem.existFile(GamePaths.assets)))
-      await GameFileSistem.createDirectory(GamePaths.assets);
-  }
-
-  private async createManifest() {
-    if (!(await GameFileSistem.existFile(GamePaths.manisfest))) {
-      const newManifest: IManifest = {
-        version: app.getVersion(),
-        paths: GamePaths.getManifestContent,
-      };
-      await GameFileSistem.createFile(GamePaths.manisfest, newManifest);
-    }
+    this.gameListeners = new GameListeners(GAME_EVENTS);
   }
 
   public async initialize() {
     try {
       process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
-
       powerSaveBlocker.start("prevent-app-suspension");
 
       if (process.env.NODE_ENV === "production") serve({ directory: "app" });
-      else app.setPath("userData", GamePaths.home);
-
-      await this.createDirectories();
-      await this.createManifest();
+      else app.setPath("userData", this.home);
 
       if (require("electron-squirrel-startup")) app.quit();
 
-      const createWindow = (): void => {
+      Menu.setApplicationMenu(null);
+
+      const createWindow = async () => {
         this.browserWindow = new BrowserWindow({
           width: 1280,
           height: 720,
           webPreferences: {
-            preload: GamePaths.preload,
+            preload: this.preload,
             nodeIntegration: true,
           },
         });
-        this.browserWindow.loadURL(GamePaths.webpack);
+
+        this.browserWindow.loadURL(this.entry);
 
         if (!this.isProd) this.browserWindow.webContents.openDevTools();
       };
 
-      Menu.setApplicationMenu(null);
-
-      app.on("ready", createWindow);
-      app.on("window-all-closed", () => {
+      const windowsAllClosed = async () => {
         if (process.platform !== "darwin") app.quit();
-      });
-      app.on("activate", () => {
+      };
+
+      const activate = async () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
-      });
+      };
+
+      const registerIpcEvents = async () => {
+        this.gameListeners.initialize();
+      };
+
+      app
+        .on("ready", createWindow)
+        .on("window-all-closed", windowsAllClosed)
+        .on("activate", activate)
+        .whenReady()
+        .then(registerIpcEvents);
     } catch (error) {
       console.log("ERRORORORORORO", error);
     }

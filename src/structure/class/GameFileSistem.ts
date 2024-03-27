@@ -1,20 +1,22 @@
 import fs from "fs";
+
 export class GameFileSistem {
   constructor() {}
 
-  static async createFile(
-    fileName: string,
-    fileContent: unknown,
-  ): Promise<void> {
-    await fs.promises.writeFile(fileName, JSON.stringify(fileContent));
+  static createFile(fileName: string, fileContent: unknown): void {
+    fs.writeFileSync(fileName, JSON.stringify(fileContent));
   }
 
-  static async createDirectory(directoryName: string): Promise<void> {
-    await fs.promises.mkdir(directoryName);
+  static createDirectory(directoryName: string): void {
+    fs.mkdirSync(directoryName);
   }
 
-  static async existFile(fileNameLocation: string): Promise<boolean> {
+  static existFile(fileNameLocation: string): boolean {
     return fs.existsSync(fileNameLocation);
+  }
+
+  static readFile(fileNameLocation: string): Buffer {
+    return fs.readFileSync(fileNameLocation);
   }
 }
 
