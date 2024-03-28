@@ -1,4 +1,4 @@
 export enum GAME_EVENTS {
-  LOAD_IMAGE = "LOAD_IMAGE",
+  LOAD_PNG_IMAGE = "LOAD_PNG_IMAGE",
 }
 

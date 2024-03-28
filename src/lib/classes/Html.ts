@@ -17,7 +17,7 @@ export class Html {
       width: "100%",
       height: "100%",
       backgroundColor: "black",
-      opacity: "0",
+      opacity: "1",
     });
 
     document.body.appendChild(this.canvas);

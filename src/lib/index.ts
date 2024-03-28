@@ -21,6 +21,7 @@ import { MapFactory } from "./classes/MapFactory";
 import { Resources } from "./classes/Resources";
 import { Scene } from "./classes/Scene";
 import { SceneFactory } from "./classes/SceneFactory";
+import { SceneProvider } from "./classes/SceneProvider";
 import { Sprite } from "./classes/Sprite";
 import { UIComponent } from "./classes/UIComponent";
 import { Vector2 } from "./classes/Vector2";
@@ -86,6 +87,7 @@ export {
   resourceTypes,
   Scene,
   SceneFactory,
+  SceneProvider,
   Sprite,
   spriteConstructor,
   UIComponent,

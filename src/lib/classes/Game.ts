@@ -1,20 +1,24 @@
-import { StartScene } from "../../scenes/StartScene";
+import { gameEvents, Scene, SceneFactory, SceneProvider } from "..";
 import { GameLog } from "./GameLog";
 import { Html } from "./Html";
 import { Loop } from "./Loop";
-import { Scene } from "./Scene";
 
 export class Game {
   private loop: Loop;
   private html: Html;
   private gameLog: GameLog;
-  private currentScene: Scene | null;
 
-  constructor() {
+  constructor(private scenes: { [key: string]: typeof Scene }) {
     this.html = new Html();
     this.loop = new Loop(this.Update, this.Draw);
     this.gameLog = new GameLog();
-    this.loadScene();
+
+    gameEvents.on("fadeOut", this, this.fadeOut);
+    gameEvents.on("fadeIn", this, this.fadeIn);
+
+    Object.keys(this.scenes).forEach(itens =>
+      SceneFactory.register(itens, this.scenes[itens]),
+    );
   }
 
   private calculateElapsedTime(): void {
@@ -65,13 +69,14 @@ export class Game {
 
     this.html.context.save();
 
-    if (this.currentScene) this.currentScene.draw(this.html.context, 0, 0);
+    if (SceneProvider.current)
+      SceneProvider.current.draw(this.html.context, 0, 0);
 
     this.html.context.restore();
   };
 
   private Update = (delta: number): void => {
-    this.currentScene && this.currentScene.stepEntry(delta);
+    SceneProvider.current && SceneProvider.current.stepEntry(delta);
     this.calculateElapsedTime();
   };
 
@@ -79,14 +84,7 @@ export class Game {
     this.loop.Start();
   };
 
-  private async loadScene(): Promise<void> {
-    if (this.currentScene) await this.fadeOut(3000);
-    this.currentScene = new StartScene();
-    await this.fadeIn(3000);
-  }
-
-  private async fadeOut(duracao: number): Promise<void> {
-    console.log("fadeOut");
+  protected async fadeOut(duracao: number): Promise<void> {
     let opacidade = 1;
     const intervaloFade = setInterval(() => {
       opacidade -= 0.01;
@@ -98,8 +96,7 @@ export class Game {
     await new Promise(resolve => setTimeout(resolve, duracao));
   }
 
-  private async fadeIn(duracao: number): Promise<void> {
-    console.log("fadeIn");
+  protected async fadeIn(duracao: number): Promise<void> {
     let opacidade = 0;
     const intervaloFade = setInterval(() => {
       opacidade += 0.01;

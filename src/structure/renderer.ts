@@ -1,5 +1,5 @@
 import { Game } from "../lib";
+import * as scenes from "../scenes";
 import "../styles/main.css";
 
-const game = new Game();
-game.Start();
+new Game(scenes).Start();

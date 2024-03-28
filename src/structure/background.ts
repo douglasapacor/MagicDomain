@@ -5,4 +5,5 @@ import { Structure } from "./class/Structure";
 new Structure(
   MAIN_WINDOW_WEBPACK_ENTRY,
   MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+  __dirname,
 ).initialize();

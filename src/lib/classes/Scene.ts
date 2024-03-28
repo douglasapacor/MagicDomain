@@ -1,11 +1,15 @@
 import { GameObject } from "./GameObject";
 
 export class Scene extends GameObject {
-  public hasPreLoadBeenCalled: boolean;
+  protected hasPreLoadBeenCalled: boolean;
+  protected hasPosLoadBeenCalled: boolean;
+  protected isLoaded: boolean;
 
   constructor(name: string) {
     super(`${name}_scene`);
     this.hasPreLoadBeenCalled = false;
+    this.hasPosLoadBeenCalled = false;
+    this.isLoaded = false;
   }
 
   public override stepEntry(delta: number): void {
@@ -22,6 +26,11 @@ export class Scene extends GameObject {
     }
 
     this.step(delta);
+
+    if (!this.hasPosLoadBeenCalled) {
+      this.hasPosLoadBeenCalled = true;
+      this.isLoaded = true;
+    }
   }
 
   public preLoad(): void {}

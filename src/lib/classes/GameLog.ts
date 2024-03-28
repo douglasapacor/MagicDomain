@@ -14,4 +14,8 @@ export class GameLog {
       miliseconds: 0,
     };
   }
+
+  public get time(): momentRegister {
+    return this.elapsedTime;
+  }
 }

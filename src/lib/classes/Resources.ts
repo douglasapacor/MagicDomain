@@ -1,5 +1,7 @@
+import { IpcRendererEvent } from "electron";
+import { GAME_EVENTS } from "../../statics/eventlist";
+
 export class Resources {
-  public toLoad: Record<string, string>;
   public images: Record<
     string,
     {
@@ -10,20 +12,32 @@ export class Resources {
 
   constructor() {
     this.images = {};
+
+    window.bridge.on(
+      GAME_EVENTS.LOAD_PNG_IMAGE,
+      (
+        _: IpcRendererEvent,
+        ...args: { imageName: string; imageBuffer: Buffer }[]
+      ) => {
+        const { imageName, imageBuffer } = args[0];
+
+        const img = new Image();
+        img.src = `data:image/png;base64,${imageBuffer.toString("base64")}`;
+
+        this.images[imageName] = {
+          image: img,
+          isLoaded: false,
+        };
+
+        this.images[imageName].image.onload = () => {
+          this.images[imageName].isLoaded = true;
+        };
+      },
+    );
   }
 
   public loadResourceByName(name: string): void {
-    const img = new Image();
-    img.src = this.toLoad[name];
-
-    this.images[name] = {
-      image: img,
-      isLoaded: false,
-    };
-
-    img.onload = () => {
-      this.images[name].isLoaded = true;
-    };
+    window.bridge.send(GAME_EVENTS.LOAD_PNG_IMAGE, { imgFileName: name });
   }
 
   public unloadResourceByName(name: string): void {
@@ -32,18 +46,7 @@ export class Resources {
 
   public loadResourceList(name: string[]): void {
     for (let i = 0; i < name.length; i++) {
-      const img = new Image();
-
-      img.src = this.toLoad[name[i]];
-
-      this.images[name[i]] = {
-        image: img,
-        isLoaded: false,
-      };
-
-      img.onload = () => {
-        this.images[name[i]].isLoaded = true;
-      };
+      window.bridge.send(GAME_EVENTS.LOAD_PNG_IMAGE, { imgFileName: name });
     }
   }
 
