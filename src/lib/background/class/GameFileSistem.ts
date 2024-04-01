@@ -18,5 +18,9 @@ export class GameFileSistem {
   static readFile(fileNameLocation: string): Buffer {
     return fs.readFileSync(fileNameLocation);
   }
+
+  static readJSONFile(fileNameLocation: string): unknown {
+    return JSON.parse(fs.readFileSync(fileNameLocation, "utf-8"));
+  }
 }
 

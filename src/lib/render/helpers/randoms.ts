@@ -2,7 +2,7 @@ import {
   commomNumbers,
   lowerAlphabet,
   upperAlphabet,
-} from "../../statics/base";
+} from "../../../statics/base";
 
 const generateRandomNumber = (): number => {
   return parseInt(`${Math.random() * (999999 - 1) + 1}`);
@@ -98,4 +98,3 @@ export {
   generateRecoveryPasswordKey,
   generateUpperRandomString,
 };
-

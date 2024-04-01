@@ -1,5 +1,5 @@
 export abstract class DataHolder {
-  protected _name: string;
+  private readonly _name: string;
 
   constructor(name: string) {
     this._name = name;
@@ -9,5 +9,5 @@ export abstract class DataHolder {
     return this._name;
   }
 
-  abstract getData(): unknown;
+  public abstract getData(): unknown;
 }

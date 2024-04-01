@@ -1,4 +1,12 @@
-import { gameEvents, Scene, SceneFactory, SceneProvider } from "..";
+import {
+  gameEvents,
+  Scene,
+  SceneFactory,
+  SceneProvider,
+  TextHolder,
+  TextHolderFactory,
+} from "..";
+import { GAME_EVENTS } from "../../../statics/eventlist";
 import { GameLog } from "./GameLog";
 import { Html } from "./Html";
 import { Loop } from "./Loop";
@@ -8,7 +16,10 @@ export class Game {
   private html: Html;
   private gameLog: GameLog;
 
-  constructor(private scenes: { [key: string]: typeof Scene }) {
+  constructor(
+    private scenes: { [key: string]: typeof Scene },
+    private textHolders: { [key: string]: typeof TextHolder },
+  ) {
     this.html = new Html();
     this.loop = new Loop(this.Update, this.Draw);
     this.gameLog = new GameLog();
@@ -16,9 +27,18 @@ export class Game {
     gameEvents.on("fadeOut", this, this.fadeOut);
     gameEvents.on("fadeIn", this, this.fadeIn);
 
-    Object.keys(this.scenes).forEach(itens =>
-      SceneFactory.register(itens, this.scenes[itens]),
+    Object.keys(this.scenes).forEach(sceneName =>
+      SceneFactory.register(sceneName, this.scenes[sceneName]),
     );
+
+    Object.keys(this.textHolders).forEach(textHolderName =>
+      TextHolderFactory.register(
+        textHolderName,
+        this.textHolders[textHolderName],
+      ),
+    );
+
+    window.bridge.send(GAME_EVENTS.REQUEST_START);
   }
 
   private calculateElapsedTime(): void {
@@ -76,11 +96,14 @@ export class Game {
   };
 
   private Update = (delta: number): void => {
-    SceneProvider.current && SceneProvider.current.stepEntry(delta);
+    if (SceneProvider.current && SceneProvider.current.isLoaded)
+      SceneProvider.current.stepEntry(delta);
+
     this.calculateElapsedTime();
   };
 
   public Start = (): void => {
+    SceneProvider.loadScene("StartScene");
     this.loop.Start();
   };
 

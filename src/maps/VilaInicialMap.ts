@@ -1,4 +1,4 @@
-import { Map } from "../lib/classes/Map";
+import { Map } from "../lib/render/";
 
 const MAP_NAME = "vila_inicial_map";
 

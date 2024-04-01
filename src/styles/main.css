@@ -8,7 +8,7 @@ body {
 
 @font-face {
   font-family: "PixGamer";
-  src: url("../fonts/PixgamerRegular.ttf");
+  src: url("../assets/fonts/PixgamerRegular.ttf");
   font-weight: normal;
   font-style: normal;
 }

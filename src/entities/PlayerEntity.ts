@@ -1,4 +1,4 @@
-import { Entity } from "../lib/classes/Entity";
+import { Entity } from "../lib/render/classes/Entity";
 
 const ENTITY_NAME = "player";
 

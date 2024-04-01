@@ -1,5 +1,5 @@
 import { IpcRendererEvent } from "electron";
-import { GAME_EVENTS } from "../../statics/eventlist";
+import { GAME_EVENTS } from "../../../statics/eventlist";
 
 export class Resources {
   public images: Record<
@@ -14,7 +14,7 @@ export class Resources {
     this.images = {};
 
     window.bridge.on(
-      GAME_EVENTS.LOAD_PNG_IMAGE,
+      GAME_EVENTS.PNG_IMAGE_RESPONSE,
       (
         _: IpcRendererEvent,
         ...args: { imageName: string; imageBuffer: Buffer }[]
@@ -22,6 +22,7 @@ export class Resources {
         const { imageName, imageBuffer } = args[0];
 
         const img = new Image();
+
         img.src = `data:image/png;base64,${imageBuffer.toString("base64")}`;
 
         this.images[imageName] = {
@@ -37,7 +38,7 @@ export class Resources {
   }
 
   public loadResourceByName(name: string): void {
-    window.bridge.send(GAME_EVENTS.LOAD_PNG_IMAGE, { imgFileName: name });
+    window.bridge.send(GAME_EVENTS.REQUEST_PNG_IMAGE, { imgFileName: name });
   }
 
   public unloadResourceByName(name: string): void {
@@ -46,7 +47,7 @@ export class Resources {
 
   public loadResourceList(name: string[]): void {
     for (let i = 0; i < name.length; i++) {
-      window.bridge.send(GAME_EVENTS.LOAD_PNG_IMAGE, { imgFileName: name });
+      window.bridge.send(GAME_EVENTS.REQUEST_PNG_IMAGE, { imgFileName: name });
     }
   }
 

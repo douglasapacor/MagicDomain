@@ -1,7 +1,7 @@
 import { app, BrowserWindow, Menu, powerSaveBlocker } from "electron";
 import serve from "electron-serve";
 import path from "path";
-import { GAME_EVENTS } from "../../statics/eventlist";
+import { GAME_EVENTS } from "../../../statics/eventlist";
 import { GameListeners } from "./GameListeners";
 import { GamePaths } from "./GamePaths";
 
@@ -15,10 +15,10 @@ export class Structure {
 
     this.isProd = process.env.NODE_ENV === "production";
 
+    const srcPath = path.join(src, "../", "../", "src");
+
     GamePaths.createPath("entry", entry);
     GamePaths.createPath("preload", preload);
-
-    const srcPath = path.join(src, "../", "../", "src");
     GamePaths.createPath("src", srcPath);
     GamePaths.createPath("assets", path.join(srcPath, "assets"));
     GamePaths.createPath(
@@ -53,6 +53,7 @@ export class Structure {
         });
 
         this.browserWindow.loadURL(GamePaths.entry);
+
         if (!this.isProd) this.browserWindow.webContents.openDevTools();
       };
 

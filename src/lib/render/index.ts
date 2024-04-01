@@ -23,6 +23,9 @@ import { Scene } from "./classes/Scene";
 import { SceneFactory } from "./classes/SceneFactory";
 import { SceneProvider } from "./classes/SceneProvider";
 import { Sprite } from "./classes/Sprite";
+import { TextHolder } from "./classes/TextHolder";
+import { TextHolderFactory } from "./classes/TextHolderFactory";
+import { TextHolderProvider } from "./classes/TextHolderProvider";
 import { UIComponent } from "./classes/UIComponent";
 import { Vector2 } from "./classes/Vector2";
 import { animationConfig } from "./classes/types/animationConfig";
@@ -90,6 +93,9 @@ export {
   SceneProvider,
   Sprite,
   spriteConstructor,
+  TextHolder,
+  TextHolderFactory,
+  TextHolderProvider,
   UIComponent,
   Vector2,
 };

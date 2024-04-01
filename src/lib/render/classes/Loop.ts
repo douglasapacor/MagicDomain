@@ -43,4 +43,3 @@ export class Loop {
     this.isRunning = false;
   };
 }
-
