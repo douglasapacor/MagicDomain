@@ -26,8 +26,8 @@ export class StartScene extends Scene {
     ctx.font = "30pt PixGamer";
     ctx.textAlign = "left";
     ctx.fillStyle = "black";
-    const width = parseInt((ctx.canvas.clientWidth / 12).toFixed(0));
 
+    const width = parseInt((ctx.canvas.clientWidth / 12).toFixed(0));
     const newX = this.position.x + x + width;
     const newY = this.position.y + y + 100;
 
