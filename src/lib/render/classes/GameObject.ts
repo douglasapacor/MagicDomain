@@ -7,13 +7,15 @@ export class GameObject implements IGameObject {
   public parent: GameObject | null;
   public children: GameObject[];
   public hasReadyBeenCalled: boolean;
+  public isReady: boolean;
   public position: Vector2;
 
   constructor(name: string, position?: Vector2) {
     this.name = `${name}_${generateKey(5)}_gameobject`;
     this.children = [];
-    this.hasReadyBeenCalled = false;
     this.position = position ? position : new Vector2(0, 0);
+    this.hasReadyBeenCalled = false;
+    this.isReady = false;
   }
 
   public stepEntry(delta: number): void {
@@ -21,16 +23,17 @@ export class GameObject implements IGameObject {
 
     if (!this.hasReadyBeenCalled) {
       this.hasReadyBeenCalled = true;
+      this.isReady = true;
       this.ready();
-    }
-
-    this.step(delta);
+    } else if (this.hasReadyBeenCalled && !this.isReady) this.step(delta);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public step(delta: number): void {}
 
-  public ready(): void {}
+  public ready(): void {
+    this.isReady = false;
+  }
 
   public draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
     const drawPosX = x + this.position.x;
