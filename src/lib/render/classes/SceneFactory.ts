@@ -1,15 +1,15 @@
 import { Scene } from "./Scene";
 
 export class SceneFactory {
-  private static readonly registry: Map<string, typeof Scene> = new Map();
+  private readonly registry: Map<string, typeof Scene> = new Map();
 
-  private constructor() {}
+  constructor() {}
 
-  public static register(sceneName: string, sceneClass: typeof Scene): void {
+  public register(sceneName: string, sceneClass: typeof Scene): void {
     this.registry.set(sceneName, sceneClass);
   }
 
-  public static create(sceneName: string): Scene {
+  public create(sceneName: string): Scene {
     const sceneClass = this.registry.get(sceneName);
     return new sceneClass(sceneName);
   }

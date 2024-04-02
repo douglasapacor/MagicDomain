@@ -47,7 +47,15 @@ import {
 const gameEvents = new Events();
 const animationEvents = new Events();
 const keyboardEvents = new Events();
+
 const resources = new Resources();
+
+const sceneFactory = new SceneFactory();
+const textHolderFactory = new TextHolderFactory();
+
+const sceneProvider = new SceneProvider();
+const textHolderProvider = new TextHolderProvider();
+
 export {
   Animation,
   animationConfig,
@@ -89,13 +97,13 @@ export {
   resources,
   resourceTypes,
   Scene,
-  SceneFactory,
-  SceneProvider,
+  sceneFactory,
+  sceneProvider,
   Sprite,
   spriteConstructor,
   TextHolder,
-  TextHolderFactory,
-  TextHolderProvider,
+  textHolderFactory,
+  textHolderProvider,
   UIComponent,
   Vector2,
 };

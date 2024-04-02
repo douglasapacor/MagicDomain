@@ -1,18 +1,18 @@
 import { TextHolder } from "./TextHolder";
 
 export class TextHolderFactory {
-  private static readonly registry: Map<string, typeof TextHolder> = new Map();
+  private readonly registry: Map<string, typeof TextHolder> = new Map();
 
-  private constructor() {}
+  constructor() {}
 
-  public static register(
+  public register(
     textHolderName: string,
     textHolderClass: typeof TextHolder,
   ): void {
     this.registry.set(textHolderName, textHolderClass);
   }
 
-  public static create(textHolderName: string): TextHolder {
+  public create(textHolderName: string): TextHolder {
     const textHolderClass = this.registry.get(textHolderName);
     return new textHolderClass(textHolderName);
   }

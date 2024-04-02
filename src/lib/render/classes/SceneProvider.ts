@@ -1,16 +1,16 @@
+import { sceneFactory } from "..";
 import { Scene } from "./Scene";
-import { SceneFactory } from "./SceneFactory";
 
 export class SceneProvider {
-  private static scene: Scene | null = null;
+  private scene: Scene | null = null;
 
-  private constructor() {}
+  constructor() {}
 
-  public static loadScene(name: string) {
-    this.scene = SceneFactory.create(name);
+  public loadScene(name: string): void {
+    this.scene = sceneFactory.create(name);
   }
 
-  public static get current(): Scene {
+  public get current(): Scene {
     return this.scene;
   }
 }

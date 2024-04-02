@@ -17,8 +17,10 @@ export class StartTextData extends TextHolder {
 
     this.addLine(
       5,
-      "ser considerado como reprodução de um fato ou opnião da empresa ou dos desenvolvedores.",
+      " ser considerado como reprodução de um fato ou opnião da empresa ou dos",
     );
+
+    this.addLine(6, "desenvolvedores.");
   }
 
   public getData(): StartTextData {

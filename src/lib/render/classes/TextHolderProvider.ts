@@ -1,17 +1,19 @@
+import { textHolderFactory } from "..";
 import { TextHolder } from "./TextHolder";
-import { TextHolderFactory } from "./TextHolderFactory";
 
 export class TextHolderProvider {
-  private static textHolder: TextHolder | null = null;
+  private _current: TextHolder | null = null;
 
-  private constructor() {}
-
-  public static loadTextHolder(name: string) {
-    this.textHolder = TextHolderFactory.create(name);
+  constructor() {
+    this._current = null;
   }
 
-  public static get current(): TextHolder {
-    return this.textHolder;
+  public loadTextHolder(name: string) {
+    this._current = textHolderFactory.create(name);
+  }
+
+  public get current(): TextHolder {
+    return this._current;
   }
 }
 

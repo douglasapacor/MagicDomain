@@ -1,7 +1,7 @@
 import { DataHolder } from "./DataHolder";
 
 export class TextHolder extends DataHolder {
-  private _texts: Map<string | number, string>;
+  private _texts: Map<string | number, string> = new Map();
 
   constructor(name: string) {
     super(name);

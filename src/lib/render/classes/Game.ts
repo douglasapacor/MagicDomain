@@ -1,10 +1,10 @@
 import {
   gameEvents,
   Scene,
-  SceneFactory,
-  SceneProvider,
+  sceneFactory,
+  sceneProvider,
   TextHolder,
-  TextHolderFactory,
+  textHolderFactory,
 } from "..";
 import { GAME_EVENTS } from "../../../statics/eventlist";
 import { GameLog } from "./GameLog";
@@ -13,8 +13,9 @@ import { Loop } from "./Loop";
 
 export class Game {
   private loop: Loop;
-  private html: Html;
+  public html: Html;
   private gameLog: GameLog;
+  public faded: boolean;
 
   constructor(
     private scenes: { [key: string]: typeof Scene },
@@ -28,11 +29,11 @@ export class Game {
     gameEvents.on("fadeIn", this, this.fadeIn);
 
     Object.keys(this.scenes).forEach(sceneName =>
-      SceneFactory.register(sceneName, this.scenes[sceneName]),
+      sceneFactory.register(sceneName, this.scenes[sceneName]),
     );
 
     Object.keys(this.textHolders).forEach(textHolderName =>
-      TextHolderFactory.register(
+      textHolderFactory.register(
         textHolderName,
         this.textHolders[textHolderName],
       ),
@@ -89,46 +90,60 @@ export class Game {
 
     this.html.context.save();
 
-    if (SceneProvider.current)
-      SceneProvider.current.draw(this.html.context, 0, 0);
+    if (sceneProvider.current)
+      if (sceneProvider.current.isLoaded) {
+        sceneProvider.current.draw(this.html.context, 0, 0);
+      }
 
     this.html.context.restore();
   };
 
   private Update = (delta: number): void => {
-    if (SceneProvider.current && SceneProvider.current.isLoaded)
-      SceneProvider.current.stepEntry(delta);
+    if (sceneProvider.current) {
+      sceneProvider.current.stepEntry(delta);
+    }
 
     this.calculateElapsedTime();
   };
 
   public Start = (): void => {
-    SceneProvider.loadScene("StartScene");
+    sceneProvider.loadScene("StartScene");
     this.loop.Start();
   };
 
-  protected async fadeOut(duracao: number): Promise<void> {
+  public fadeOut = async (duracao: number): Promise<void> => {
     let opacidade = 1;
+
     const intervaloFade = setInterval(() => {
       opacidade -= 0.01;
+
       this.html.overlay.style.opacity = opacidade.toString();
+
       if (opacidade <= 0) {
         clearInterval(intervaloFade);
+        this.html.overlay.style.opacity = "0";
+        this.faded = false;
       }
     }, duracao / 100);
-    await new Promise(resolve => setTimeout(resolve, duracao));
-  }
 
-  protected async fadeIn(duracao: number): Promise<void> {
+    await new Promise(resolve => setTimeout(resolve, duracao));
+  };
+
+  public fadeIn = async (duracao: number): Promise<void> => {
     let opacidade = 0;
+
     const intervaloFade = setInterval(() => {
       opacidade += 0.01;
+
       this.html.overlay.style.opacity = opacidade.toString();
+
       if (opacidade >= 1) {
+        this.faded = true;
         clearInterval(intervaloFade);
         this.html.overlay.style.opacity = "1";
       }
     }, duracao / 100);
+
     await new Promise(resolve => setTimeout(resolve, duracao));
-  }
+  };
 }
