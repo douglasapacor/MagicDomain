@@ -50,10 +50,10 @@ const keyboardEvents = new Events();
 
 const resources = new Resources();
 
-const sceneFactory = new SceneFactory();
+// const sceneFactory = new SceneFactory();
 const textHolderFactory = new TextHolderFactory();
 
-const sceneProvider = new SceneProvider();
+// const sceneProvider = new SceneProvider();
 const textHolderProvider = new TextHolderProvider();
 
 export {
@@ -97,8 +97,8 @@ export {
   resources,
   resourceTypes,
   Scene,
-  sceneFactory,
-  sceneProvider,
+  SceneFactory,
+  SceneProvider,
   Sprite,
   spriteConstructor,
   TextHolder,

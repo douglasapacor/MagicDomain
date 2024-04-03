@@ -8,6 +8,7 @@ export class Html {
   constructor() {
     this.canvas = Builder.createElement("canvas", { width: 1280, height: 768 });
     this.ctx = this.canvas.getContext("2d");
+
     this.overlayElement = Builder.createElement("div");
 
     Builder.setStyle(this.overlayElement, {

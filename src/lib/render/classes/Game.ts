@@ -1,8 +1,8 @@
 import {
   gameEvents,
   Scene,
-  sceneFactory,
-  sceneProvider,
+  SceneFactory,
+  SceneProvider,
   TextHolder,
   textHolderFactory,
 } from "..";
@@ -15,7 +15,6 @@ export class Game {
   private loop: Loop;
   public html: Html;
   private gameLog: GameLog;
-  public faded: boolean;
 
   constructor(
     private scenes: { [key: string]: typeof Scene },
@@ -27,17 +26,7 @@ export class Game {
 
     gameEvents.on("fadeOut", this, this.fadeOut);
     gameEvents.on("fadeIn", this, this.fadeIn);
-
-    Object.keys(this.scenes).forEach(sceneName =>
-      sceneFactory.register(sceneName, this.scenes[sceneName]),
-    );
-
-    Object.keys(this.textHolders).forEach(textHolderName =>
-      textHolderFactory.register(
-        textHolderName,
-        this.textHolders[textHolderName],
-      ),
-    );
+    gameEvents.on("fadeIn", this, this.fadeIn);
 
     window.bridge.send(GAME_EVENTS.REQUEST_START);
   }
@@ -90,24 +79,36 @@ export class Game {
 
     this.html.context.save();
 
-    if (sceneProvider.current)
-      if (sceneProvider.current.isLoaded) {
-        sceneProvider.current.draw(this.html.context, 0, 0);
+    if (SceneProvider.current) {
+      if (SceneProvider.current.isLoaded) {
+        SceneProvider.current.draw(this.html.context, 0, 0);
       }
+    }
 
     this.html.context.restore();
   };
 
   private Update = (delta: number): void => {
-    if (sceneProvider.current) {
-      sceneProvider.current.stepEntry(delta);
-    }
+    if (SceneProvider.current) SceneProvider.current.stepEntry(delta);
 
     this.calculateElapsedTime();
   };
 
-  public Start = (): void => {
-    sceneProvider.loadScene("StartScene");
+  public start = (): void => {
+    Object.keys(this.scenes).forEach(sceneName =>
+      SceneFactory.register(sceneName, this.scenes[sceneName]),
+    );
+
+    Object.keys(this.textHolders).forEach(textHolderName =>
+      textHolderFactory.register(
+        textHolderName,
+        this.textHolders[textHolderName],
+      ),
+    );
+
+    SceneProvider.loadScene("StartScene");
+
+    this.fadeOut(500);
     this.loop.Start();
   };
 
@@ -122,7 +123,6 @@ export class Game {
       if (opacidade <= 0) {
         clearInterval(intervaloFade);
         this.html.overlay.style.opacity = "0";
-        this.faded = false;
       }
     }, duracao / 100);
 
@@ -138,7 +138,6 @@ export class Game {
       this.html.overlay.style.opacity = opacidade.toString();
 
       if (opacidade >= 1) {
-        this.faded = true;
         clearInterval(intervaloFade);
         this.html.overlay.style.opacity = "1";
       }

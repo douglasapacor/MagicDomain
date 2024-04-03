@@ -1,4 +1,4 @@
-import { gameEvents, Scene, textHolderProvider } from "../lib/render/";
+import { Scene, textHolderProvider } from "../lib/render/";
 
 const SCENE_NAME = "StartScene";
 
@@ -13,7 +13,6 @@ export class StartScene extends Scene {
   }
 
   public ready(): void {
-    gameEvents.emit("fadeOut", 2000);
     this.readyFinished = true;
   }
 
@@ -25,9 +24,10 @@ export class StartScene extends Scene {
     ctx.translate(0, 0);
     ctx.font = "30pt PixGamer";
     ctx.textAlign = "left";
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
 
-    const width = parseInt((ctx.canvas.clientWidth / 12).toFixed(0));
+    const width = parseInt((ctx.canvas.clientWidth / 13).toFixed(0));
+
     const newX = this.position.x + x + width;
     const newY = this.position.y + y + 100;
 
@@ -37,11 +37,5 @@ export class StartScene extends Scene {
         newX,
         newY + i * 50,
       );
-
-    // ctx.beginPath();
-    // ctx.lineWidth = 2;
-    // ctx.strokeStyle = "red";
-    // ctx.rect(0, 0, 100, 100);
-    // ctx.stroke();
   }
 }
