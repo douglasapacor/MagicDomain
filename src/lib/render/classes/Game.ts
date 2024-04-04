@@ -15,6 +15,12 @@ export class Game {
   private loop: Loop;
   public html: Html;
   private gameLog: GameLog;
+  private view: {
+    state: "in" | "out";
+    opacity: number;
+    canLoad: boolean;
+    needChangeState: boolean;
+  };
 
   constructor(
     private scenes: { [key: string]: typeof Scene },
@@ -25,7 +31,6 @@ export class Game {
     this.gameLog = new GameLog();
 
     gameEvents.on("fadeOut", this, this.fadeOut);
-    gameEvents.on("fadeIn", this, this.fadeIn);
     gameEvents.on("fadeIn", this, this.fadeIn);
 
     window.bridge.send(GAME_EVENTS.REQUEST_START);
