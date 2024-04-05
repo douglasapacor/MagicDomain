@@ -11,16 +11,20 @@ import { GameLog } from "./GameLog";
 import { Html } from "./Html";
 import { Loop } from "./Loop";
 
+type viewController = {
+  state: "in" | "out";
+  opacity: number;
+  canLoad: boolean;
+  needChangeState: boolean;
+  fadeSpeed: number;
+  frames: number;
+};
+
 export class Game {
   private loop: Loop;
   public html: Html;
   private gameLog: GameLog;
-  private view: {
-    state: "in" | "out";
-    opacity: number;
-    canLoad: boolean;
-    needChangeState: boolean;
-  };
+  private view: viewController;
 
   constructor(
     private scenes: { [key: string]: typeof Scene },
@@ -29,10 +33,16 @@ export class Game {
     this.html = new Html();
     this.loop = new Loop(this.Update, this.Draw);
     this.gameLog = new GameLog();
+    this.view = {
+      state: "in",
+      opacity: 1,
+      canLoad: true,
+      needChangeState: false,
+      fadeSpeed: 0.01,
+      frames: 0,
+    };
 
-    gameEvents.on("fadeOut", this, this.fadeOut);
-    gameEvents.on("fadeIn", this, this.fadeIn);
-
+    gameEvents.on("fade", this, this.fade);
     window.bridge.send(GAME_EVENTS.REQUEST_START);
   }
 
@@ -94,6 +104,39 @@ export class Game {
   };
 
   private Update = (delta: number): void => {
+    this.view.frames += 1;
+
+    if (this.view.needChangeState) {
+      const opacityTarget = this.view.state === "in" ? 0 : 1;
+
+      const fadeAmount =
+        (opacityTarget - this.view.opacity) / (20 * this.loop.timeStep);
+
+      this.view.opacity += fadeAmount * delta;
+
+      const EPSILON = 0.01;
+
+      if (this.view.state === "in" && this.view.opacity <= EPSILON) {
+        this.html.overlay.style.opacity = "0";
+
+        this.view.opacity = 0;
+        this.view.state = "out";
+        this.view.needChangeState = false;
+        this.view.canLoad = false;
+      }
+
+      if (this.view.state === "out" && this.view.opacity >= 1) {
+        this.html.overlay.style.opacity = "1";
+
+        this.view.opacity = 1;
+        this.view.state = "in";
+        this.view.needChangeState = false;
+        this.view.canLoad = true;
+      }
+
+      this.html.overlay.style.opacity = this.view.opacity.toFixed(3);
+    }
+
     if (SceneProvider.current) SceneProvider.current.stepEntry(delta);
 
     this.calculateElapsedTime();
@@ -113,41 +156,11 @@ export class Game {
 
     SceneProvider.loadScene("StartScene");
 
-    this.fadeOut(500);
+    this.fade();
     this.loop.Start();
   };
 
-  public fadeOut = async (duracao: number): Promise<void> => {
-    let opacidade = 1;
-
-    const intervaloFade = setInterval(() => {
-      opacidade -= 0.01;
-
-      this.html.overlay.style.opacity = opacidade.toString();
-
-      if (opacidade <= 0) {
-        clearInterval(intervaloFade);
-        this.html.overlay.style.opacity = "0";
-      }
-    }, duracao / 100);
-
-    await new Promise(resolve => setTimeout(resolve, duracao));
-  };
-
-  public fadeIn = async (duracao: number): Promise<void> => {
-    let opacidade = 0;
-
-    const intervaloFade = setInterval(() => {
-      opacidade += 0.01;
-
-      this.html.overlay.style.opacity = opacidade.toString();
-
-      if (opacidade >= 1) {
-        clearInterval(intervaloFade);
-        this.html.overlay.style.opacity = "1";
-      }
-    }, duracao / 100);
-
-    await new Promise(resolve => setTimeout(resolve, duracao));
+  public fade = async (): Promise<void> => {
+    this.view.needChangeState = true;
   };
 }

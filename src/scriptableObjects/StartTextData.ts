@@ -12,14 +12,12 @@ export class StartTextData extends TextHolder {
     );
     this.addLine(
       4,
-      "Toda e qualquer semelhança com o mundo real é mera conhecidencia e não deve-",
+      "Toda e qualquer semelhança com o mundo real é mera conhecidencia e não deve -",
     );
-
     this.addLine(
       5,
       " ser considerado como reprodução de um fato ou opnião da empresa ou dos",
     );
-
     this.addLine(6, "desenvolvedores.");
   }
 
