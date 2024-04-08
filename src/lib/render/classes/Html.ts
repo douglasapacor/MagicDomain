@@ -6,10 +6,15 @@ export class Html {
   private readonly overlayElement: HTMLElement;
 
   constructor() {
-    this.canvas = Builder.createElement("canvas", { width: 1280, height: 768 });
+    this.canvas = Builder.createElement({
+      tagName: "canvas",
+      attributes: { width: 1280, height: 768 },
+    });
     this.ctx = this.canvas.getContext("2d");
 
-    this.overlayElement = Builder.createElement("div");
+    this.overlayElement = Builder.createElement({
+      tagName: "div",
+    });
 
     Builder.setStyle(this.overlayElement, {
       position: "absolute",

@@ -11,10 +11,15 @@ import { GameLog } from "./classes/GameLog";
 import { GameObject } from "./classes/GameObject";
 import { Html } from "./classes/Html";
 import { Input } from "./classes/Input";
+import { IAddEventListener } from "./classes/Interfaces/IAddEventListener";
+import { ICreateElement } from "./classes/Interfaces/ICreateElement";
 import { IEventCallback } from "./classes/Interfaces/IEventCallback";
 import { IEventRegistration } from "./classes/Interfaces/IEventRegistration";
 import { IGameObject } from "./classes/Interfaces/IGameObject";
 import { IHtmlBuilderAttributes } from "./classes/Interfaces/IHtmlBuilderAttributes";
+import { INotifyEvent } from "./classes/Interfaces/INotifyEvent";
+import { IRemoveEventListener } from "./classes/Interfaces/IRemoveEventListener";
+import { ISetAttribute } from "./classes/Interfaces/ISetAttribute";
 import { Loop } from "./classes/Loop";
 import { Map } from "./classes/Map";
 import { MapFactory } from "./classes/MapFactory";
@@ -44,16 +49,14 @@ import {
   generateRecoveryPasswordKey,
   generateUpperRandomString,
 } from "./helpers/randoms";
+
 const gameEvents = new Events();
 const animationEvents = new Events();
 const keyboardEvents = new Events();
 
 const resources = new Resources();
 
-// const sceneFactory = new SceneFactory();
 const textHolderFactory = new TextHolderFactory();
-
-// const sceneProvider = new SceneProvider();
 const textHolderProvider = new TextHolderProvider();
 
 export {
@@ -81,11 +84,16 @@ export {
   generateUpperRandomString,
   gridCells,
   Html,
+  IAddEventListener,
+  ICreateElement,
   IEventCallback,
   IEventRegistration,
   IGameObject,
   IHtmlBuilderAttributes,
+  INotifyEvent,
   Input,
+  IRemoveEventListener,
+  ISetAttribute,
   isSpaceFree,
   keyboardEvents,
   Loop,

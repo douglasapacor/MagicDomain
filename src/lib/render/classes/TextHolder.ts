@@ -1,10 +1,13 @@
-import { DataHolder } from "./DataHolder";
-
-export class TextHolder extends DataHolder {
+export class TextHolder {
+  private readonly _name: string;
   private _texts: Map<string | number, string> = new Map();
 
   constructor(name: string) {
-    super(name);
+    this._name = name;
+  }
+
+  public get name(): string {
+    return this._name;
   }
 
   public addLine(key: string | number, value: string): void {
@@ -19,7 +22,7 @@ export class TextHolder extends DataHolder {
     return this._texts.get(key);
   }
 
-  public override getData(): TextHolder {
+  public getData(): TextHolder {
     return this;
   }
 }

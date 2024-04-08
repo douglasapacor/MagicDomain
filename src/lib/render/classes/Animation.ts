@@ -1,6 +1,10 @@
-import { animationEvents } from "..";
+import {
+  animationEvents,
+  IAddEventListener,
+  INotifyEvent,
+  IRemoveEventListener,
+} from "..";
 import { FrameIndexPattern } from "./FrameIndexPattern";
-import { IEventCallback } from "./Interfaces/IEventCallback";
 
 export class Animation {
   public patterns: Record<string, FrameIndexPattern>;
@@ -86,32 +90,32 @@ export class Animation {
       this.patterns[name].duration;
   }
 
-  public addEventListener(
-    name: string,
-    event: string,
-    listener: IEventCallback,
-  ): number {
-    if (!this.patterns[name] !== undefined) {
+  public addEventListener(params: IAddEventListener): number {
+    if (!this.patterns[params.name] !== undefined) {
       throw new Error(`Animação '${name}' Não existe`);
     }
 
-    const id = animationEvents.on(`${name}:${event}`, this, listener);
+    const id = animationEvents.on(
+      `${params.name}:${params.event}`,
+      this,
+      params.listener,
+    );
 
     return id;
   }
 
-  public notifyEvent(name: string, event: string, value: unknown): void {
-    if (!this.patterns[name] !== undefined)
-      throw new Error(`Animação '${name}' Não existe`);
+  public notifyEvent(params: INotifyEvent): void {
+    if (!this.patterns[params.name] !== undefined)
+      throw new Error(`Animação '${params.name}' Não existe`);
 
-    animationEvents.emit(`${name}:${event}`, value);
+    animationEvents.emit(`${params.name}:${params.event}`, params.value);
   }
 
-  public removeEventListener(name: string, listenerId: number): void {
-    if (!this.patterns[name] !== undefined) {
-      throw new Error(`Animação '${name}' Não existe`);
+  public removeEventListener(params: IRemoveEventListener): void {
+    if (!this.patterns[params.name] !== undefined) {
+      throw new Error(`Animação '${params.name}' Não existe`);
     }
 
-    animationEvents.off(listenerId);
+    animationEvents.off(params.listenerId);
   }
 }
