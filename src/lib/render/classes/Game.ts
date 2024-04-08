@@ -16,7 +16,6 @@ type viewController = {
   opacity: number;
   canLoad: boolean;
   needChangeState: boolean;
-  fadeSpeed: number;
   frames: number;
 };
 
@@ -38,11 +37,11 @@ export class Game {
       opacity: 1,
       canLoad: true,
       needChangeState: false,
-      fadeSpeed: 0.01,
       frames: 0,
     };
 
     gameEvents.on("fade", this, this.fade);
+
     window.bridge.send(GAME_EVENTS.REQUEST_START);
   }
 
@@ -158,6 +157,10 @@ export class Game {
 
     this.fade();
     this.loop.Start();
+
+    setTimeout(() => {
+      this.fade();
+    }, 6000);
   };
 
   public fade = async (): Promise<void> => {
