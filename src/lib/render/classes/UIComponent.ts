@@ -5,8 +5,14 @@ export class UIComponent {
   private parent?: UIComponent;
 
   constructor(tagName?: keyof HTMLElementTagNameMap, parent?: UIComponent) {
-    if (tagName) this.element = Builder.createElement(tagName);
-    else this.element = Builder.createElement("div");
+    if (tagName)
+      this.element = Builder.createElement({
+        tagName,
+      });
+    else
+      this.element = Builder.createElement({
+        tagName: "div",
+      });
 
     this.parent = parent;
   }

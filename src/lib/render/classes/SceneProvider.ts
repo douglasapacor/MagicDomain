@@ -7,11 +7,16 @@ export class SceneProvider {
   private constructor() {}
 
   public static loadScene(name: string): void {
-    this.scene = SceneFactory.create(name);
+    if (SceneFactory.exist(name)) this.scene = SceneFactory.create(name);
+    else console.warn(`Scene ${name} doesn´t axist.`);
   }
 
   public static get current(): Scene {
     return this.scene;
+  }
+
+  public static unloadScene(): void {
+    this.scene = null;
   }
 }
 

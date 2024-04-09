@@ -1,5 +1,4 @@
 import {
-  gameEvents,
   Scene,
   SceneFactory,
   SceneProvider,
@@ -11,19 +10,20 @@ import { GameLog } from "./GameLog";
 import { Html } from "./Html";
 import { Loop } from "./Loop";
 
-type viewController = {
-  state: "in" | "out";
-  opacity: number;
-  canLoad: boolean;
-  needChangeState: boolean;
-  frames: number;
-};
-
 export class Game {
   private loop: Loop;
   public html: Html;
   private gameLog: GameLog;
-  private view: viewController;
+  private gameCore: {
+    viewOpacity: number;
+    fadeState: "in" | "out";
+    fadeStateNeedsChanged: boolean;
+    sceneCanBeLoaded: boolean;
+    sceneNeedsToBeChanged: boolean;
+    sceneToBeLoaded: string | null;
+    sceneCurrentLoaded: string | null;
+    sceneState: "loading" | "full-loaded" | "unloading" | "full-unloaded";
+  };
 
   constructor(
     private scenes: { [key: string]: typeof Scene },
@@ -32,16 +32,16 @@ export class Game {
     this.html = new Html();
     this.loop = new Loop(this.Update, this.Draw);
     this.gameLog = new GameLog();
-    this.view = {
-      state: "in",
-      opacity: 1,
-      canLoad: true,
-      needChangeState: false,
-      frames: 0,
+    this.gameCore = {
+      fadeState: "in",
+      fadeStateNeedsChanged: false,
+      sceneCanBeLoaded: true,
+      sceneCurrentLoaded: null,
+      sceneNeedsToBeChanged: false,
+      sceneState: "full-unloaded",
+      sceneToBeLoaded: "",
+      viewOpacity: 1,
     };
-
-    gameEvents.on("fade", this, this.fade);
-
     window.bridge.send(GAME_EVENTS.REQUEST_START);
   }
 
@@ -103,37 +103,47 @@ export class Game {
   };
 
   private Update = (delta: number): void => {
-    this.view.frames += 1;
-
-    if (this.view.needChangeState) {
-      const opacityTarget = this.view.state === "in" ? 0 : 1;
-
+    if (this.gameCore.fadeStateNeedsChanged) {
+      const opacityTarget = this.gameCore.fadeState === "in" ? 0 : 1;
       const fadeAmount =
-        (opacityTarget - this.view.opacity) / (20 * this.loop.timeStep);
+        (opacityTarget - this.gameCore.viewOpacity) / (20 * this.loop.timeStep);
 
-      this.view.opacity += fadeAmount * delta;
+      this.gameCore.viewOpacity += fadeAmount * delta;
 
-      const EPSILON = 0.01;
-
-      if (this.view.state === "in" && this.view.opacity <= EPSILON) {
+      if (
+        this.gameCore.fadeState === "in" &&
+        this.gameCore.viewOpacity <= 0.01
+      ) {
         this.html.overlay.style.opacity = "0";
-
-        this.view.opacity = 0;
-        this.view.state = "out";
-        this.view.needChangeState = false;
-        this.view.canLoad = false;
+        this.gameCore.viewOpacity = 0;
+        this.gameCore.fadeState = "out";
+        this.gameCore.fadeStateNeedsChanged = false;
+        this.gameCore.sceneCanBeLoaded = false;
+        console.log("outed");
       }
 
-      if (this.view.state === "out" && this.view.opacity >= 1) {
+      const roundedOpa =
+        Math.round((this.gameCore.viewOpacity + Number.EPSILON) * 100) / 100;
+
+      console.log(
+        `amount ${fadeAmount} | fade: ${this.gameCore.fadeState} | opacity: ${this.gameCore.viewOpacity} | rounded: ${roundedOpa.toFixed(2)}`,
+      );
+
+      if (
+        this.gameCore.fadeState === "out" &&
+        this.gameCore.viewOpacity >= 0.99
+      ) {
         this.html.overlay.style.opacity = "1";
-
-        this.view.opacity = 1;
-        this.view.state = "in";
-        this.view.needChangeState = false;
-        this.view.canLoad = true;
+        this.gameCore.viewOpacity = 1;
+        this.gameCore.fadeState = "in";
+        this.gameCore.fadeStateNeedsChanged = false;
+        this.gameCore.sceneCanBeLoaded = true;
+        console.log("ined");
       }
 
-      this.html.overlay.style.opacity = this.view.opacity.toFixed(3);
+      this.html.overlay.style.opacity = (
+        Math.round((this.gameCore.viewOpacity + Number.EPSILON) * 100) / 100
+      ).toString();
     }
 
     if (SceneProvider.current) SceneProvider.current.stepEntry(delta);
@@ -155,15 +165,12 @@ export class Game {
 
     SceneProvider.loadScene("StartScene");
 
-    this.fade();
+    this.gameCore.fadeStateNeedsChanged = true;
+
     this.loop.Start();
 
     setTimeout(() => {
-      this.fade();
-    }, 6000);
-  };
-
-  public fade = async (): Promise<void> => {
-    this.view.needChangeState = true;
+      this.gameCore.fadeStateNeedsChanged = true;
+    }, 5000);
   };
 }

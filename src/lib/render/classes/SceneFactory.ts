@@ -13,4 +13,8 @@ export class SceneFactory {
     const sceneClass = this.registry.get(sceneName);
     return new sceneClass(sceneName);
   }
+
+  public static exist(name: string): boolean {
+    return this.registry.has(name);
+  }
 }
