@@ -119,15 +119,7 @@ export class Game {
         this.gameCore.fadeState = "out";
         this.gameCore.fadeStateNeedsChanged = false;
         this.gameCore.sceneCanBeLoaded = false;
-        console.log("outed");
       }
-
-      const roundedOpa =
-        Math.round((this.gameCore.viewOpacity + Number.EPSILON) * 100) / 100;
-
-      console.log(
-        `amount ${fadeAmount} | fade: ${this.gameCore.fadeState} | opacity: ${this.gameCore.viewOpacity} | rounded: ${roundedOpa.toFixed(2)}`,
-      );
 
       if (
         this.gameCore.fadeState === "out" &&
@@ -138,12 +130,11 @@ export class Game {
         this.gameCore.fadeState = "in";
         this.gameCore.fadeStateNeedsChanged = false;
         this.gameCore.sceneCanBeLoaded = true;
-        console.log("ined");
       }
 
       this.html.overlay.style.opacity = (
         Math.round((this.gameCore.viewOpacity + Number.EPSILON) * 100) / 100
-      ).toString();
+      ).toFixed(2);
     }
 
     if (SceneProvider.current) SceneProvider.current.stepEntry(delta);
