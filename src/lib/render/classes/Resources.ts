@@ -17,13 +17,13 @@ export class Resources {
       GAME_EVENTS.PNG_IMAGE_RESPONSE,
       (
         _: IpcRendererEvent,
-        ...args: { imageName: string; imageBuffer: Buffer }[]
+        ...args: { imageName: string; imageBuffer: string }[]
       ) => {
         const { imageName, imageBuffer } = args[0];
 
         const img = new Image();
 
-        img.src = `data:image/png;base64,${imageBuffer.toString("base64")}`;
+        img.src = `data:image/png;base64,${imageBuffer}`;
 
         this.images[imageName] = {
           image: img,

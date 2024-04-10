@@ -26,16 +26,19 @@ export class GameListeners {
 
     ipcMain.on(
       this.eventList.REQUEST_PNG_IMAGE,
-      (event: IpcMainEvent, ...args: { imgFileName: string }[]) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (event: IpcMainEvent, args: any) => {
         this.policy.loadImage.acquire();
 
-        const { imgFileName } = args[0];
+        const imgFileName = args[0].imgFileName;
+        const namePath = `${GamePaths.assets}\\images\\${imgFileName}.png`;
+        const buffer = Buffer.from(GameFileSistem.readFile(namePath)).toString(
+          "base64",
+        );
 
         event.reply(this.eventList.PNG_IMAGE_RESPONSE, {
           imageName: imgFileName,
-          imageBuffer: GameFileSistem.readFile(
-            `${GamePaths.assets}\\images\\${imgFileName}.png`,
-          ),
+          imageBuffer: buffer,
         });
 
         this.policy.loadImage.release();

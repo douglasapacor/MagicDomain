@@ -13,6 +13,10 @@ export class StartScene extends Scene {
   }
 
   public ready(): void {
+    setTimeout(() => {
+      this.moveToScene("StudioScene");
+    }, 5000);
+
     this.readyFinished = true;
   }
 
@@ -22,12 +26,12 @@ export class StartScene extends Scene {
     y: number,
   ): void {
     ctx.translate(0, 0);
+
     ctx.font = "30pt PixGamer";
     ctx.textAlign = "left";
     ctx.fillStyle = "white";
 
     const width = parseInt((ctx.canvas.clientWidth / 13).toFixed(0));
-
     const newX = this.position.x + x + width;
     const newY = this.position.y + y + 100;
 
