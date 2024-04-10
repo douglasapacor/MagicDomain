@@ -21,8 +21,6 @@ export class Game {
     sceneCanBeLoaded: boolean;
     sceneNeedsToBeChanged: boolean;
     sceneToBeLoaded: string | null;
-    sceneCurrentLoaded: string | null;
-    sceneState: "loading" | "full-loaded" | "unloading" | "full-unloaded";
   };
 
   constructor(
@@ -36,10 +34,8 @@ export class Game {
       fadeState: "in",
       fadeStateNeedsChanged: false,
       sceneCanBeLoaded: true,
-      sceneCurrentLoaded: null,
       sceneNeedsToBeChanged: false,
-      sceneState: "full-unloaded",
-      sceneToBeLoaded: "",
+      sceneToBeLoaded: "StartScene",
       viewOpacity: 1,
     };
     window.bridge.send(GAME_EVENTS.REQUEST_START);
@@ -137,7 +133,29 @@ export class Game {
       ).toFixed(2);
     }
 
-    if (SceneProvider.current) SceneProvider.current.stepEntry(delta);
+    if (this.gameCore.sceneNeedsToBeChanged && this.gameCore.sceneCanBeLoaded) {
+      SceneProvider.unloadScene();
+
+      SceneProvider.loadScene(this.gameCore.sceneToBeLoaded);
+
+      if (SceneProvider.current) {
+        if (
+          SceneProvider.current.isLoaded &&
+          !SceneProvider.current.isLoading
+        ) {
+          this.gameCore.sceneNeedsToBeChanged = false;
+          this.gameCore.fadeStateNeedsChanged = true;
+        }
+      }
+    } else if (!this.gameCore.sceneCanBeLoaded) {
+      if (!this.gameCore.fadeStateNeedsChanged) {
+        this.gameCore.fadeStateNeedsChanged = true;
+      }
+    }
+
+    if (SceneProvider.current) {
+      SceneProvider.current.stepEntry(delta);
+    }
 
     this.calculateElapsedTime();
   };
