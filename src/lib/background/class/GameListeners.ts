@@ -6,17 +6,11 @@ import { Semaphore } from "./Semaphore";
 
 export class GameListeners {
   private eventList: typeof GAME_EVENTS;
-  private policy: {
-    loadImage: Semaphore;
-    loadJSONContent: Semaphore;
-  };
+  private fileSemaphore: Semaphore;
 
   constructor(list: typeof GAME_EVENTS) {
     this.eventList = list;
-    this.policy = {
-      loadImage: new Semaphore(3),
-      loadJSONContent: new Semaphore(5),
-    };
+    this.fileSemaphore = new Semaphore(3);
   }
 
   public initialize(): void {
@@ -25,61 +19,24 @@ export class GameListeners {
     );
 
     ipcMain.on(
-      this.eventList.REQUEST_PNG_IMAGE,
+      this.eventList.REQUEST_FILE,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (event: IpcMainEvent, args: any) => {
-        this.policy.loadImage.acquire();
+        this.fileSemaphore.acquire();
 
-        const imgFileName = args[0].imgFileName;
-        const namePath = `${GamePaths.assets}\\images\\${imgFileName}.png`;
+        const responseId = args[0].responseId;
+        const fileName = args[0].fileName;
+        const namePath = `${GamePaths.assets}${fileName}`;
+
         const buffer = Buffer.from(GameFileSistem.readFile(namePath)).toString(
           "base64",
         );
 
-        event.reply(this.eventList.PNG_IMAGE_RESPONSE, {
-          imageName: imgFileName,
+        event.reply(responseId, {
           imageBuffer: buffer,
         });
 
-        this.policy.loadImage.release();
-      },
-    );
-
-    ipcMain.on(
-      this.eventList.REQUEST_SPRITE_CONTENT,
-      (event: IpcMainEvent, ...args: { spriteName: string }[]) => {
-        this.policy.loadImage.acquire();
-
-        const { spriteName } = args[0];
-
-        event.reply(this.eventList.SPRITE_CONTENT_RESPONSE, {
-          imageName: spriteName,
-          imageBuffer: GameFileSistem.readFile(
-            `${GamePaths.assets}\\sprites\\${spriteName}.png`,
-          ),
-        });
-
-        this.policy.loadImage.release();
-      },
-    );
-
-    ipcMain.on(
-      this.eventList.REQUEST_JSON_CONTENT,
-      (
-        event: IpcMainEvent,
-        ...args: { type: string; jsonFileName: string }[]
-      ) => {
-        this.policy.loadJSONContent.acquire();
-
-        const { type, jsonFileName } = args[0];
-
-        event.reply(this.eventList.JSON_CONTENT_RESPONSE, {
-          jsonObject: GameFileSistem.readJSONFile(
-            `${GamePaths.assets}\\data\\${type}\\${jsonFileName}.json`,
-          ),
-        });
-
-        this.policy.loadJSONContent.release();
+        this.fileSemaphore.release();
       },
     );
   }

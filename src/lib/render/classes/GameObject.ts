@@ -1,70 +1,83 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { generateKey } from "../helpers/randoms";
-import { IGameObject } from "./Interfaces/IGameObject";
 import { Vector2 } from "./Vector2";
 
-export class GameObject implements IGameObject {
-  public readonly name: string;
-  public parent: GameObject | null;
-  public children: GameObject[];
-  public position: Vector2;
-  public readyCalled: boolean;
-  public readyFinished: boolean;
+export class GameObject {
+  private readonly _name: string;
+  private _parent: GameObject | null = null;
+  private _children: GameObject[];
+  protected _position: Vector2;
+  protected _readyStarted: boolean;
+  protected _readyComplete: boolean;
 
   constructor(name: string, position?: Vector2) {
-    this.name = `${name}_${generateKey(5)}_gameobject`;
-    this.children = [];
-    this.position = position ? position : new Vector2(0, 0);
-    this.readyCalled = false;
-    this.readyFinished = false;
+    this._name = `${name}_${generateKey(5)}_gameobject`;
+    this._children = [];
+    this._position = position ? position : new Vector2(0, 0);
+    this._readyStarted = false;
+    this._readyComplete = false;
   }
 
-  public stepEntry(delta: number): void {
-    this.children.forEach(go => go.stepEntry(delta));
+  public StepEntry(delta: number): void {
+    this._children.forEach(go => go.StepEntry(delta));
 
-    if (!this.readyCalled) {
-      this.readyCalled = true;
+    if (!this._readyStarted) {
+      this._readyStarted = true;
       this.ready();
     }
 
-    if (this.readyCalled && this.readyFinished) {
-      this.step(delta);
+    if (this._readyStarted && this._readyComplete) {
+      this.Step(delta);
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public step(delta: number): void {}
+  public Step(delta: number): void {}
 
   public ready(): void {
-    this.readyFinished = true;
+    this._readyComplete = true;
   }
 
   public draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
-    const drawPosX = x + this.position.x;
-    const drawPosY = y + this.position.y;
+    const drawPosX = x + this._position.x;
+    const drawPosY = y + this._position.y;
 
     this.drawImage(ctx, drawPosX, drawPosY);
-
-    this.children.forEach(go => go.draw(ctx, drawPosX, drawPosY));
+    this._children.forEach(go => go.draw(ctx, drawPosX, drawPosY));
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {}
 
-  public addChild(gameObject: GameObject) {
-    gameObject.parent = this;
-    this.children.push(gameObject);
+  protected addChild(gameObject: GameObject) {
+    gameObject._parent = this;
+    this._children.push(gameObject);
   }
 
-  public destroy() {
-    this.children.forEach(child => {
+  protected destroy() {
+    this._children.forEach(child => {
       child.destroy();
     });
-    this.parent.removeChild(this);
+    this._parent.removeChild(this);
   }
 
-  public removeChild(gameObject: GameObject) {
-    this.children = this.children.filter(g => {
+  protected removeChild(gameObject: GameObject) {
+    this._children = this._children.filter(g => {
       return gameObject !== g;
     });
+  }
+
+  public get name(): string {
+    return this._name;
+  }
+
+  public get position(): Vector2 {
+    return this._position;
+  }
+
+  public set position(pos: Vector2) {
+    this._position = pos;
+  }
+
+  public get children(): GameObject[] {
+    return this._children;
   }
 }

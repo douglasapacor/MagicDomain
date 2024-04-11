@@ -5,7 +5,6 @@ import { resourceTypes } from "./types/resourceTypes";
 import { spriteConstructor } from "./types/spriteConstructor";
 
 export class Sprite extends GameObject {
-  public readonly name: string;
   public resource: resourceTypes;
   public frameSize: Vector2;
   public hFrames: number;
@@ -13,7 +12,6 @@ export class Sprite extends GameObject {
   public frame: number;
   public frameMap: Map<number, Vector2>;
   public scale: number;
-  public position: Vector2;
   public animations: Animation | null;
 
   constructor({
@@ -27,7 +25,7 @@ export class Sprite extends GameObject {
     position,
     animations,
   }: spriteConstructor) {
-    super(`${name}_sprite`);
+    super(`${name}_sprite`, position);
     this.resource = resource;
     this.frameSize = frameSize ?? new Vector2(16, 16);
     this.hFrames = hFrames ?? 1;
@@ -35,7 +33,6 @@ export class Sprite extends GameObject {
     this.frame = frame ?? 0;
     this.frameMap = new Map();
     this.scale = scale ?? 1;
-    this.position = position ?? new Vector2(0, 0);
     this.animations = animations ?? null;
 
     this.buildFrameMap();
@@ -54,7 +51,7 @@ export class Sprite extends GameObject {
     }
   }
 
-  public override step(delta: number) {
+  public override Step(delta: number) {
     if (!this.animations) {
       return;
     }

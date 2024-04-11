@@ -23,7 +23,7 @@ export class FrameIndexPattern extends GameObject {
     throw "O tempo é anterior ao primeiro quadro-chave";
   }
 
-  public override step(delta: number) {
+  public override Step(delta: number) {
     this.currentTime += delta;
     if (this.currentTime >= this.duration) {
       this.currentTime = 0;

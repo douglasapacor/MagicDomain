@@ -1,90 +1,94 @@
-import { gameEvents } from "..";
+import { gameEvents, GameObject, Vector2 } from "..";
 import { GAME_EVENTS } from "../../../statics/eventlist";
-import { GameObject } from "./GameObject";
+import { Resource } from "./Resource";
 
 export class Scene extends GameObject {
-  public preLoadCalled: boolean;
-  private _allowFinishPreload: boolean;
-  private _realeseadPreLoadFinish: boolean;
-  public preLoadFinished: boolean;
-  private _isLoaded: boolean;
-  private _isLoading: boolean;
+  private _sceneResources: Record<string, Resource>;
+  private _loadResourcesStarted: boolean;
+  private _loadResourcesComplete: boolean;
+  private _loadSceneComplete: boolean;
 
-  constructor(name: string) {
-    super(`${name}_scene`);
-    this.preLoadCalled = false;
-    this._allowFinishPreload = false;
-    this._realeseadPreLoadFinish = false;
-    this.preLoadFinished = false;
-    this._isLoaded = false;
-    this._isLoading = false;
+  constructor(name: string, position?: Vector2) {
+    super(`${name}_scene`, position);
+    this._sceneResources = {};
+    this._loadResourcesStarted = false;
+    this._loadResourcesComplete = false;
+    this._loadSceneComplete = false;
   }
 
-  public override stepEntry(delta: number): void {
-    this.children.forEach(go => go.stepEntry(delta));
+  public override StepEntry(delta: number): void {
+    this.children.forEach(go => go.StepEntry(delta));
 
-    if (!this.preLoadCalled) {
-      this._isLoading = true;
-      this.preLoadCalled = true;
-      this.preLoad();
-      this._allowFinishPreload = true;
+    if (!this._loadResourcesStarted) {
+      this._loadResourcesStarted = true;
+      this._loadResourcesComplete = false;
+      this.LoadResources();
     }
 
-    if (this._allowFinishPreload) {
-      this.preLoadStepVerification();
-      if (this._realeseadPreLoadFinish) {
-        this._allowFinishPreload = false;
-        this.preLoadFinished = true;
-      }
-    }
-
-    if (this.preLoadCalled && this.preLoadFinished) {
-      if (!this.readyCalled) {
-        this.readyCalled = true;
-        this.ready();
-      }
-    }
+    if (!this._loadResourcesComplete) this.LoadResourcesStep();
 
     if (
-      this.preLoadCalled &&
-      this.preLoadFinished &&
-      this.readyCalled &&
-      this.readyFinished
-    )
-      this._isLoading = false;
-
-    if (
-      this.preLoadCalled &&
-      this.preLoadFinished &&
-      this.readyCalled &&
-      this.readyFinished &&
-      !this._isLoading
+      !this._readyStarted &&
+      this._loadResourcesStarted &&
+      this._loadResourcesComplete
     ) {
-      this._isLoaded = true;
+      this._readyStarted = true;
+      this._readyComplete = false;
+      this.ready();
     }
 
-    if (this._isLoaded) this.step(delta);
+    if (
+      this._loadResourcesStarted &&
+      this._loadResourcesComplete &&
+      this._readyStarted &&
+      this._readyComplete &&
+      !this._loadSceneComplete
+    ) {
+      this._loadSceneComplete = true;
+    }
+
+    if (this._loadSceneComplete) this.Step(delta);
   }
 
-  protected realeasePreLoad(): void {
-    this._realeseadPreLoadFinish = true;
-  }
-
-  protected preLoadStepVerification(): void {}
-
-  public moveToScene = (sceneName: string): void => {
+  protected MoveToScene(sceneName: string): void {
     gameEvents.emit(GAME_EVENTS.CHANGE_SCENE, sceneName);
-  };
-
-  public preLoad(): void {
-    this.preLoadFinished = true;
   }
 
-  public get isLoaded(): boolean {
-    return this._isLoaded;
+  private LoadResources(): void {
+    Object.keys(this._sceneResources).forEach(resource => {
+      this._sceneResources[resource].load();
+    });
   }
 
-  public get isLoading(): boolean {
-    return this._isLoading;
+  private LoadResourcesStep(): void {
+    const sceneKeys = Object.keys(this._sceneResources);
+
+    if (sceneKeys.length <= 0) {
+      this._loadResourcesComplete = true;
+      return;
+    }
+
+    let completeEvent = true;
+
+    for (let i = 0; i < sceneKeys.length; i++) {
+      if (!this._sceneResources[sceneKeys[i]].isLoaded) {
+        completeEvent = false;
+        break;
+      }
+    }
+
+    this._loadResourcesComplete = completeEvent;
+  }
+
+  protected AddResource(resource: Resource): void {
+    this._sceneResources[resource.name] = resource;
+  }
+
+  public get loadSceneComplete(): boolean {
+    return this._loadSceneComplete;
+  }
+
+  public get sceneResource(): Record<string, Resource> {
+    return this._sceneResources;
   }
 }

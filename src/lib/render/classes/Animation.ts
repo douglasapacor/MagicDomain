@@ -29,7 +29,7 @@ export class Animation {
   }
 
   public step(delta: number): void {
-    this.patterns[this.activeKey].step(delta);
+    this.patterns[this.activeKey].Step(delta);
   }
 
   public hasAnimation(name: string): boolean {

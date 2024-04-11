@@ -43,9 +43,7 @@ export class Game {
       sceneNeedsLoadClass: false,
       sceneNeedsToBeCleaned: false,
     };
-
     gameEvents.on(GAME_EVENTS.CHANGE_SCENE, this, this.changeScene);
-
     window.bridge.send(GAME_EVENTS.REQUEST_START);
   }
 
@@ -98,7 +96,7 @@ export class Game {
     this.html.context.save();
 
     if (SceneProvider.current) {
-      if (SceneProvider.current.isLoaded) {
+      if (SceneProvider.current.loadSceneComplete) {
         SceneProvider.current.draw(this.html.context, 0, 0);
       }
     }
@@ -161,10 +159,7 @@ export class Game {
         !this.gameCore.sceneNeedsLoadClass &&
         !this.gameCore.sceneNeedsToBeCleaned
       ) {
-        if (
-          SceneProvider.current.isLoaded &&
-          !SceneProvider.current.isLoading
-        ) {
+        if (SceneProvider.current.loadSceneComplete) {
           this.gameCore.sceneNeedsToBeChanged = false;
           this.gameCore.sceneCanBeLoaded = false;
           this.gameCore.fadeStateNeedsChanged = true;
@@ -172,7 +167,7 @@ export class Game {
       }
     }
 
-    if (SceneProvider.current) SceneProvider.current.stepEntry(delta);
+    if (SceneProvider.current) SceneProvider.current.StepEntry(delta);
 
     this.calculateElapsedTime();
   };

@@ -7,8 +7,9 @@ export class SceneProvider {
   private constructor() {}
 
   public static loadScene(name: string): void {
-    if (SceneFactory.exist(name)) this.scene = SceneFactory.create(name);
-    else console.warn(`Scene ${name} doesn´t axist.`);
+    if (SceneFactory.exist(name)) {
+      this.scene = SceneFactory.create(name);
+    } else console.warn(`Scene ${name} doesn´t axist.`);
   }
 
   public static get current(): Scene {

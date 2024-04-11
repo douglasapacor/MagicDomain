@@ -5,19 +5,11 @@ const SCENE_NAME = "StartScene";
 export class StartScene extends Scene {
   constructor() {
     super(SCENE_NAME);
-  }
-
-  public override preLoad(): void {
     textHolderProvider.loadTextHolder("StartTextData");
-    this.preLoadFinished = true;
-  }
 
-  public ready(): void {
     setTimeout(() => {
-      this.moveToScene("StudioScene");
-    }, 5000);
-
-    this.readyFinished = true;
+      this.MoveToScene("StudioScene");
+    }, 2000);
   }
 
   public override drawImage(
@@ -41,5 +33,9 @@ export class StartScene extends Scene {
         newX,
         newY + i * 50,
       );
+  }
+
+  public ready(): void {
+    this._readyComplete = true;
   }
 }

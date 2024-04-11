@@ -15,7 +15,6 @@ import { IAddEventListener } from "./classes/Interfaces/IAddEventListener";
 import { ICreateElement } from "./classes/Interfaces/ICreateElement";
 import { IEventCallback } from "./classes/Interfaces/IEventCallback";
 import { IEventRegistration } from "./classes/Interfaces/IEventRegistration";
-import { IGameObject } from "./classes/Interfaces/IGameObject";
 import { IHtmlBuilderAttributes } from "./classes/Interfaces/IHtmlBuilderAttributes";
 import { INotifyEvent } from "./classes/Interfaces/INotifyEvent";
 import { IRemoveEventListener } from "./classes/Interfaces/IRemoveEventListener";
@@ -23,7 +22,7 @@ import { ISetAttribute } from "./classes/Interfaces/ISetAttribute";
 import { Loop } from "./classes/Loop";
 import { Map } from "./classes/Map";
 import { MapFactory } from "./classes/MapFactory";
-import { Resources } from "./classes/Resources";
+import { ResourcesProvider } from "./classes/ResourcesProvider";
 import { Scene } from "./classes/Scene";
 import { SceneFactory } from "./classes/SceneFactory";
 import { SceneProvider } from "./classes/SceneProvider";
@@ -54,7 +53,7 @@ const gameEvents = new Events();
 const animationEvents = new Events();
 const keyboardEvents = new Events();
 
-const resources = new Resources();
+const resourcesProvider = new ResourcesProvider();
 
 const textHolderFactory = new TextHolderFactory();
 const textHolderProvider = new TextHolderProvider();
@@ -88,7 +87,6 @@ export {
   ICreateElement,
   IEventCallback,
   IEventRegistration,
-  IGameObject,
   IHtmlBuilderAttributes,
   INotifyEvent,
   Input,
@@ -101,8 +99,8 @@ export {
   MapFactory,
   momentRegister,
   moveTowards,
-  Resources,
-  resources,
+  ResourcesProvider,
+  resourcesProvider,
   resourceTypes,
   Scene,
   SceneFactory,

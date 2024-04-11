@@ -34,4 +34,3 @@ export function moveTowards(
 
   return distance - speed;
 }
-
