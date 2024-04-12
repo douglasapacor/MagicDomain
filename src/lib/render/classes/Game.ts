@@ -96,9 +96,8 @@ export class Game {
     this.html.context.save();
 
     if (SceneProvider.current) {
-      if (SceneProvider.current.loadSceneComplete) {
+      if (SceneProvider.current.loadSceneComplete)
         SceneProvider.current.draw(this.html.context, 0, 0);
-      }
     }
 
     this.html.context.restore();
@@ -185,6 +184,7 @@ export class Game {
     );
 
     this.changeScene("StartScene");
+
     this.loop.Start();
   };
 

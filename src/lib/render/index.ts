@@ -21,8 +21,6 @@ import { IRemoveEventListener } from "./classes/Interfaces/IRemoveEventListener"
 import { ISetAttribute } from "./classes/Interfaces/ISetAttribute";
 import { Loop } from "./classes/Loop";
 import { Map } from "./classes/Map";
-import { MapFactory } from "./classes/MapFactory";
-import { ResourcesProvider } from "./classes/ResourcesProvider";
 import { Scene } from "./classes/Scene";
 import { SceneFactory } from "./classes/SceneFactory";
 import { SceneProvider } from "./classes/SceneProvider";
@@ -48,16 +46,11 @@ import {
   generateRecoveryPasswordKey,
   generateUpperRandomString,
 } from "./helpers/randoms";
-
 const gameEvents = new Events();
 const animationEvents = new Events();
 const keyboardEvents = new Events();
-
-const resourcesProvider = new ResourcesProvider();
-
 const textHolderFactory = new TextHolderFactory();
 const textHolderProvider = new TextHolderProvider();
-
 export {
   Animation,
   animationConfig,
@@ -96,11 +89,8 @@ export {
   keyboardEvents,
   Loop,
   Map,
-  MapFactory,
   momentRegister,
   moveTowards,
-  ResourcesProvider,
-  resourcesProvider,
   resourceTypes,
   Scene,
   SceneFactory,

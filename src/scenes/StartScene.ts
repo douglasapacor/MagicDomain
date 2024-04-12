@@ -9,7 +9,11 @@ export class StartScene extends Scene {
 
     setTimeout(() => {
       this.MoveToScene("StudioScene");
-    }, 2000);
+    }, 5000);
+  }
+
+  public ready(): void {
+    this._readyComplete = true;
   }
 
   public override drawImage(
@@ -23,8 +27,8 @@ export class StartScene extends Scene {
     ctx.textAlign = "left";
     ctx.fillStyle = "white";
 
-    const width = parseInt((ctx.canvas.clientWidth / 13).toFixed(0));
-    const newX = this.position.x + x + width;
+    const newX =
+      this.position.x + x + parseInt((ctx.canvas.width / 13).toFixed(0));
     const newY = this.position.y + y + 100;
 
     for (let i = 0; i < textHolderProvider.current.texts.size; i++)
@@ -33,9 +37,5 @@ export class StartScene extends Scene {
         newX,
         newY + i * 50,
       );
-  }
-
-  public ready(): void {
-    this._readyComplete = true;
   }
 }

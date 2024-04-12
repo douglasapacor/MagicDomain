@@ -31,7 +31,7 @@ export class UIComponent {
     this.element.style.display = "none";
   }
 
-  public getElement(): HTMLElement {
+  public get getElement(): HTMLElement {
     return this.element;
   }
 }

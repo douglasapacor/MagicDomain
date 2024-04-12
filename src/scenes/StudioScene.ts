@@ -6,6 +6,10 @@ export class StudioScene extends Scene {
   constructor() {
     super(SCENE_NAME);
     this.AddResource(new Resource("eq_logo", "images"));
+
+    setTimeout(() => {
+      this.MoveToScene("InitialScene");
+    }, 5000);
   }
 
   public override ready(): void {
@@ -18,15 +22,18 @@ export class StudioScene extends Scene {
     y: number,
   ): void {
     ctx.translate(0, 0);
-
-    const clintWidth = ctx.canvas.width / 2;
-    const clintHeight = ctx.canvas.height / 2;
-    const imgWith = this.sceneResource["eq_logo"].image.width / 2;
-    const imgHeight = this.sceneResource["eq_logo"].image.height / 2;
-
-    const width = parseInt((clintWidth - imgWith).toFixed(0));
-    const height = parseInt((clintHeight - imgHeight).toFixed(0));
-
+    const width = parseInt(
+      (
+        ctx.canvas.width / 2 -
+        this.sceneResource["eq_logo"].image.width / 2
+      ).toFixed(0),
+    );
+    const height = parseInt(
+      (
+        ctx.canvas.height / 2 -
+        this.sceneResource["eq_logo"].image.height / 2
+      ).toFixed(0),
+    );
     const newX = this.position.x + x + width;
     const newY = this.position.y + y + height;
 
