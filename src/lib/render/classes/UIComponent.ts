@@ -4,7 +4,11 @@ export class UIComponent {
   protected element: HTMLElement;
   private parent?: UIComponent;
 
-  constructor(tagName?: keyof HTMLElementTagNameMap, parent?: UIComponent) {
+  constructor(
+    tagName?: keyof HTMLElementTagNameMap,
+    className?: string,
+    parent?: UIComponent,
+  ) {
     if (tagName)
       this.element = Builder.createElement({
         tagName,
@@ -13,6 +17,8 @@ export class UIComponent {
       this.element = Builder.createElement({
         tagName: "div",
       });
+
+    if (className) this.element.className = className;
 
     this.parent = parent;
   }
@@ -33,5 +39,18 @@ export class UIComponent {
 
   public get getElement(): HTMLElement {
     return this.element;
+  }
+
+  public setStyle(style: unknown): void {
+    Builder.setStyle(this.element, style);
+  }
+
+  public set className(className: string) {
+    this.element.className = className;
+
+    Builder.setAttribute({
+      element: this.element,
+      params: { classes: className },
+    });
   }
 }

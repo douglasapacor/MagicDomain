@@ -11,17 +11,23 @@ export class InitialScene extends Scene {
 
     this.AddResource(new Resource("title_background", "images"));
 
+    const boxOut = new UIComponent("div");
     const box = new UIComponent("div");
+    const a = new UIComponent("a");
 
-    box.getElement.className = "title-scene-box";
-    this.butonNewGame.getElement.className = "start-btn";
-    this.butonLoadGame.getElement.className = "start-btn";
-    this.butonNewGame.getElement.innerText = "Novo Jogo";
-    this.butonLoadGame.getElement.innerText = "Carregar";
+    box.className = "button";
+    a.getElement.innerText = "aquiii";
 
-    this.butonNewGame.addToParent(box);
-    this.butonLoadGame.addToParent(box);
+    boxOut.setStyle({
+      position: "absolute",
+      top: 0,
+      left: 0,
+      className: "boxOut",
+    });
 
+    boxOut.addToParent();
+    box.addToParent(boxOut);
+    a.addToParent(box);
     box.addToParent();
   }
 
