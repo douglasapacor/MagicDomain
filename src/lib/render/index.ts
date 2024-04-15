@@ -6,6 +6,7 @@ import { Dimensions } from "./classes/Dimensions";
 import { Entity } from "./classes/Entity";
 import { Events } from "./classes/Events";
 import { FrameIndexPattern } from "./classes/FrameIndexPattern";
+import { GUI } from "./classes/GUI";
 import { Game } from "./classes/Game";
 import { GameLog } from "./classes/GameLog";
 import { GameObject } from "./classes/GameObject";
@@ -19,15 +20,14 @@ import { IHtmlBuilderAttributes } from "./classes/Interfaces/IHtmlBuilderAttribu
 import { INotifyEvent } from "./classes/Interfaces/INotifyEvent";
 import { IRemoveEventListener } from "./classes/Interfaces/IRemoveEventListener";
 import { ISetAttribute } from "./classes/Interfaces/ISetAttribute";
+import { IUIComponentConstructor } from "./classes/Interfaces/IUIComponentConstructor";
 import { Loop } from "./classes/Loop";
 import { Map } from "./classes/Map";
+import { Resource } from "./classes/Resource";
 import { Scene } from "./classes/Scene";
 import { SceneFactory } from "./classes/SceneFactory";
 import { SceneProvider } from "./classes/SceneProvider";
 import { Sprite } from "./classes/Sprite";
-import { TextHolder } from "./classes/TextHolder";
-import { TextHolderFactory } from "./classes/TextHolderFactory";
-import { TextHolderProvider } from "./classes/TextHolderProvider";
 import { UIComponent } from "./classes/UIComponent";
 import { Vector2 } from "./classes/Vector2";
 import { animationConfig } from "./classes/types/animationConfig";
@@ -49,8 +49,7 @@ import {
 const gameEvents = new Events();
 const animationEvents = new Events();
 const keyboardEvents = new Events();
-const textHolderFactory = new TextHolderFactory();
-const textHolderProvider = new TextHolderProvider();
+
 export {
   Animation,
   animationConfig,
@@ -75,6 +74,7 @@ export {
   generateRecoveryPasswordKey,
   generateUpperRandomString,
   gridCells,
+  GUI,
   Html,
   IAddEventListener,
   ICreateElement,
@@ -86,20 +86,19 @@ export {
   IRemoveEventListener,
   ISetAttribute,
   isSpaceFree,
+  IUIComponentConstructor,
   keyboardEvents,
   Loop,
   Map,
   momentRegister,
   moveTowards,
+  Resource,
   resourceTypes,
   Scene,
   SceneFactory,
   SceneProvider,
   Sprite,
   spriteConstructor,
-  TextHolder,
-  textHolderFactory,
-  textHolderProvider,
   UIComponent,
   Vector2,
 };

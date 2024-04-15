@@ -1,32 +1,24 @@
 import { Builder } from "./Builder";
+import { IUIComponentConstructor } from "./Interfaces/IUIComponentConstructor";
 
 export class UIComponent {
-  protected element: HTMLElement;
-  private parent?: UIComponent;
+  protected readonly _name: string;
+  protected _element: HTMLElement;
+  constructor(params: IUIComponentConstructor) {
+    this._name = params.name;
+    this._element = Builder.createElement({
+      tagName: params.tagName,
+      style: params.style,
+      attributes: params.attributes,
+    });
 
-  constructor(
-    tagName?: keyof HTMLElementTagNameMap,
-    className?: string,
-    parent?: UIComponent,
-  ) {
-    if (tagName)
-      this.element = Builder.createElement({
-        tagName,
-      });
-    else
-      this.element = Builder.createElement({
-        tagName: "div",
-      });
-
-    if (className) this.element.className = className;
-
-    this.parent = parent;
+    this._element.onclick = this.onClick;
   }
 
-  public addToParent(parent?: UIComponent): void {
-    if (parent) parent.element.appendChild(this.element);
-    else if (this.parent) this.parent.element.appendChild(this.element);
-    else document.body.appendChild(this.element);
+  public onClick = () => {};
+
+  public addChildren(children: HTMLElement): void {
+    this._element.appendChild(children);
   }
 
   public show(): void {
@@ -34,23 +26,22 @@ export class UIComponent {
   }
 
   public hide(): void {
-    this.element.style.display = "none";
+    this._element.style.display = "none";
   }
 
-  public get getElement(): HTMLElement {
-    return this.element;
+  public get element(): HTMLElement {
+    return this._element;
   }
 
-  public setStyle(style: unknown): void {
+  public get style(): CSSStyleDeclaration {
+    return this._element.style;
+  }
+
+  public set style(style: CSSStyleDeclaration) {
     Builder.setStyle(this.element, style);
   }
 
   public set className(className: string) {
     this.element.className = className;
-
-    Builder.setAttribute({
-      element: this.element,
-      params: { classes: className },
-    });
   }
 }

@@ -55,7 +55,7 @@ export class Sprite extends GameObject {
     if (!this.animations) {
       return;
     }
-    this.animations.step(delta);
+    this.animations.Step(delta);
     this.frame = this.animations.frame;
   }
 

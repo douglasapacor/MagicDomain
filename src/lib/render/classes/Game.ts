@@ -1,11 +1,4 @@
-import {
-  gameEvents,
-  Scene,
-  SceneFactory,
-  SceneProvider,
-  TextHolder,
-  textHolderFactory,
-} from "..";
+import { gameEvents, Scene, SceneFactory, SceneProvider } from "..";
 import { GAME_EVENTS } from "../../../statics/eventlist";
 import { GameLog } from "./GameLog";
 import { Html } from "./Html";
@@ -26,10 +19,7 @@ export class Game {
     sceneNeedsToBeCleaned: boolean;
   };
 
-  constructor(
-    private scenes: { [key: string]: typeof Scene },
-    private textHolders: { [key: string]: typeof TextHolder },
-  ) {
+  constructor(private scenes: { [key: string]: typeof Scene }) {
     this.html = new Html();
     this.loop = new Loop(this.Update, this.Draw);
     this.gameLog = new GameLog();
@@ -176,15 +166,7 @@ export class Game {
       SceneFactory.register(sceneName, this.scenes[sceneName]),
     );
 
-    Object.keys(this.textHolders).forEach(textHolderName =>
-      textHolderFactory.register(
-        textHolderName,
-        this.textHolders[textHolderName],
-      ),
-    );
-
     this.changeScene("StartScene");
-
     this.loop.Start();
   };
 

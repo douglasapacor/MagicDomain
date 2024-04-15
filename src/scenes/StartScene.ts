@@ -1,11 +1,12 @@
-import { Scene, textHolderProvider } from "../lib/render/";
+import { StartSceneData } from "../../src/scriptableObjects/StartSceneData";
+import { Scene } from "../lib/render/";
 
 const SCENE_NAME = "StartScene";
 
 export class StartScene extends Scene {
   constructor() {
     super(SCENE_NAME);
-    textHolderProvider.loadTextHolder("StartTextData");
+    this.AddData(new StartSceneData());
 
     setTimeout(() => {
       this.MoveToScene("StudioScene");
@@ -27,15 +28,15 @@ export class StartScene extends Scene {
     ctx.textAlign = "left";
     ctx.fillStyle = "white";
 
-    const newX =
-      this.position.x + x + parseInt((ctx.canvas.width / 13).toFixed(0));
-    const newY = this.position.y + y + 100;
-
-    for (let i = 0; i < textHolderProvider.current.texts.size; i++)
+    for (
+      let i = 0;
+      i < this.sceneData["StartSceneData"].getData().text.size;
+      i++
+    )
       ctx.fillText(
-        textHolderProvider.current.getText(i + 1),
-        newX,
-        newY + i * 50,
+        this.sceneData["StartSceneData"].getData().text.get(i + 1),
+        this.position.x + x + parseInt((ctx.canvas.width / 13).toFixed(0)),
+        this.position.y + y + 100 + i * 50,
       );
   }
 }

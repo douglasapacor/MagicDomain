@@ -5,10 +5,14 @@ export class Builder {
   public static createElement<T extends HTMLElement>(
     params: ICreateElement,
   ): T {
-    const element = document.createElement(params.tagName);
+    let element;
+
+    if (!params.tagName) element = document.createElement("div");
+    else element = document.createElement(params.tagName);
 
     if (params.attributes)
       this.setAttribute({ element, params: params.attributes });
+
     if (params.style)
       this.setStyle(element, params.style as CSSStyleDeclaration);
 
@@ -20,7 +24,10 @@ export class Builder {
       params.element.setAttribute(key, value);
   }
 
-  public static setStyle(element: HTMLElement, style: unknown): void {
+  public static setStyle(
+    element: HTMLElement,
+    style: CSSStyleDeclaration,
+  ): void {
     if (style) Object.assign(element.style, style);
   }
 }

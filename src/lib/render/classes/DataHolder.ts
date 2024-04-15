@@ -1,4 +1,6 @@
-export abstract class DataHolder {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export class DataHolder {
+  [x: string]: any;
   private readonly _name: string;
 
   constructor(name: string) {
@@ -9,5 +11,7 @@ export abstract class DataHolder {
     return this._name;
   }
 
-  public abstract getData(): unknown;
+  public getData(): this {
+    return this;
+  }
 }

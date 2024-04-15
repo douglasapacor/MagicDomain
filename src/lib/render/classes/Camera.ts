@@ -6,21 +6,21 @@ export class Camera {
   private canvasWidth: number;
   private canvasHeight: number;
   private target: Vector2 | null;
-  private position: Vector2;
+  private _position: Vector2;
 
   constructor(halfSize: number, canvasWidth: number, canvasHeight: number) {
-    this.position = new Vector2(0, 0);
     this.halfSize = halfSize;
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
     this.target = null;
+    this._position = new Vector2(0, 0);
 
     gameEvents.on("player_position", this, (playerPosition: Vector2) => {
-      this.followTarget(playerPosition);
+      this.FollowTarget(playerPosition);
     });
   }
 
-  public followTarget(target: Vector2) {
+  public FollowTarget(target: Vector2) {
     this.target = target;
     this.updatePosition();
   }
@@ -31,8 +31,8 @@ export class Camera {
       const halfHeight = -this.halfSize + this.canvasHeight / 2;
 
       if (
-        !this.position.equals(
-          (this.position = new Vector2(
+        !this._position.equals(
+          (this._position = new Vector2(
             -this.target.x + halfWidth,
             -this.target.y + halfHeight,
           )),
@@ -57,7 +57,7 @@ export class Camera {
     }
   }
 
-  public get cameraPosition(): Vector2 {
-    return this.position;
+  public get position(): Vector2 {
+    return this._position;
   }
 }

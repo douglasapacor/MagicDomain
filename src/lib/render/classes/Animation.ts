@@ -8,18 +8,22 @@ import { FrameIndexPattern } from "./FrameIndexPattern";
 
 export class Animation {
   public patterns: Record<string, FrameIndexPattern>;
-  public activeKey: string;
+  public activeKey: keyof Record<string, FrameIndexPattern>;
 
   constructor(patterns: Record<string, FrameIndexPattern>) {
     this.patterns = patterns;
     this.activeKey = Object.keys(this.patterns)[0];
   }
 
-  get frame() {
+  public get frame() {
     return this.patterns[this.activeKey].frame;
   }
 
-  public play(key: string, startAtTime = 0): void {
+  public get animationNames(): string[] {
+    return Object.keys(this.patterns);
+  }
+
+  public Play(key: string, startAtTime = 0): void {
     if (this.activeKey === key) {
       return;
     }
@@ -28,19 +32,15 @@ export class Animation {
     this.patterns[this.activeKey].currentTime = startAtTime;
   }
 
-  public step(delta: number): void {
+  public Step(delta: number): void {
     this.patterns[this.activeKey].Step(delta);
   }
 
-  public hasAnimation(name: string): boolean {
+  public HasAnimation(name: string): boolean {
     return this.patterns[name] !== undefined;
   }
 
-  public getAnimationNames(): string[] {
-    return Object.keys(this.patterns);
-  }
-
-  public getAnimationFrame(name: string): number {
+  public GetAnimationFrame(name: string): number {
     if (!this.patterns[name] !== undefined) {
       throw new Error(`Animation '${name}' does not exist`);
     }
@@ -48,7 +48,7 @@ export class Animation {
     return this.patterns[name].frame;
   }
 
-  public getAnimationFrameDuration(name: string): number {
+  public GetAnimationFrameDuration(name: string): number {
     if (!this.patterns[name] !== undefined) {
       throw new Error(`Animation '${name}' does not exist`);
     }
@@ -56,11 +56,11 @@ export class Animation {
     return this.patterns[name].duration;
   }
 
-  public isPlaying(name: string): boolean {
+  public IsPlaying(name: string): boolean {
     return this.activeKey === name;
   }
 
-  public stop(name: string): void {
+  public Stop(name: string): void {
     if (!this.patterns[name] !== undefined) {
       throw new Error(`Animation '${name}' does not exist`);
     }
@@ -70,7 +70,7 @@ export class Animation {
     }
   }
 
-  public reset(name: string): void {
+  public Reset(name: string): void {
     if (!this.patterns[name] !== undefined) {
       throw new Error(`Animation '${name}' does not exist`);
     }
@@ -80,7 +80,7 @@ export class Animation {
     }
   }
 
-  public setAnimationFrame(name: string, frame: number): void {
+  public SetAnimationFrame(name: string, frame: number): void {
     if (!this.patterns[name] !== undefined) {
       throw new Error(`Animation '${name}' does not exist`);
     }
@@ -90,7 +90,7 @@ export class Animation {
       this.patterns[name].duration;
   }
 
-  public addEventListener(params: IAddEventListener): number {
+  public AddEventListener(params: IAddEventListener): number {
     if (!this.patterns[params.name] !== undefined) {
       throw new Error(`Animação '${name}' Não existe`);
     }
@@ -104,14 +104,14 @@ export class Animation {
     return id;
   }
 
-  public notifyEvent(params: INotifyEvent): void {
+  public NotifyEvent(params: INotifyEvent): void {
     if (!this.patterns[params.name] !== undefined)
       throw new Error(`Animação '${params.name}' Não existe`);
 
     animationEvents.emit(`${params.name}:${params.event}`, params.value);
   }
 
-  public removeEventListener(params: IRemoveEventListener): void {
+  public RemoveEventListener(params: IRemoveEventListener): void {
     if (!this.patterns[params.name] !== undefined) {
       throw new Error(`Animação '${params.name}' Não existe`);
     }

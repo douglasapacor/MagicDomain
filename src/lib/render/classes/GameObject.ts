@@ -6,7 +6,7 @@ export class GameObject {
   private readonly _name: string;
   private _parent: GameObject | null = null;
   private _children: GameObject[];
-  protected _position: Vector2;
+  private _position: Vector2;
   protected _readyStarted: boolean;
   protected _readyComplete: boolean;
 

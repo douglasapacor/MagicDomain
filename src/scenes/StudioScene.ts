@@ -1,5 +1,5 @@
-import { Resource } from "../lib/render/classes/Resource";
-import { Scene } from "../lib/render/classes/Scene";
+import { Resource, Scene } from "../lib/render";
+
 const SCENE_NAME = "StudioScene";
 
 export class StudioScene extends Scene {
@@ -34,9 +34,11 @@ export class StudioScene extends Scene {
         this.sceneResource["eq_logo"].image.height / 2
       ).toFixed(0),
     );
-    const newX = this.position.x + x + width;
-    const newY = this.position.y + y + height;
 
-    ctx.drawImage(this.sceneResource["eq_logo"].image, newX, newY);
+    ctx.drawImage(
+      this.sceneResource["eq_logo"].image,
+      this.position.x + x + width,
+      this.position.y + y + height,
+    );
   }
 }

@@ -2,7 +2,7 @@ export interface IHtmlBuilderAttributes {
   id?: string;
   width?: number | string;
   height?: number | string;
-  classes?: string;
+  class?: string;
   children?: HTMLElement[];
   position?: string;
   top?: string;
