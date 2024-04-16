@@ -1,5 +1,4 @@
 import { Animation } from "./classes/Animation";
-import { Builder } from "./classes/Builder";
 import { Camera } from "./classes/Camera";
 import { DataHolder } from "./classes/DataHolder";
 import { Dimensions } from "./classes/Dimensions";
@@ -13,14 +12,11 @@ import { GameObject } from "./classes/GameObject";
 import { Html } from "./classes/Html";
 import { Input } from "./classes/Input";
 import { IAddEventListener } from "./classes/Interfaces/IAddEventListener";
-import { ICreateElement } from "./classes/Interfaces/ICreateElement";
 import { IEventCallback } from "./classes/Interfaces/IEventCallback";
 import { IEventRegistration } from "./classes/Interfaces/IEventRegistration";
-import { IHtmlBuilderAttributes } from "./classes/Interfaces/IHtmlBuilderAttributes";
+import { IHtmlAttributes } from "./classes/Interfaces/IHtmlAttributes";
 import { INotifyEvent } from "./classes/Interfaces/INotifyEvent";
 import { IRemoveEventListener } from "./classes/Interfaces/IRemoveEventListener";
-import { ISetAttribute } from "./classes/Interfaces/ISetAttribute";
-import { IUIComponentConstructor } from "./classes/Interfaces/IUIComponentConstructor";
 import { Loop } from "./classes/Loop";
 import { Map } from "./classes/Map";
 import { Resource } from "./classes/Resource";
@@ -32,6 +28,7 @@ import { UIComponent } from "./classes/UIComponent";
 import { Vector2 } from "./classes/Vector2";
 import { animationConfig } from "./classes/types/animationConfig";
 import { frameConfigTime } from "./classes/types/frameConfigTime";
+import { gameCore } from "./classes/types/gameCore";
 import { momentRegister } from "./classes/types/momentRegister";
 import { resourceTypes } from "./classes/types/resourceTypes";
 import { spriteConstructor } from "./classes/types/spriteConstructor";
@@ -54,7 +51,6 @@ export {
   Animation,
   animationConfig,
   animationEvents,
-  Builder,
   Camera,
   DataHolder,
   Dimensions,
@@ -63,6 +59,7 @@ export {
   frameConfigTime,
   FrameIndexPattern,
   Game,
+  gameCore,
   gameEvents,
   GameLog,
   GameObject,
@@ -77,16 +74,13 @@ export {
   GUI,
   Html,
   IAddEventListener,
-  ICreateElement,
   IEventCallback,
   IEventRegistration,
-  IHtmlBuilderAttributes,
+  IHtmlAttributes,
   INotifyEvent,
   Input,
   IRemoveEventListener,
-  ISetAttribute,
   isSpaceFree,
-  IUIComponentConstructor,
   keyboardEvents,
   Loop,
   Map,

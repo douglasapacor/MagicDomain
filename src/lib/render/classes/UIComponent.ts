@@ -1,21 +1,12 @@
-import { Builder } from "./Builder";
-import { IUIComponentConstructor } from "./Interfaces/IUIComponentConstructor";
+import { IHtmlAttributes } from "./Interfaces/IHtmlAttributes";
 
 export class UIComponent {
-  protected readonly _name: string;
-  protected _element: HTMLElement;
-  constructor(params: IUIComponentConstructor) {
-    this._name = params.name;
-    this._element = Builder.createElement({
-      tagName: params.tagName,
-      style: params.style,
-      attributes: params.attributes,
-    });
+  private _element: HTMLElement;
 
-    this._element.onclick = this.onClick;
+  constructor(params: { name: string; tag: keyof HTMLElementTagNameMap }) {
+    this._element = document.createElement(params.tag);
+    this._element.setAttribute("name", params.name);
   }
-
-  public onClick = () => {};
 
   public addChildren(children: HTMLElement): void {
     this._element.appendChild(children);
@@ -29,19 +20,21 @@ export class UIComponent {
     this._element.style.display = "none";
   }
 
-  public get name(): string {
-    return this._name;
-  }
-
   public get element(): HTMLElement {
     return this._element;
   }
 
-  public set style(style: CSSStyleDeclaration) {
-    Builder.setStyle(this.element, style);
+  public set setStyle(style: unknown) {
+    Object.assign(this._element.style, style);
   }
 
-  public set className(className: string) {
-    this.element.className = className;
+  public set setAttributes(attributes: IHtmlAttributes) {
+    for (const [key, value] of Object.entries(attributes)) {
+      this._element.setAttribute(key, value);
+    }
+  }
+
+  public set setClass(className: string) {
+    this._element.className = className;
   }
 }

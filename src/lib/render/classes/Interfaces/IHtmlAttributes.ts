@@ -1,4 +1,4 @@
-export interface IHtmlBuilderAttributes {
+export interface IHtmlAttributes {
   id?: string;
   width?: number | string;
   height?: number | string;
