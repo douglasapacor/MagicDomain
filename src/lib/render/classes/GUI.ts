@@ -7,4 +7,3 @@ export class GUI extends UIComponent {
     super(params);
   }
 }
-

@@ -29,12 +29,12 @@ export class UIComponent {
     this._element.style.display = "none";
   }
 
-  public get element(): HTMLElement {
-    return this._element;
+  public get name(): string {
+    return this._name;
   }
 
-  public get style(): CSSStyleDeclaration {
-    return this._element.style;
+  public get element(): HTMLElement {
+    return this._element;
   }
 
   public set style(style: CSSStyleDeclaration) {

@@ -1,4 +1,4 @@
-import { DataHolder, gameEvents } from "..";
+import { DataHolder, gameEvents, GUI } from "..";
 import { GAME_EVENTS } from "../../../statics/eventlist";
 import { GameObject } from "./GameObject";
 import { Resource } from "./Resource";
@@ -7,11 +7,16 @@ import { Vector2 } from "./Vector2";
 export class Scene extends GameObject {
   private _sceneResources: Record<string, Resource> = {};
   private _sceneData: Record<string, DataHolder> = {};
+  private _gameInterface: Record<string, GUI> = {};
   private _loadResourcesPromise: Promise<void> | null = null;
   private _loadSceneComplete: boolean;
 
   constructor(name: string, position?: Vector2) {
     super(`${name}_scene`, position);
+  }
+
+  protected AddInterface(gui: GUI): void {
+    this._gameInterface[gui.name] = gui;
   }
 
   protected AddData(data: DataHolder): void {
@@ -85,4 +90,3 @@ export class Scene extends GameObject {
     return this._sceneData;
   }
 }
-
