@@ -8,7 +8,6 @@ export class InitialScene extends Scene {
     super(SCENE_NAME);
 
     this.AddResource(new Resource("title_background", "images", "png"));
-
     this.AddInterface(new MainMenuUI());
   }
 
