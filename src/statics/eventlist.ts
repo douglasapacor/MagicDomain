@@ -7,4 +7,3 @@ export enum GAME_EVENTS {
 
   CHANGE_SCENE = "CHANGE_SCENE",
 }
-
