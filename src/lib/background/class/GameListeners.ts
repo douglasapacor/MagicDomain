@@ -7,10 +7,12 @@ import { Semaphore } from "./Semaphore";
 export class GameListeners {
   private eventList: typeof GAME_EVENTS;
   private fileSemaphore: Semaphore;
+  private soundSemaphore: Semaphore;
 
   constructor(list: typeof GAME_EVENTS) {
     this.eventList = list;
     this.fileSemaphore = new Semaphore(3);
+    this.soundSemaphore = new Semaphore(3);
   }
 
   public initialize(): void {
@@ -37,6 +39,27 @@ export class GameListeners {
         });
 
         this.fileSemaphore.release();
+      },
+    );
+
+    ipcMain.on(
+      this.eventList.REQUEST_SOUND,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (event: IpcMainEvent, args: any) => {
+        this.soundSemaphore.acquire();
+        const responseId = args[0].responseId;
+        const fileName = args[0].fileName;
+        const namePath = `${GamePaths.assets}${fileName}`;
+
+        const buffer = Buffer.from(GameFileSistem.readFile(namePath)).toString(
+          "base64",
+        );
+
+        event.reply(responseId, {
+          audioData: buffer,
+        });
+
+        this.soundSemaphore.release();
       },
     );
   }

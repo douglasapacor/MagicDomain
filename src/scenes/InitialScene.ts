@@ -1,5 +1,5 @@
 import { MainMenuUI } from "../../src/UI/MainMenuUI";
-import { Resource, Scene } from "../../src/lib/render";
+import { Resource, Scene, Sound } from "../../src/lib/render";
 
 const SCENE_NAME = "InitialScene";
 
@@ -8,7 +8,8 @@ export class InitialScene extends Scene {
     super(SCENE_NAME);
 
     this.AddResource(new Resource("title_background", "images", "png"));
-    this.AddInterface(new MainMenuUI());
+    this.AddSound(new Sound("button-pop", "mp3"));
+    this.AddInterface(new MainMenuUI({ sceneSounds: this.sceneSound }));
   }
 
   public drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {

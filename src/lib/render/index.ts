@@ -12,6 +12,8 @@ import { GameObject } from "./classes/GameObject";
 import { Html } from "./classes/Html";
 import { Input } from "./classes/Input";
 import { IAddEventListener } from "./classes/Interfaces/IAddEventListener";
+import { IUIConstructor } from "./classes/Interfaces/IUIConstructor";
+
 import { IEventCallback } from "./classes/Interfaces/IEventCallback";
 import { IEventRegistration } from "./classes/Interfaces/IEventRegistration";
 import { IHtmlAttributes } from "./classes/Interfaces/IHtmlAttributes";
@@ -23,6 +25,7 @@ import { Resource } from "./classes/Resource";
 import { Scene } from "./classes/Scene";
 import { SceneFactory } from "./classes/SceneFactory";
 import { SceneProvider } from "./classes/SceneProvider";
+import { Sound } from "./classes/Sound";
 import { Sprite } from "./classes/Sprite";
 import { UIComponent } from "./classes/UIComponent";
 import { Vector2 } from "./classes/Vector2";
@@ -81,6 +84,7 @@ export {
   Input,
   IRemoveEventListener,
   isSpaceFree,
+  IUIConstructor,
   keyboardEvents,
   Loop,
   Map,
@@ -91,6 +95,7 @@ export {
   Scene,
   SceneFactory,
   SceneProvider,
+  Sound,
   Sprite,
   spriteConstructor,
   UIComponent,

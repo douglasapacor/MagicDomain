@@ -1,12 +1,23 @@
-import { GUI, UIComponent } from "../../src/lib/render";
+import {
+  DataHolder,
+  GUI,
+  Resource,
+  Sound,
+  UIComponent,
+} from "../../src/lib/render";
 import { MainButton } from "./components/MainButton";
+
+type menuConstructor = {
+  sceneResources?: Record<string, Resource>;
+  sceneData?: Record<string, DataHolder>;
+  sceneSounds?: Record<string, Sound>;
+};
 
 export class MainMenuUI extends GUI {
   private buttonNewGame: MainButton = new MainButton(
     "newGameButton",
     "Novo Jogo",
   );
-
   private buttonQuitGame: MainButton = new MainButton("buttonQuitGame", "Sair");
 
   private buttonLoadGame: MainButton = new MainButton(
@@ -19,7 +30,7 @@ export class MainMenuUI extends GUI {
     tag: "div",
   });
 
-  constructor() {
+  constructor(private uiAssets?: menuConstructor) {
     super("MainMenuUI");
 
     this.buttonNewGame.element.onclick = this.newGameButtonOnClick;
@@ -51,7 +62,9 @@ export class MainMenuUI extends GUI {
   }
 
   public newGameButtonOnClick = () => {
-    console.log("asdasdasdasdasdasas");
+    if (this.uiAssets)
+      if (this.uiAssets.sceneSounds)
+        this.uiAssets.sceneSounds["button-pop"].play();
   };
 }
 

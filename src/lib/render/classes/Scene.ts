@@ -1,22 +1,37 @@
-import { DataHolder, gameEvents, GUI } from "..";
+import {
+  DataHolder,
+  gameEvents,
+  GameObject,
+  GUI,
+  Resource,
+  Sound,
+  Vector2,
+} from "..";
 import { GAME_EVENTS } from "../../../statics/eventlist";
-import { GameObject } from "./GameObject";
-import { Resource } from "./Resource";
-import { Vector2 } from "./Vector2";
 
 export class Scene extends GameObject {
   private _sceneResources: Record<string, Resource> = {};
   private _sceneData: Record<string, DataHolder> = {};
-  private _gameInterface: Record<string, GUI> = {};
+  private _sceneInterface: Record<string, GUI> = {};
+  private _sceneSounds: Record<string, Sound> = {};
+
   private _loadResourcesPromise: Promise<void> | null = null;
+  private _loadSoundsPromise: Promise<void> | null = null;
+
+  private _loadResourcesComplete: boolean;
+  private _loadSoundComplete: boolean;
+
   private _loadSceneComplete: boolean;
 
   constructor(name: string, position?: Vector2) {
     super(`${name}_scene`, position);
+    this._loadResourcesComplete = false;
+    this._loadSoundComplete = false;
+    this._loadSceneComplete = false;
   }
 
   protected AddInterface(gui: GUI): void {
-    this._gameInterface[gui.name] = gui;
+    this._sceneInterface[gui.name] = gui;
   }
 
   protected AddData(data: DataHolder): void {
@@ -25,6 +40,10 @@ export class Scene extends GameObject {
 
   protected AddResource(resource: Resource): void {
     this._sceneResources[resource.name] = resource;
+  }
+
+  protected AddSound(sound: Sound): void {
+    this._sceneSounds[sound.name] = sound;
   }
 
   public override StepEntry(delta: number): void {
@@ -36,20 +55,58 @@ export class Scene extends GameObject {
     if (this._loadResourcesPromise) {
       this._loadResourcesPromise
         .then(() => {
-          if (!this._readyStarted) {
-            this._readyStarted = true;
-            this.ready();
-          }
+          this._loadResourcesComplete = true;
         })
         .catch(error => {
           console.error("Erro ao carregar recursos da cena:", error);
         });
     }
 
+    if (!this._loadSoundsPromise) this._loadSoundsPromise = this.LoadSounds();
+
+    if (this._loadSoundsPromise) {
+      this._loadSoundsPromise
+        .then(() => {
+          this._loadSoundComplete = true;
+        })
+        .catch(error => {
+          console.error("Erro ao carregar recursos da cena:", error);
+        });
+    }
+
+    if (this._loadResourcesComplete && this._loadSoundComplete) {
+      if (!this._readyStarted) {
+        this._readyStarted = true;
+        this.ready();
+      }
+    }
+
     if (this._readyStarted && this._readyComplete)
       this._loadSceneComplete = true;
 
     if (this._loadSceneComplete) this.Step(delta);
+  }
+
+  private async LoadSounds(): Promise<void> {
+    const sounds = Object.values(this._sceneSounds);
+    await Promise.all(sounds.map(this.LoadSound));
+  }
+
+  private async LoadSound(sound: Sound): Promise<void> {
+    try {
+      await window.bridge.send(GAME_EVENTS.REQUEST_SOUND, {
+        fileName: `\\sounds\\${sound.name}.${sound.ext}`,
+        responseId: sound.eventResponseId,
+      });
+
+      await new Promise(resolve => {
+        sound.onload = () => resolve(true);
+      });
+
+      sound.isLoaded = true;
+    } catch (error) {
+      console.error("Erro ao carregar som:", sound.name, error);
+    }
   }
 
   private async LoadResources(): Promise<void> {
@@ -88,5 +145,9 @@ export class Scene extends GameObject {
 
   public get sceneData(): Record<string, DataHolder> {
     return this._sceneData;
+  }
+
+  public get sceneSound(): Record<string, Sound> {
+    return this._sceneSounds;
   }
 }
