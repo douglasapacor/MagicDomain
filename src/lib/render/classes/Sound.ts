@@ -42,11 +42,8 @@ export class Sound {
           this._audioBuffer = await this._audioContext.decodeAudioData(
             this._arrayBuffer,
           );
-          // this._audioSource = this._audioContext.createBufferSource();
-          // this._audioSource.buffer = this._audioBuffer;
-          // this._audioSource.connect(this._audioContext.destination);
         } catch (error: any) {
-          console.info(
+          console.error(
             `Erro ao carregar arquivo de som: ${this._name}\nDetalhes do erro:\n    -nome: ${error.name}\n    -message: ${error.message}`,
           );
         } finally {
@@ -64,8 +61,6 @@ export class Sound {
     this._audioSource = this._audioContext.createBufferSource();
     this._audioSource.buffer = this._audioBuffer;
     this._audioSource.connect(this._audioContext.destination);
-
-    // this._audioSource.buffer = this._audioBuffer;
 
     this._audioSource.start();
   }
@@ -97,4 +92,3 @@ export class Sound {
     this._isLoaded = isLoaded;
   }
 }
-
