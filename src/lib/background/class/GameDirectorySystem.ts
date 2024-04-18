@@ -1,20 +1,15 @@
-import { GameDirectory } from "./GameDirectory";
-import { GameFile } from "./GameFile";
+import { GamePaths } from "./GamePaths";
 
 export class GameDirectorySystem {
-  private gameDir: { [key: string]: GameDirectory | GameFile };
+  private homeDir = GamePaths.home;
 
-  constructor(private home: string) {
-    const dataDir = new GameDirectory("data", this.home);
-    const savesDir = new GameDirectory("saves", dataDir.fullName);
-    const datafile = new GameFile("datafile", savesDir.fullName);
+  private gameDirStructure: ["data", ""];
+  private gameFileStructure: [];
 
-    savesDir.addChildren(datafile);
-    dataDir.addChildren(datafile);
+  private dirGameStructure: any = {};
 
-    this.gameDir = {
-      data: dataDir,
-    };
+  constructor() {
+    this.dirGameStructure = {};
   }
 }
 

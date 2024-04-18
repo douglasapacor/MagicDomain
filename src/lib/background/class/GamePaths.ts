@@ -9,23 +9,23 @@ export class GamePaths {
     return this.gamePaths.get(name);
   }
 
-  static get entry(): string | undefined {
+  static get entry(): string {
     return this.gamePaths.get("entry");
   }
 
-  static get preload(): string | undefined {
+  static get preload(): string {
     return this.gamePaths.get("preload");
   }
 
-  static get src(): string | undefined {
+  static get src(): string {
     return this.gamePaths.get("src");
   }
 
-  static get home(): string | undefined {
+  static get home(): string {
     return this.gamePaths.get("home");
   }
 
-  static get assets(): string | undefined {
+  static get assets(): string {
     return this.gamePaths.get("assets");
   }
 }
