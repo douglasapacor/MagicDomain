@@ -54,15 +54,21 @@ export class Sound {
   }
 
   public play(): void {
-    if (!this._isLoaded) {
-      throw new Error(`Som não carregado: ${this._name}`);
+    try {
+      if (!this._isLoaded) {
+        throw new Error(`Som não carregado: ${this._name}`);
+      }
+
+      this._audioSource = this._audioContext.createBufferSource();
+      this._audioSource.buffer = this._audioBuffer;
+      this._audioSource.connect(this._audioContext.destination);
+
+      this._audioSource.start();
+    } catch (error) {
+      console.error(
+        `Erro ao executar arquivo de som: ${this._name}\nDetalhes do erro:\n    -nome: ${error.name}\n    -message: ${error.message}`,
+      );
     }
-
-    this._audioSource = this._audioContext.createBufferSource();
-    this._audioSource.buffer = this._audioBuffer;
-    this._audioSource.connect(this._audioContext.destination);
-
-    this._audioSource.start();
   }
 
   public dispose(): void {

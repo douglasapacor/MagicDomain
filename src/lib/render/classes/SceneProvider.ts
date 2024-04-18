@@ -16,6 +16,7 @@ export class SceneProvider {
   }
 
   public static unloadScene(): void {
+    if (this.scene) this.scene.clearInterfaces();
     this.scene = null;
   }
 }

@@ -12,13 +12,12 @@ import { GameObject } from "./classes/GameObject";
 import { Html } from "./classes/Html";
 import { Input } from "./classes/Input";
 import { IAddEventListener } from "./classes/Interfaces/IAddEventListener";
-import { IUIConstructor } from "./classes/Interfaces/IUIConstructor";
-
 import { IEventCallback } from "./classes/Interfaces/IEventCallback";
 import { IEventRegistration } from "./classes/Interfaces/IEventRegistration";
 import { IHtmlAttributes } from "./classes/Interfaces/IHtmlAttributes";
 import { INotifyEvent } from "./classes/Interfaces/INotifyEvent";
 import { IRemoveEventListener } from "./classes/Interfaces/IRemoveEventListener";
+import { IUIConstructor } from "./classes/Interfaces/IUIConstructor";
 import { Loop } from "./classes/Loop";
 import { Map } from "./classes/Map";
 import { Resource } from "./classes/Resource";

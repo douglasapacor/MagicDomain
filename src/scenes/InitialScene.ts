@@ -8,8 +8,14 @@ export class InitialScene extends Scene {
     super(SCENE_NAME);
 
     this.AddResource(new Resource("title_background", "images", "png"));
+    this.AddResource(new Resource("title_logo", "images", "png"));
     this.AddSound(new Sound("button-pop", "mp3"));
-    this.AddInterface(new MainMenuUI({ sceneSounds: this.sceneSound }));
+    this.AddInterface(
+      new MainMenuUI({
+        sceneSounds: this.sceneSound,
+        sceneResources: this.sceneResource,
+      }),
+    );
   }
 
   public drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {

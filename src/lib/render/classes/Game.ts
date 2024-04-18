@@ -16,6 +16,7 @@ export class Game {
     this.log = new GameLog();
     this.core = {
       fadeState: "in",
+      zIndex: 0,
       fadeStateNeedsChanged: false,
       sceneCanBeLoaded: true,
       sceneNeedsToBeChanged: false,
@@ -90,10 +91,17 @@ export class Game {
       const fadeAmount =
         (opacityTarget - this.core.viewOpacity) / (20 * this.loop.timeStep);
 
+      if (
+        opacityTarget === 1 &&
+        this.structure.overlay.style.display === "none"
+      )
+        this.structure.overlay.style.display = "block";
+
       this.core.viewOpacity += fadeAmount * delta;
 
       if (this.core.fadeState === "in" && this.core.viewOpacity <= 0.01) {
         this.structure.overlay.style.opacity = "0";
+        this.structure.overlay.style.display = "none";
         this.core.viewOpacity = 0;
         this.core.fadeState = "out";
         this.core.fadeStateNeedsChanged = false;

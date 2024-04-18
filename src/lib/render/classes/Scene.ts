@@ -14,13 +14,10 @@ export class Scene extends GameObject {
   private _sceneData: Record<string, DataHolder> = {};
   private _sceneInterface: Record<string, GUI> = {};
   private _sceneSounds: Record<string, Sound> = {};
-
   private _loadResourcesPromise: Promise<void> | null = null;
   private _loadSoundsPromise: Promise<void> | null = null;
-
   private _loadResourcesComplete: boolean;
   private _loadSoundComplete: boolean;
-
   private _loadSceneComplete: boolean;
 
   constructor(name: string, position?: Vector2) {
@@ -149,5 +146,11 @@ export class Scene extends GameObject {
 
   public get sceneSound(): Record<string, Sound> {
     return this._sceneSounds;
+  }
+
+  public clearInterfaces(): void {
+    Object.values(this._sceneInterface).forEach(item => {
+      item.destroy();
+    });
   }
 }

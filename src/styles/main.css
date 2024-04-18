@@ -31,7 +31,6 @@ body {
   display: inline-block;
   width: 90%;
   cursor: pointer;
-  z-index: 1;
 }
 
 .button a {
@@ -104,4 +103,23 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: grey;
+}
+
+.ui-title {
+  box-sizing: border-box;
+  position: absolute;
+  width: 80%;
+  height: 30%;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2f3e46;
+}
+
+.ui-title > img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  display: block;
+  max-width: 100%;
 }

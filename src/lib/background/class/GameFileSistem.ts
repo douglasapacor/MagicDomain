@@ -4,7 +4,11 @@ export class GameFileSistem {
   constructor() {}
 
   static createFile(fileName: string, fileContent: unknown): void {
-    fs.writeFileSync(fileName, JSON.stringify(fileContent));
+    fs.writeFileSync(fileName, JSON.stringify(fileContent), "utf-8");
+  }
+
+  static readFile(fileNameLocation: string): Buffer {
+    return fs.readFileSync(fileNameLocation);
   }
 
   static createDirectory(directoryName: string): void {
@@ -15,8 +19,8 @@ export class GameFileSistem {
     return fs.existsSync(fileNameLocation);
   }
 
-  static readFile(fileNameLocation: string): Buffer {
-    return fs.readFileSync(fileNameLocation);
+  static existDirectory(directoryLocation: string): boolean {
+    return fs.existsSync(directoryLocation);
   }
 
   static readJSONFile(fileNameLocation: string): unknown {

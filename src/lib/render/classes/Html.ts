@@ -31,6 +31,7 @@ export class Html {
     this._overlay.style.height = "100%";
     this._overlay.style.backgroundColor = "black";
     this._overlay.style.opacity = "1";
+    this._overlay.style.zIndex = "9999";
 
     this._container.appendChild(this._canvas);
     this._container.appendChild(this._overlay);

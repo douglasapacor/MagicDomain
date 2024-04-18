@@ -32,7 +32,6 @@ export class Structure {
   public async initialize() {
     try {
       process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
-
       powerSaveBlocker.start("prevent-app-suspension");
 
       if (process.env.NODE_ENV === "production") serve({ directory: "app" });
@@ -66,7 +65,7 @@ export class Structure {
       };
 
       const registerIpcEvents = async () => {
-        this.gameListeners.initialize();
+        this.gameListeners.initialize(app);
       };
 
       app
@@ -76,7 +75,7 @@ export class Structure {
         .whenReady()
         .then(registerIpcEvents);
     } catch (error) {
-      console.log("ERRORORORORORO", error);
+      console.error(`BackgroundError: ${error}`);
     }
   }
 }

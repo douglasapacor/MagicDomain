@@ -34,4 +34,8 @@ export class GUI {
   public get name(): string {
     return this._name;
   }
+
+  public destroy(): void {
+    this.uiFrame.remove();
+  }
 }
