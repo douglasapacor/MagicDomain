@@ -34,4 +34,3 @@ export class GameDirectory {
     this._childrens.push(children);
   }
 }
-
