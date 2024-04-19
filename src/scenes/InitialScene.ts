@@ -9,7 +9,9 @@ export class InitialScene extends Scene {
 
     this.AddResource(new Resource("title_background", "images", "png"));
     this.AddResource(new Resource("title_logo", "images", "png"));
+
     this.AddSound(new Sound("button-pop", "mp3"));
+
     this.AddInterface(
       new MainMenuUI({
         sceneSounds: this.sceneSound,

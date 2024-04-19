@@ -64,6 +64,8 @@ export class MainMenuUI extends GUI {
     if (this.uiAssets)
       if (this.uiAssets.sceneSounds)
         this.uiAssets.sceneSounds["button-pop"].play();
+
+    gameEvents.emit(GAME_EVENTS.CHANGE_SCENE, "NewGameScene");
   };
 
   public loadGameButtonOnClick = () => {

@@ -19,9 +19,9 @@ export class StartSceneData extends DataHolder {
     );
     this.text.set(
       5,
-      " ser considerado como reprodução de um fato ou opnião da empresa ou dos",
+      " ser considerado como reprodução de um fato ou opnião do estúdio, empresa ou",
     );
-    this.text.set(6, "desenvolvedores.");
+    this.text.set(6, "de seus desenvolvedores.");
   }
 
   public line(key: string | number): string | undefined {

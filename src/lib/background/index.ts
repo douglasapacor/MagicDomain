@@ -1,6 +1,4 @@
-import { GameDirectory } from "./class/GameDirectory";
-import { GameDirectorySystem } from "./class/GameDirectorySystem";
-import { GameFile } from "./class/GameFile";
+import { GameDirectoryStructure } from "./class/GameDirectoryStructure";
 import { GameFileSistem } from "./class/GameFileSistem";
 import { GameListeners } from "./class/GameListeners";
 import { GamePaths } from "./class/GamePaths";
@@ -8,9 +6,7 @@ import { Semaphore } from "./class/Semaphore";
 import { Structure } from "./class/Structure";
 
 export {
-  GameDirectory,
-  GameDirectorySystem,
-  GameFile,
+  GameDirectoryStructure,
   GameFileSistem,
   GameListeners,
   GamePaths,

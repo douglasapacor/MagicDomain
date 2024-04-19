@@ -2,6 +2,7 @@ import { app, BrowserWindow, Menu, powerSaveBlocker } from "electron";
 import serve from "electron-serve";
 import path from "path";
 import { GAME_EVENTS } from "../../../statics/eventlist";
+import { GameDirectoryStructure } from "./GameDirectoryStructure";
 import { GameListeners } from "./GameListeners";
 import { GamePaths } from "./GamePaths";
 
@@ -9,6 +10,7 @@ export class Structure {
   private readonly isProd: boolean;
   private readonly gameListeners: GameListeners;
   protected browserWindow: BrowserWindow;
+  private gameDirectoryStructure: GameDirectoryStructure;
 
   constructor(entry: string, preload: string, src: string) {
     const homeString = app.getPath("userData");
@@ -25,6 +27,12 @@ export class Structure {
       "home",
       path.join(this.isProd ? homeString : `${homeString} (development)`),
     );
+
+    this.gameDirectoryStructure = new GameDirectoryStructure(
+      GamePaths.getPathByName("home"),
+    );
+
+    this.gameDirectoryStructure.validadeInternalStructure();
 
     this.gameListeners = new GameListeners(GAME_EVENTS);
   }
