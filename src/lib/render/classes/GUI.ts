@@ -6,7 +6,6 @@ export class GUI {
     this.uiFrame = document.createElement("div");
     this._name = name;
     this.uiFrame.setAttribute("name", name);
-
     this.uiFrame.style.position = "absolute";
     this.uiFrame.style.inset = "0px";
     this.uiFrame.style.width = "100%";
