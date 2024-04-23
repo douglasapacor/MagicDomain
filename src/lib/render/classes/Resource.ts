@@ -5,7 +5,7 @@ import { generateKey } from "../helpers/randoms";
 export class Resource {
   private readonly _name: string;
   private readonly _type: "images" | "maps" | "sprite";
-  private readonly _ext: "png" | "jpg" | "jpeg" | "json";
+  private readonly _ext: "gif" | "png" | "jpg" | "jpeg" | "json";
   private _image: HTMLImageElement = new Image();
   private _isLoaded: boolean;
   private readonly _event_response_Id: string = `${GAME_EVENTS.RESPONSE_FILE}_${generateKey(5)}`;
@@ -13,7 +13,7 @@ export class Resource {
   constructor(
     name: string,
     type: "images" | "maps" | "sprite",
-    ext?: "png" | "jpg" | "jpeg" | "json",
+    ext?: "gif" | "png" | "jpg" | "jpeg" | "json",
   ) {
     this._name = name;
     this._type = type;
@@ -23,7 +23,7 @@ export class Resource {
     window.bridge.on(
       this._event_response_Id,
       (_: IpcRendererEvent, ...args: { imageBuffer: string }[]) => {
-        this._image.src = `data:image/png;base64,${args[0].imageBuffer}`;
+        this._image.src = `data:image/${this.ext};base64,${args[0].imageBuffer}`;
         this._isLoaded = false;
       },
     );

@@ -1,0 +1,26 @@
+/* --Font area start */
+
+@font-face {
+  font-family: "PixGamer";
+  src: url("../assets/fonts/PixgamerRegular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* --Font area end */
+
+/* -------------------------------------------------------------------------- */
+
+/* --Vars area start */
+
+:root {
+  --white: white;
+  --btnFirstColor: #84a98c;
+  --btnAncorColor: #52796f;
+  --btnSecondColor: #354f52;
+  --btnLightColor: #cad2c5;
+  --btnShadowColor: #2f3e46;
+}
+
+/* --Vars area end */
+

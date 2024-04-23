@@ -45,6 +45,7 @@ import {
   generateRecoveryPasswordKey,
   generateUpperRandomString,
 } from "./helpers/randoms";
+
 const gameEvents = new Events();
 const animationEvents = new Events();
 const keyboardEvents = new Events();
