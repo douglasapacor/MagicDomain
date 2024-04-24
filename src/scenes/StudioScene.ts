@@ -9,7 +9,7 @@ export class StudioScene extends Scene {
 
     setTimeout(() => {
       this.MoveToScene("InitialScene");
-    }, 5000);
+    }, 2000);
   }
 
   public override ready(): void {

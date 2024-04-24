@@ -7,55 +7,43 @@ import {
 import { GAME_EVENTS } from "../../src/statics/eventlist";
 import { MainButton } from "./components/MainButton";
 
+const UI_NAME = "MainMenuUI";
+
 export class MainMenuUI extends GUI {
   private titleContainer: UIComponent = new UIComponent({
-    name: "titleContainer",
+    id: "TitleContainer",
     tag: "div",
   });
   private buttonNewGame: MainButton = new MainButton(
-    "newGameButton",
+    "NewGameButton",
     "Novo Jogo",
   );
-  private buttonQuitGame: MainButton = new MainButton("buttonQuitGame", "Sair");
+  private buttonQuitGame: MainButton = new MainButton("ButtonQuitGame", "Sair");
   private buttonLoadGame: MainButton = new MainButton(
-    "buttonLoadGame",
+    "ButtonLoadGame",
     "Carregar Jogo",
   );
   private frame: UIComponent = new UIComponent({
-    name: "MainMenuFrame",
+    id: "MainMenuFrame",
     tag: "div",
   });
 
   constructor(private uiAssets?: IUIConstructor) {
-    super("MainMenuUI");
+    super(UI_NAME);
 
-    this.titleContainer.setClass = "ui-title";
-    this.buttonNewGame.element.onclick = this.newGameButtonOnClick;
-    this.buttonLoadGame.element.onclick = this.loadGameButtonOnClick;
-    this.buttonQuitGame.element.onclick = this.quitGameButtonOnClick;
-    this.buttonNewGame.setStyle = {
-      bottom: "50%",
-      left: "50%",
-      transform: "translate(-50%)",
-    };
-    this.buttonLoadGame.setStyle = {
-      bottom: "30%",
-      left: "50%",
-      transform: "translate(-50%)",
-    };
-    this.buttonQuitGame.setStyle = {
-      bottom: "10%",
-      left: "50%",
-      transform: "translate(-50%)",
-    };
-    this.frame.setClass = "main-menu-frame";
     this.titleContainer.addChildren(
       this.uiAssets.sceneResources["title_logo"].image,
     );
+
     this.frame.addChildren(this.titleContainer.element);
+
     this.frame.addChildren(this.buttonNewGame.element);
     this.frame.addChildren(this.buttonLoadGame.element);
     this.frame.addChildren(this.buttonQuitGame.element);
+
+    this.buttonNewGame.element.onclick = this.newGameButtonOnClick;
+    this.buttonLoadGame.element.onclick = this.loadGameButtonOnClick;
+    this.buttonQuitGame.element.onclick = this.quitGameButtonOnClick;
 
     this.addChildren(this.frame.element);
   }

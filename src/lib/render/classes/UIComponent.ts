@@ -3,9 +3,9 @@ import { IHtmlAttributes } from "./Interfaces/IHtmlAttributes";
 export class UIComponent {
   private _element: HTMLElement;
 
-  constructor(params: { name: string; tag: keyof HTMLElementTagNameMap }) {
+  constructor(params: { id: string; tag: keyof HTMLElementTagNameMap }) {
     this._element = document.createElement(params.tag);
-    this._element.setAttribute("name", params.name);
+    this._element.setAttribute("id", params.id);
   }
 
   public addChildren(children: HTMLElement): void {
@@ -22,10 +22,6 @@ export class UIComponent {
 
   public get element(): HTMLElement {
     return this._element;
-  }
-
-  public set setStyle(style: unknown) {
-    Object.assign(this._element.style, style);
   }
 
   public set setAttributes(attributes: IHtmlAttributes) {

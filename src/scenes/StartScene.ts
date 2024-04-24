@@ -10,7 +10,7 @@ export class StartScene extends Scene {
 
     setTimeout(() => {
       this.MoveToScene("StudioScene");
-    }, 5000);
+    }, 2000);
   }
 
   public ready(): void {

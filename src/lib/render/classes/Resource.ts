@@ -14,11 +14,14 @@ export class Resource {
     name: string,
     type: "images" | "maps" | "sprite",
     ext?: "gif" | "png" | "jpg" | "jpeg" | "json",
+    className?: string,
   ) {
     this._name = name;
     this._type = type;
     this._ext = ext ? ext : "png";
     this._isLoaded = false;
+
+    if (className) this._image.className = className;
 
     window.bridge.on(
       this._event_response_Id,

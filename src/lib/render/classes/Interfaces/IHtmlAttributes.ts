@@ -1,5 +1,6 @@
 export interface IHtmlAttributes {
   id?: string;
+  type?: "text" | "password";
   width?: number | string;
   height?: number | string;
   class?: string;

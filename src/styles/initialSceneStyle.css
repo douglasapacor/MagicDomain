@@ -1,0 +1,49 @@
+#NewGameButton {
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+#ButtonLoadGame {
+  bottom: 30%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+#ButtonQuitGame {
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+#MainMenuFrame {
+  position: absolute;
+  box-sizing: border-box;
+  border-radius: 2%;
+  width: 40%;
+  height: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: grey;
+}
+
+#TitleContainer {
+  box-sizing: border-box;
+  position: absolute;
+  width: 80%;
+  height: 30%;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2f3e46;
+}
+
+#TitleContainer > img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  display: block;
+  max-width: 100%;
+}
+

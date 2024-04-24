@@ -15,11 +15,16 @@
 
 :root {
   --white: white;
+
+  /* Button pallete */
   --btnFirstColor: #84a98c;
   --btnAncorColor: #52796f;
   --btnSecondColor: #354f52;
   --btnLightColor: #cad2c5;
   --btnShadowColor: #2f3e46;
+
+  /* new game screen */
+  --mundo-posicao: 1;
 }
 
 /* --Vars area end */
