@@ -33,4 +33,8 @@ export class UIComponent {
   public set setClass(className: string) {
     this._element.className = className;
   }
+
+  public set innerText(text: string) {
+    this._element.innerText = text;
+  }
 }

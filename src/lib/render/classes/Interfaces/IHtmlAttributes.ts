@@ -4,6 +4,8 @@ export interface IHtmlAttributes {
   width?: number | string;
   height?: number | string;
   class?: string;
+  for?: string;
+  name?: string;
   children?: HTMLElement[];
   position?: string;
   top?: string;
