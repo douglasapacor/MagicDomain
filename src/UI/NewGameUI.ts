@@ -23,16 +23,26 @@ export class NewGameUI extends GUI {
     tag: "div",
   });
 
+  private worldFrame: UIComponent = new UIComponent({
+    id: "WorldFrame",
+    tag: "div",
+  });
+
   constructor(private uiAssets?: IUIConstructor) {
     super(UI_NAME);
+
     this.gameNameInput.setAttributes = { type: "text" };
     this.gameNameInput.setAttributes = { name: "gameName" };
 
     this.gameNameLabel.setAttributes = { for: "gameName" };
+
     this.gameNameLabel.innerText = "Nome do Jogo";
 
     this.newGameFrame.addChildren(this.gameNameLabel.element);
     this.newGameFrame.addChildren(this.gameNameInput.element);
+
+    this.preFrame.addChildren(this.worldFrame.element);
+
     this.newGameFrame.addChildren(this.preFrame.element);
 
     this.addChildren(this.newGameFrame.element);
