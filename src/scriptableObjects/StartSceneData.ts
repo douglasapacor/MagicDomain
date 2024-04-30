@@ -28,4 +28,3 @@ export class StartSceneData extends DataHolder {
     return this.text.get(key);
   }
 }
-

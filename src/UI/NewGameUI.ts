@@ -7,22 +7,14 @@ export class NewGameUI extends GUI {
     id: "NewGameFrame",
     tag: "div",
   });
-
   private gameNameInput: UIComponent = new UIComponent({
     id: "GameNameInput",
     tag: "input",
   });
-
   private gameNameLabel: UIComponent = new UIComponent({
     id: "GameNameLabel",
     tag: "label",
   });
-
-  private preFrame: UIComponent = new UIComponent({
-    id: "PreFrame",
-    tag: "div",
-  });
-
   private worldFrame: UIComponent = new UIComponent({
     id: "WorldFrame",
     tag: "div",
@@ -35,17 +27,23 @@ export class NewGameUI extends GUI {
     this.gameNameInput.setAttributes = { name: "gameName" };
 
     this.gameNameLabel.setAttributes = { for: "gameName" };
-
     this.gameNameLabel.innerText = "Nome do Jogo";
 
     this.newGameFrame.addChildren(this.gameNameLabel.element);
     this.newGameFrame.addChildren(this.gameNameInput.element);
 
-    this.preFrame.addChildren(this.worldFrame.element);
+    this.worldFrame.addChildren(
+      this.uiAssets.sceneResources["xibalba_new_game"].image,
+    );
+    this.worldFrame.addChildren(
+      this.uiAssets.sceneResources["aethel_new_game"].image,
+    );
+    this.worldFrame.addChildren(
+      this.uiAssets.sceneResources["mu_new_game"].image,
+    );
 
-    this.newGameFrame.addChildren(this.preFrame.element);
+    this.newGameFrame.addChildren(this.worldFrame.element);
 
     this.addChildren(this.newGameFrame.element);
   }
 }
-

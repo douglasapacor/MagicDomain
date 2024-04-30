@@ -14,7 +14,7 @@ export class Input {
 
     if (direction) {
       this.heldDirections.add(direction);
-      keyboardEvents.emit("keyPressed", { detail: direction });
+      keyboardEvents.emit("keyPressed", { direction });
     }
   };
 
@@ -23,7 +23,7 @@ export class Input {
 
     if (direction) {
       this.heldDirections.delete(direction);
-      keyboardEvents.emit("keyReleased", { detail: direction });
+      keyboardEvents.emit("keyReleased", { direction });
     }
   };
 

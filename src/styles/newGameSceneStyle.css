@@ -7,7 +7,8 @@
   box-sizing: border-box;
 }
 
-#NewGameFrame > input[type="text"] {
+#GameNameInput {
+  display: block;
   min-width: 300px;
   height: 30px;
   border: 2px solid var(--btnFirstColor);
@@ -25,56 +26,22 @@
   font-family: "PixGamer";
 }
 
-#NewGameFrame > label {
+#GameNameLabel {
+  display: block;
   color: white;
   font-size: 16pt;
   font-family: "PixGamer";
 }
 
-#GameNameLabel {
-  display: block;
-}
-
-#PreFrame {
-  background: red;
-}
-
-/* .area-selecao-mundo {
-  width: 300px;
-  height: 150px;
-  margin: 20px auto;
+#WorldFrame {
+  width: var(--worldSize);
   overflow: hidden;
-  background-color: bisque;
+  display: inline-flex;
+  margin-top: 30px;
 }
 
-.mundo {
-  width: 80%;
-  height: auto;
-  display: inline-block;
+.world {
+  min-width: var(--worldSize);
+  min-height: var(--worldSize);
   transition: transform 0.5s ease;
 }
-
-.mundo:nth-child(1) {
-  transform: translateX(0);
-}
-
-.mundo:nth-child(2) {
-  transform: translateX(100px);
-}
-
-.mundo:nth-child(3) {
-  transform: translateX(200px);
-}
-
-.mundo-para-direita {
-  .mundo {
-    transform: translateX(calc(-100px + var(--mundo-posicao)));
-  }
-}
-
-.mundo-para-esquerda {
-  .mundo {
-    transform: translateX(calc(100px + var(--mundo-posicao)));
-  }
-} */
-
