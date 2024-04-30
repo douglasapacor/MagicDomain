@@ -21,7 +21,7 @@
   --btnLightColor: #cad2c5;
   --btnShadowColor: #2f3e46;
   /* new game screen */
-  --worldSize: 334px;
+  --worldDisplacement: 0px;
 }
 
 /* --Vars area end */

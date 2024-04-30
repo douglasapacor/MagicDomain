@@ -11,7 +11,6 @@ export class NewGameScene extends Scene {
     );
     this.AddResource(new Resource("aethel_new_game", "images", "gif", "world"));
     this.AddResource(new Resource("mu_new_game", "images", "gif", "world"));
-
     this.AddInterface(new NewGameUI({ sceneResources: this.sceneResource }));
   }
 }

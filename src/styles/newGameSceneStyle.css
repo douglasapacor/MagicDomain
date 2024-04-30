@@ -34,14 +34,15 @@
 }
 
 #WorldFrame {
-  width: var(--worldSize);
+  width: 334px;
   overflow: hidden;
   display: inline-flex;
   margin-top: 30px;
 }
 
 .world {
-  min-width: var(--worldSize);
-  min-height: var(--worldSize);
+  min-width: 334px;
+  min-height: 334px;
   transition: transform 0.5s ease;
+  transform: translateX(var(--worldDisplacement));
 }

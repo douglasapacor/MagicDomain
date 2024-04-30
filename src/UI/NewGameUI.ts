@@ -19,6 +19,8 @@ export class NewGameUI extends GUI {
     id: "WorldFrame",
     tag: "div",
   });
+  private worldDisplacement = 0;
+  private worldDisplacementSize = 334;
 
   constructor(private uiAssets?: IUIConstructor) {
     super(UI_NAME);
@@ -43,7 +45,36 @@ export class NewGameUI extends GUI {
     );
 
     this.newGameFrame.addChildren(this.worldFrame.element);
-
     this.addChildren(this.newGameFrame.element);
+    this.worldDisplacement = +window
+      .getComputedStyle(document.documentElement)
+      .getPropertyValue("--worldDisplacement")
+      .replace("px", "");
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "ArrowRight") {
+        this.moveToRight();
+      } else if (event.key === "ArrowLeft") {
+        this.moveToLeft();
+      }
+    });
+  }
+
+  private moveToRight(): void {
+    this.worldDisplacement =
+      this.worldDisplacement + this.worldDisplacementSize;
+    document.documentElement.style.setProperty(
+      "--worldDisplacement",
+      this.worldDisplacement + "px",
+    );
+  }
+
+  private moveToLeft(): void {
+    this.worldDisplacement =
+      this.worldDisplacement - this.worldDisplacementSize;
+    document.documentElement.style.setProperty(
+      "--worldDisplacement",
+      this.worldDisplacement + "px",
+    );
   }
 }
