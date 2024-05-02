@@ -8,8 +8,6 @@ export class StudioScene extends Scene {
     this.AddResource(new Resource("eq_logo", "images"));
 
     setTimeout(() => {
-      console.log("scene changed");
-
       this.MoveToScene("InitialScene");
     }, 2000);
   }

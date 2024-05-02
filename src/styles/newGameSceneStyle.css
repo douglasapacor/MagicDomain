@@ -40,6 +40,11 @@
   margin-top: 30px;
 }
 
+#WorldDetails {
+  margin-top: 30px;
+  color: white;
+}
+
 .world {
   min-width: 334px;
   min-height: 334px;

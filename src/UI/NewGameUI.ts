@@ -19,11 +19,21 @@ export class NewGameUI extends GUI {
     id: "WorldFrame",
     tag: "div",
   });
+  private worldDetails: UIComponent = new UIComponent({
+    id: "WorldDetails",
+    tag: "div",
+  });
   private worldDisplacement = 0;
   private worldDisplacementSize = 334;
+  private maxDisplacement = -334 * 3;
 
   constructor(private uiAssets?: IUIConstructor) {
     super(UI_NAME);
+
+    this.worldDisplacement = +window
+      .getComputedStyle(document.documentElement)
+      .getPropertyValue("--worldDisplacement")
+      .replace("px", "");
 
     this.gameNameInput.setAttributes = { type: "text" };
     this.gameNameInput.setAttributes = { name: "gameName" };
@@ -33,7 +43,6 @@ export class NewGameUI extends GUI {
 
     this.newGameFrame.addChildren(this.gameNameLabel.element);
     this.newGameFrame.addChildren(this.gameNameInput.element);
-
     this.worldFrame.addChildren(
       this.uiAssets.sceneResources["xibalba_new_game"].image,
     );
@@ -44,12 +53,11 @@ export class NewGameUI extends GUI {
       this.uiAssets.sceneResources["mu_new_game"].image,
     );
 
+    this.worldDetails.element.innerText = "Nome do Plano";
+    this.newGameFrame.addChildren(this.worldDetails.element);
+
     this.newGameFrame.addChildren(this.worldFrame.element);
     this.addChildren(this.newGameFrame.element);
-    this.worldDisplacement = +window
-      .getComputedStyle(document.documentElement)
-      .getPropertyValue("--worldDisplacement")
-      .replace("px", "");
 
     document.addEventListener("keydown", event => {
       if (event.key === "ArrowRight") {
@@ -61,20 +69,27 @@ export class NewGameUI extends GUI {
   }
 
   private moveToRight(): void {
-    this.worldDisplacement =
-      this.worldDisplacement + this.worldDisplacementSize;
-    document.documentElement.style.setProperty(
-      "--worldDisplacement",
-      this.worldDisplacement + "px",
-    );
+    const displacement = this.worldDisplacement + this.worldDisplacementSize;
+
+    if (displacement <= 0) {
+      this.worldDisplacement =
+        this.worldDisplacement + this.worldDisplacementSize;
+
+      document.documentElement.style.setProperty(
+        "--worldDisplacement",
+        this.worldDisplacement + "px",
+      );
+    }
   }
 
   private moveToLeft(): void {
-    this.worldDisplacement =
-      this.worldDisplacement - this.worldDisplacementSize;
-    document.documentElement.style.setProperty(
-      "--worldDisplacement",
-      this.worldDisplacement + "px",
-    );
+    const displacement = this.worldDisplacement - this.worldDisplacementSize;
+    if (displacement > this.maxDisplacement) {
+      this.worldDisplacement = displacement;
+      document.documentElement.style.setProperty(
+        "--worldDisplacement",
+        this.worldDisplacement + "px",
+      );
+    }
   }
 }

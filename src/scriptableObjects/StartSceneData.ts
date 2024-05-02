@@ -4,6 +4,7 @@ const DATA_NAME = "StartSceneData";
 
 export class StartSceneData extends DataHolder {
   public text: Map<string | number, string> = new Map();
+
   constructor() {
     super(DATA_NAME);
 
