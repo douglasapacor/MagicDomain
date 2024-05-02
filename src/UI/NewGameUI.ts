@@ -54,8 +54,8 @@ export class NewGameUI extends GUI {
     );
 
     this.worldDetails.element.innerText = "Nome do Plano";
-    this.newGameFrame.addChildren(this.worldDetails.element);
 
+    this.newGameFrame.addChildren(this.worldDetails.element);
     this.newGameFrame.addChildren(this.worldFrame.element);
     this.addChildren(this.newGameFrame.element);
 
