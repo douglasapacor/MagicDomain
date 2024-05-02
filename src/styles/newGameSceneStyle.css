@@ -1,7 +1,7 @@
 #NewGameFrame {
   padding: 6px;
   position: absolute;
-  height: 100%;
+  height: 40%;
   left: 50%;
   transform: translate(-50%);
   box-sizing: border-box;
@@ -45,9 +45,29 @@
   color: white;
 }
 
+#WorldText {
+  background: var(--btnSecondColor);
+  width: 70%;
+  height: 150px;
+  position: absolute;
+  left: 50%;
+  top: 61%;
+  transform: translate(-50%);
+  margin-top: 30px;
+  border-radius: 10px;
+  border: 3px solid var(--btnLightColor);
+  box-sizing: border-box;
+  overflow: hidden;
+  color: var(--white);
+  font-size: 24px;
+  padding: 10px;
+}
+
 .world {
-  min-width: 334px;
-  min-height: 334px;
+  min-width: 134px;
+  min-height: 134px;
+  margin-left: 100px;
+  margin-right: 100px;
   transition: transform 0.5s ease;
   transform: translateX(var(--worldDisplacement));
 }

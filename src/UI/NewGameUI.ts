@@ -23,9 +23,14 @@ export class NewGameUI extends GUI {
     id: "WorldDetails",
     tag: "div",
   });
+  private worldText: UIComponent = new UIComponent({
+    id: "WorldText",
+    tag: "div",
+  });
   private worldDisplacement = 0;
   private worldDisplacementSize = 334;
   private maxDisplacement = -334 * 3;
+  private worldPosition = 1;
 
   constructor(private uiAssets?: IUIConstructor) {
     super(UI_NAME);
@@ -53,11 +58,18 @@ export class NewGameUI extends GUI {
       this.uiAssets.sceneResources["mu_new_game"].image,
     );
 
-    this.worldDetails.element.innerText = "Nome do Plano";
+    const details = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
+      this.worldPosition,
+    );
+
+    this.worldDetails.element.innerText = details.name;
+    this.worldText.element.innerText = details.description.pt_br;
 
     this.newGameFrame.addChildren(this.worldDetails.element);
     this.newGameFrame.addChildren(this.worldFrame.element);
+
     this.addChildren(this.newGameFrame.element);
+    this.addChildren(this.worldText.element);
 
     document.addEventListener("keydown", event => {
       if (event.key === "ArrowRight") {
@@ -75,6 +87,16 @@ export class NewGameUI extends GUI {
       this.worldDisplacement =
         this.worldDisplacement + this.worldDisplacementSize;
 
+      this.worldPosition -= 1;
+
+      const details = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
+        this.worldPosition,
+      );
+
+      this.worldDetails.element.innerText = details.name;
+
+      this.worldText.element.innerText = details.description.pt_br;
+
       document.documentElement.style.setProperty(
         "--worldDisplacement",
         this.worldDisplacement + "px",
@@ -84,12 +106,25 @@ export class NewGameUI extends GUI {
 
   private moveToLeft(): void {
     const displacement = this.worldDisplacement - this.worldDisplacementSize;
+
     if (displacement > this.maxDisplacement) {
       this.worldDisplacement = displacement;
+
+      this.worldPosition += 1;
+
+      const details = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
+        this.worldPosition,
+      );
+
+      this.worldDetails.element.innerText = details.name;
+      this.worldText.element.innerText = details.description.pt_br;
+
       document.documentElement.style.setProperty(
         "--worldDisplacement",
         this.worldDisplacement + "px",
       );
     }
   }
+
+  private getWorldDetails() {}
 }
