@@ -25,12 +25,11 @@ export class Game {
       sceneNeedsLoadClass: false,
       sceneNeedsToBeCleaned: false,
     };
-
     gameEvents.on(GAME_EVENTS.CHANGE_SCENE, this, this.changeScene);
     window.bridge.send(GAME_EVENTS.REQUEST_START);
   }
 
-  private calculateElapsedTime(): void {
+  private calculateElapsedTime = (): void => {
     const currentTime = new Date();
     const timeDifference = currentTime.getTime() - this.log.startedAt.getTime();
     const totalMilliseconds = timeDifference;
@@ -65,7 +64,7 @@ export class Game {
       seconds,
       miliseconds,
     };
-  }
+  };
 
   private Draw = (): void => {
     this.structure.context.clearRect(

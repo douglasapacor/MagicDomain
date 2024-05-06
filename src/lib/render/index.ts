@@ -34,6 +34,7 @@ import { gameCore } from "./classes/types/gameCore";
 import { momentRegister } from "./classes/types/momentRegister";
 import { resourceTypes } from "./classes/types/resourceTypes";
 import { spriteConstructor } from "./classes/types/spriteConstructor";
+import { getCSSMeasure, setCSSMeasure } from "./helpers/cssTools";
 import { gridCells, isSpaceFree } from "./helpers/grid";
 import { moveTowards } from "./helpers/moveTowards";
 import {
@@ -45,11 +46,9 @@ import {
   generateRecoveryPasswordKey,
   generateUpperRandomString,
 } from "./helpers/randoms";
-
 const gameEvents = new Events();
 const animationEvents = new Events();
 const keyboardEvents = new Events();
-
 export {
   Animation,
   animationConfig,
@@ -73,6 +72,7 @@ export {
   generateRandomString,
   generateRecoveryPasswordKey,
   generateUpperRandomString,
+  getCSSMeasure,
   gridCells,
   GUI,
   Html,
@@ -95,6 +95,7 @@ export {
   Scene,
   SceneFactory,
   SceneProvider,
+  setCSSMeasure,
   Sound,
   Sprite,
   spriteConstructor,

@@ -9,9 +9,9 @@
 
 #GameNameInput {
   display: block;
-  min-width: 300px;
+  min-width: calc(var(--worldFrameSize) - 34px);
   height: 30px;
-  border: 2px solid var(--btnFirstColor);
+  border: 2px solid var(--firstColor);
   border-radius: 4px;
   outline: none;
   background-image: none;
@@ -34,7 +34,7 @@
 }
 
 #WorldFrame {
-  width: 334px;
+  width: var(--worldFrameSize);
   overflow: hidden;
   display: inline-flex;
   margin-top: 30px;
@@ -46,7 +46,7 @@
 }
 
 #WorldText {
-  background: var(--btnSecondColor);
+  background: var(--secondColor);
   width: 70%;
   height: 150px;
   position: absolute;
@@ -55,7 +55,7 @@
   transform: translate(-50%);
   margin-top: 30px;
   border-radius: 10px;
-  border: 3px solid var(--btnLightColor);
+  border: 3px solid var(--lightColor);
   box-sizing: border-box;
   overflow: hidden;
   color: var(--white);
@@ -64,10 +64,10 @@
 }
 
 .world {
-  min-width: 134px;
-  min-height: 134px;
-  margin-left: 100px;
-  margin-right: 100px;
+  min-width: var(--worldSize);
+  min-height: var(--worldSize);
+  margin-left: var(--worldMargin);
+  margin-right: var(--worldMargin);
   transition: transform 0.5s ease;
   transform: translateX(var(--worldDisplacement));
 }

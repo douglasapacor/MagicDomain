@@ -1,4 +1,11 @@
-import { GUI, IUIConstructor, UIComponent } from "../../src/lib/render";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  getCSSMeasure,
+  GUI,
+  IUIConstructor,
+  setCSSMeasure,
+  UIComponent,
+} from "../../src/lib/render";
 
 const UI_NAME = "NewGameUI";
 
@@ -27,18 +34,20 @@ export class NewGameUI extends GUI {
     id: "WorldText",
     tag: "div",
   });
-  private worldDisplacement = 0;
-  private worldDisplacementSize = 334;
-  private maxDisplacement = -334 * 3;
+
+  private size = this.content.clientWidth / 3;
+  private margin = (+this.size / 100) * 60;
+  private maxDisplacement = -this.size * 3;
   private worldPosition = 1;
+  private worldDisplacement = getCSSMeasure("worldDisplacement");
+  private details: any;
 
   constructor(private uiAssets?: IUIConstructor) {
     super(UI_NAME);
 
-    this.worldDisplacement = +window
-      .getComputedStyle(document.documentElement)
-      .getPropertyValue("--worldDisplacement")
-      .replace("px", "");
+    setCSSMeasure("worldFrameSize", this.size.toFixed(2));
+    setCSSMeasure("worldSize", (this.size - this.margin).toFixed(2));
+    setCSSMeasure("worldMargin", (this.margin / 2).toFixed(2));
 
     this.gameNameInput.setAttributes = { type: "text" };
     this.gameNameInput.setAttributes = { name: "gameName" };
@@ -48,6 +57,7 @@ export class NewGameUI extends GUI {
 
     this.newGameFrame.addChildren(this.gameNameLabel.element);
     this.newGameFrame.addChildren(this.gameNameInput.element);
+
     this.worldFrame.addChildren(
       this.uiAssets.sceneResources["xibalba_new_game"].image,
     );
@@ -57,13 +67,11 @@ export class NewGameUI extends GUI {
     this.worldFrame.addChildren(
       this.uiAssets.sceneResources["mu_new_game"].image,
     );
-
-    const details = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
+    this.details = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
       this.worldPosition,
     );
-
-    this.worldDetails.element.innerText = details.name;
-    this.worldText.element.innerText = details.description.pt_br;
+    this.worldDetails.element.innerText = this.details.name;
+    this.worldText.element.innerText = this.details.description.pt_br;
 
     this.newGameFrame.addChildren(this.worldDetails.element);
     this.newGameFrame.addChildren(this.worldFrame.element);
@@ -80,51 +88,37 @@ export class NewGameUI extends GUI {
     });
   }
 
-  private moveToRight(): void {
-    const displacement = this.worldDisplacement + this.worldDisplacementSize;
-
+  private moveToRight = (): void => {
+    const displacement = this.worldDisplacement + this.size;
     if (displacement <= 0) {
-      this.worldDisplacement =
-        this.worldDisplacement + this.worldDisplacementSize;
-
+      this.worldDisplacement = this.worldDisplacement + this.size;
       this.worldPosition -= 1;
-
-      const details = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
+      this.details = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
         this.worldPosition,
       );
-
-      this.worldDetails.element.innerText = details.name;
-
-      this.worldText.element.innerText = details.description.pt_br;
-
+      this.worldDetails.element.innerText = this.details.name;
+      this.worldText.element.innerText = this.details.description.pt_br;
       document.documentElement.style.setProperty(
         "--worldDisplacement",
         this.worldDisplacement + "px",
       );
     }
-  }
+  };
 
-  private moveToLeft(): void {
-    const displacement = this.worldDisplacement - this.worldDisplacementSize;
-
+  private moveToLeft = (): void => {
+    const displacement = this.worldDisplacement - this.size;
     if (displacement > this.maxDisplacement) {
       this.worldDisplacement = displacement;
-
       this.worldPosition += 1;
-
-      const details = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
+      this.details = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
         this.worldPosition,
       );
-
-      this.worldDetails.element.innerText = details.name;
-      this.worldText.element.innerText = details.description.pt_br;
-
+      this.worldDetails.element.innerText = this.details.name;
+      this.worldText.element.innerText = this.details.description.pt_br;
       document.documentElement.style.setProperty(
         "--worldDisplacement",
         this.worldDisplacement + "px",
       );
     }
-  }
-
-  private getWorldDetails() {}
+  };
 }
