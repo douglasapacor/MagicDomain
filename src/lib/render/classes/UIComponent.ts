@@ -8,7 +8,7 @@ export class UIComponent {
     this._element.setAttribute("id", params.id);
   }
 
-  public addChildren(children: HTMLElement): void {
+  public addChildren(children: HTMLElement | SVGSVGElement): void {
     this._element.appendChild(children);
   }
 

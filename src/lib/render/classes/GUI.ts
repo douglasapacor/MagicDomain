@@ -12,6 +12,8 @@ export class GUI {
     this.uiFrame.style.inset = "0px";
     this.uiFrame.style.width = "100%";
     this.uiFrame.style.height = "100%";
+    this.uiFrame.style.minHeight = "768px";
+    this.uiFrame.style.minWidth = "1024px";
 
     document.getElementById("GameContainer").appendChild(this.uiFrame);
   }
@@ -30,6 +32,14 @@ export class GUI {
 
   protected addChildren(content: HTMLElement) {
     this.uiFrame.appendChild(content);
+  }
+
+  public get guiWidth(): number {
+    return +getComputedStyle(this.uiFrame).width;
+  }
+
+  public get guiHeight(): number {
+    return +getComputedStyle(this.uiFrame).height;
   }
 
   public get name(): string {

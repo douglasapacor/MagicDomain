@@ -1,10 +1,10 @@
 #NewGameFrame {
-  padding: 6px;
+  padding: 10px 10px 0px 10px;
   position: absolute;
-  height: 40%;
   left: 50%;
   transform: translate(-50%);
   box-sizing: border-box;
+  user-select: none;
 }
 
 #GameNameInput {
@@ -21,9 +21,10 @@
   box-shadow: none;
   color: white;
   padding: 15px;
-  margin: 10px 0;
+  margin-top: 30px;
   font-size: 19pt;
   font-family: "PixGamer";
+  user-select: none;
 }
 
 #GameNameLabel {
@@ -31,6 +32,7 @@
   color: white;
   font-size: 16pt;
   font-family: "PixGamer";
+  user-select: none;
 }
 
 #WorldFrame {
@@ -51,16 +53,34 @@
   height: 150px;
   position: absolute;
   left: 50%;
-  top: 61%;
+  top: var(--textTopHeight);
   transform: translate(-50%);
-  margin-top: 30px;
   border-radius: 10px;
+  margin-top: 5px;
   border: 3px solid var(--lightColor);
   box-sizing: border-box;
   overflow: hidden;
   color: var(--white);
   font-size: 24px;
   padding: 10px;
+  user-select: none;
+}
+
+#WorldPoints {
+  height: 130px;
+  margin-top: 20px;
+}
+
+#RigthButtonArea {
+  position: absolute;
+  left: 75%;
+  top: 40%;
+}
+
+#LeftButtonArea {
+  position: absolute;
+  left: 25%;
+  top: 40%;
 }
 
 .world {
@@ -70,4 +90,5 @@
   margin-right: var(--worldMargin);
   transition: transform 0.5s ease;
   transform: translateX(var(--worldDisplacement));
+  user-select: none;
 }
