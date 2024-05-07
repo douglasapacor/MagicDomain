@@ -101,7 +101,6 @@ export class NewGameUI extends GUI {
     this.addChildren(this.newGameFrame.element);
     this.addChildren(this.rigthButtonArea.element);
     this.addChildren(this.leftButtonArea.element);
-
     this.addChildren(this.worldText.element);
 
     const gfHeight = +getComputedStyle(
