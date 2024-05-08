@@ -194,6 +194,8 @@ export class NewGameUI extends GUI {
 
       this.worldText.element.innerText = det.description.pt_br;
 
+      this.advantagesItens.element.remove();
+
       for (let index = 0; index < det.advantages.length; index++) {
         const it = document.createElement("li");
         it.innerText = det.advantages[index];
@@ -225,6 +227,8 @@ export class NewGameUI extends GUI {
       this.worldTextName.element.innerText = det.name;
 
       this.worldText.element.innerText = det.description.pt_br;
+
+      this.advantagesItens.element.replaceChildren();
 
       for (let index = 0; index < det.advantages.length; index++) {
         const it = document.createElement("li");
