@@ -7,9 +7,7 @@ export class MainButton extends UIComponent {
     super({ id, tag: "div" });
 
     this.setClass = "button";
-
     this.ancor.innerText = text;
-
     this.addChildren(this.ancor);
   }
 }

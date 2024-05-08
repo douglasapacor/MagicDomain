@@ -23,7 +23,7 @@ export class MainMenuUI extends GUI {
     "ButtonLoadGame",
     "Carregar Jogo",
   );
-  private frame: UIComponent = new UIComponent({
+  private guiFrame: UIComponent = new UIComponent({
     id: "MainMenuFrame",
     tag: "div",
   });
@@ -35,17 +35,17 @@ export class MainMenuUI extends GUI {
       this.uiAssets.sceneResources["title_logo"].image,
     );
 
-    this.frame.addChildren(this.titleContainer.element);
+    this.guiFrame.addChildren(this.titleContainer.element);
 
-    this.frame.addChildren(this.buttonNewGame.element);
-    this.frame.addChildren(this.buttonLoadGame.element);
-    this.frame.addChildren(this.buttonQuitGame.element);
+    this.guiFrame.addChildren(this.buttonNewGame.element);
+    this.guiFrame.addChildren(this.buttonLoadGame.element);
+    this.guiFrame.addChildren(this.buttonQuitGame.element);
 
     this.buttonNewGame.element.onclick = this.newGameButtonOnClick;
     this.buttonLoadGame.element.onclick = this.loadGameButtonOnClick;
     this.buttonQuitGame.element.onclick = this.quitGameButtonOnClick;
 
-    this.addChildren(this.frame.element);
+    this.addChildren(this.guiFrame.element);
   }
 
   public newGameButtonOnClick = () => {

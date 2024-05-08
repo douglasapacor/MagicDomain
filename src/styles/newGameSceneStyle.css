@@ -8,8 +8,11 @@
 }
 
 #GameNameInput {
-  display: block;
-  min-width: calc(var(--worldFrameSize) - 34px);
+  position: fixed;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%);
+  width: 40%;
   height: 30px;
   border: 2px solid var(--firstColor);
   border-radius: 4px;
@@ -21,39 +24,63 @@
   box-shadow: none;
   color: white;
   padding: 15px;
-  margin-top: 30px;
+  margin-top: 15px;
   font-size: 19pt;
   font-family: "PixGamer";
-  user-select: none;
 }
 
-#GameNameLabel {
-  display: block;
+#GameNameInputLabel {
+  position: fixed;
   color: white;
-  font-size: 16pt;
+  left: 34%;
+  top: 1%;
+  transform: translateX(-50%);
   font-family: "PixGamer";
-  user-select: none;
 }
 
-#WorldFrame {
-  width: var(--worldFrameSize);
-  overflow: hidden;
+#WorldSlot {
   display: inline-flex;
-  margin-top: 30px;
-}
-
-#WorldDetails {
-  margin-top: 30px;
-  color: white;
-}
-
-#WorldText {
-  background: var(--secondColor);
-  width: 70%;
-  height: 150px;
-  position: absolute;
+  position: fixed;
+  overflow: hidden;
+  width: 28%;
   left: 50%;
-  top: var(--textTopHeight);
+  transform: translateX(-50%);
+  top: 23%;
+}
+
+#RightButtonSlot {
+  position: fixed;
+  display: inline-block;
+  left: 80%;
+
+  transform: translate(-50%);
+  top: 32%;
+}
+
+#LeftButtonSlot {
+  position: fixed;
+  display: inline-block;
+  left: 20%;
+  transform: translate(-50%);
+  top: 32%;
+}
+
+#ConfirmButtonSlot {
+  position: fixed;
+  left: 50%;
+  bottom: 12%;
+  width: 30%;
+  transform: translateX(-50%);
+  background-color: aquamarine;
+}
+
+#WorldTextFrame {
+  background: var(--secondColor);
+  width: 60%;
+  min-height: 150px;
+  position: fixed;
+  left: 50%;
+  top: 60%;
   transform: translate(-50%);
   border-radius: 10px;
   margin-top: 5px;
@@ -62,25 +89,13 @@
   overflow: hidden;
   color: var(--white);
   font-size: 24px;
-  padding: 10px;
+  padding: 15px;
   user-select: none;
 }
 
-#WorldPoints {
-  height: 130px;
-  margin-top: 20px;
-}
-
-#RigthButtonArea {
-  position: absolute;
-  left: 75%;
-  top: 40%;
-}
-
-#LeftButtonArea {
-  position: absolute;
-  left: 25%;
-  top: 40%;
+#WorldTextFrame h4 {
+  user-select: none;
+  margin-top: 0;
 }
 
 .world {

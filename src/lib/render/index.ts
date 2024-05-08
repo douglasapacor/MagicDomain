@@ -10,6 +10,7 @@ import { Game } from "./classes/Game";
 import { GameLog } from "./classes/GameLog";
 import { GameObject } from "./classes/GameObject";
 import { Html } from "./classes/Html";
+import { Icon } from "./classes/Icon";
 import { Input } from "./classes/Input";
 import { IAddEventListener } from "./classes/Interfaces/IAddEventListener";
 import { IEventCallback } from "./classes/Interfaces/IEventCallback";
@@ -77,6 +78,7 @@ export {
   GUI,
   Html,
   IAddEventListener,
+  Icon,
   IEventCallback,
   IEventRegistration,
   IHtmlAttributes,

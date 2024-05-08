@@ -81,6 +81,10 @@ export class Scene extends GameObject {
     if (this._readyStarted && this._readyComplete)
       this._loadSceneComplete = true;
 
+    Object.values(this._sceneInterface).forEach(item => {
+      item.Step();
+    });
+
     if (this._loadSceneComplete) this.Step(delta);
   }
 

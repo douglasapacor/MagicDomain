@@ -158,7 +158,7 @@ export class Game {
       SceneFactory.register(sceneName, this.scenes[sceneName]),
     );
 
-    this.changeScene("StartScene");
+    this.changeScene("NewGameScene");
     this.loop.Start();
   };
 

@@ -1,16 +1,8 @@
-import { UIComponent } from "../../lib/render";
+import { Icon } from "../../../lib/render";
 
-export class IconButtonLeft extends UIComponent {
-  private svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  private path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  private poligon: SVGPathElement;
-  private g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-
+export class LeftArrowIcon extends Icon {
   constructor(id: string) {
-    super({ id, tag: "div" });
-
-    this.setClass = "icon-button";
-
+    super(id);
     this.svg.setAttribute("xml:space", "preserve");
     this.svg.setAttribute("width", "10mm");
     this.svg.setAttribute("height", "17mm");
@@ -24,10 +16,6 @@ export class IconButtonLeft extends UIComponent {
       "d",
       "M1712.51 0l-1702.54 1218.96 1702.54 1218.97 0 -2437.92zm-851.27 609.48m0 1218.96m851.27 -609.48",
     );
-    this.poligon = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "polygon",
-    );
     this.poligon.setAttribute("fill", "black");
     this.poligon.setAttribute(
       "points",
@@ -36,7 +24,6 @@ export class IconButtonLeft extends UIComponent {
     this.g.appendChild(this.path);
     this.g.appendChild(this.poligon);
     this.svg.appendChild(this.g);
-    this.addChildren(this.svg);
   }
 }
 
