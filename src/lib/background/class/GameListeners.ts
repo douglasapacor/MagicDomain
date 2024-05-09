@@ -73,6 +73,11 @@ export class GameListeners {
           path.join(GamePaths.saves, args[0].gameSloteName),
         );
 
+        await GameFileSistem.asyncCreateFile(
+          path.join(GamePaths.saves, args[0].gameSloteName, "manifest.json"),
+          { nome: args[0].gameSloteName },
+        );
+
         setTimeout(() => {
           event.sender.send(this.eventList.UPDATE_LOADING, { value: 30 });
         }, 2000);

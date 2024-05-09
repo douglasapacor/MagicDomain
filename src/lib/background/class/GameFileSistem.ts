@@ -7,6 +7,17 @@ export class GameFileSistem {
     fs.writeFileSync(fileName, JSON.stringify(fileContent), "utf-8");
   }
 
+  static async asyncCreateFile(
+    fileName: string,
+    fileContent: unknown,
+  ): Promise<void> {
+    return fs.promises.writeFile(
+      fileName,
+      JSON.stringify(fileContent),
+      "utf-8",
+    );
+  }
+
   static readFile(fileNameLocation: string): Buffer {
     return fs.readFileSync(fileNameLocation);
   }

@@ -47,35 +47,42 @@ export class LoadingScene extends Scene {
 
     ctx.fillStyle = "#cad2c5";
     ctx.beginPath();
-    ctx.roundRect(
-      this.barX + 3,
-      this.barY + 3,
-      this.barWidth - 6 <= 0 ? 0 : this.barWidth - 6,
-      this.barHeight - 6 <= 0 ? 0 : this.barHeight - 6,
-      4,
-    );
+
+    if (ctx) {
+      ctx.roundRect(
+        this.barX + 3,
+        this.barY + 3,
+        this.barWidth - 6 <= 0 ? 0 : this.barWidth - 6,
+        this.barHeight - 6 <= 0 ? 0 : this.barHeight - 6,
+        4,
+      );
+    }
     ctx.fill();
 
     ctx.fillStyle = "#52796f";
     ctx.beginPath();
-    ctx.roundRect(
-      this.barX + 5,
-      this.barY + 5,
-      this.barWidth - 10 <= 0 ? 0 : this.barWidth - 10,
-      this.barHeight - 10 <= 0 ? 0 : this.barHeight - 10,
-      4,
-    );
+    if (ctx) {
+      ctx.roundRect(
+        this.barX + 5,
+        this.barY + 5,
+        this.barWidth - 10 <= 0 ? 0 : this.barWidth - 10,
+        this.barHeight - 10 <= 0 ? 0 : this.barHeight - 10,
+        4,
+      );
+    }
     ctx.fill();
 
     ctx.fillStyle = "#cad2c5";
     ctx.beginPath();
-    ctx.roundRect(
-      this.barX + 8,
-      this.barY + 8,
-      this.finalWidthValue,
-      this.barHeight - 16 <= 0 ? 0 : this.barHeight - 16,
-      4,
-    );
+    if (ctx) {
+      ctx.roundRect(
+        this.barX + 8,
+        this.barY + 8,
+        this.finalWidthValue,
+        this.barHeight - 16 <= 0 ? 0 : this.barHeight - 16,
+        4,
+      );
+    }
     ctx.fill();
   }
 }
