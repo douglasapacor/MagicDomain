@@ -74,7 +74,17 @@ export class NewGameUI extends GUI {
     tag: "h5",
   });
 
+  private disadvantgesTitle: UIComponent = new UIComponent({
+    id: "DisadvantgesTitle",
+    tag: "h5",
+  });
+
   private advantagesItens: UIComponent = new UIComponent({
+    id: "AdvantagesItens",
+    tag: "ul",
+  });
+
+  private disdvantagesItens: UIComponent = new UIComponent({
     id: "AdvantagesItens",
     tag: "ul",
   });
@@ -102,9 +112,12 @@ export class NewGameUI extends GUI {
 
     this.worldTextFrame.addChildren(this.worldTextName.element);
     this.worldTextFrame.addChildren(this.worldText.element);
-    this.worldTextFrame.addChildren(this.advantagesTitle.element);
 
+    this.worldTextFrame.addChildren(this.advantagesTitle.element);
     this.worldTextFrame.addChildren(this.advantagesItens.element);
+
+    this.worldTextFrame.addChildren(this.disadvantgesTitle.element);
+    this.worldTextFrame.addChildren(this.disdvantagesItens.element);
 
     this.addChildren(this.gameNameInputLabel.element);
     this.addChildren(this.gameNameInput.element);
@@ -130,17 +143,24 @@ export class NewGameUI extends GUI {
       this.worldPosition,
     );
 
-    this.worldTextName.element.innerText = det.name;
-    this.worldText.element.innerText = det.description.pt_br;
-    this.advantagesTitle.innerText = "vantagens";
+    console.log(det);
 
     this.worldTextName.element.innerText = det.name;
     this.worldText.element.innerText = det.description.pt_br;
+
+    this.advantagesTitle.innerText = "VANTAGENS";
+    this.disadvantgesTitle.innerText = "DESVANTAGENS";
 
     for (let index = 0; index < det.advantages.length; index++) {
       const it = document.createElement("li");
       it.innerText = det.advantages[index];
       this.advantagesItens.element.append(it);
+    }
+
+    for (let index = 0; index < det.disadvantges.length; index++) {
+      const it = document.createElement("li");
+      it.innerText = det.disadvantges[index];
+      this.disdvantagesItens.element.append(it);
     }
 
     this.leftButton.element.onclick = this.moveToRight;
@@ -193,11 +213,19 @@ export class NewGameUI extends GUI {
       this.worldTextName.element.innerText = det.name;
 
       this.worldText.element.innerText = det.description.pt_br;
+      this.advantagesItens.element.innerHTML = "";
+      this.disdvantagesItens.element.innerHTML = "";
 
       for (let index = 0; index < det.advantages.length; index++) {
         const it = document.createElement("li");
         it.innerText = det.advantages[index];
         this.advantagesItens.element.append(it);
+      }
+
+      for (let index = 0; index < det.disadvantges.length; index++) {
+        const it = document.createElement("li");
+        it.innerText = det.disadvantges[index];
+        this.disdvantagesItens.element.append(it);
       }
 
       document.documentElement.style.setProperty(
@@ -226,10 +254,19 @@ export class NewGameUI extends GUI {
 
       this.worldText.element.innerText = det.description.pt_br;
 
+      this.advantagesItens.element.innerHTML = "";
+      this.disdvantagesItens.element.innerHTML = "";
+
       for (let index = 0; index < det.advantages.length; index++) {
         const it = document.createElement("li");
         it.innerText = det.advantages[index];
         this.advantagesItens.element.append(it);
+      }
+
+      for (let index = 0; index < det.disadvantges.length; index++) {
+        const it = document.createElement("li");
+        it.innerText = det.disadvantges[index];
+        this.disdvantagesItens.element.append(it);
       }
 
       document.documentElement.style.setProperty(
