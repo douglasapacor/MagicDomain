@@ -1,4 +1,5 @@
 import { App, ipcMain, IpcMainEvent } from "electron";
+import path from "path";
 import { GAME_EVENTS } from "../../../statics/eventlist";
 import { GameFileSistem } from "./GameFileSistem";
 import { GamePaths } from "./GamePaths";
@@ -61,6 +62,20 @@ export class GameListeners {
         });
 
         this.soundSemaphore.release();
+      },
+    );
+    ipcMain.on(
+      this.eventList.REQUEST_NEW_GAME,
+      async (event: IpcMainEvent, args: { gameSloteName: string }[]) => {
+        event.sender.send(this.eventList.REQUEST_LOADING);
+
+        await GameFileSistem.asyncCreateDirectory(
+          path.join(GamePaths.saves, args[0].gameSloteName),
+        );
+
+        setTimeout(() => {
+          event.sender.send(this.eventList.UPDATE_LOADING, { value: 30 });
+        }, 2000);
       },
     );
   }

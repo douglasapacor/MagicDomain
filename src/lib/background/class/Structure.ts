@@ -16,7 +16,6 @@ export class Structure {
     const homeString = app.getPath("userData");
 
     this.isProd = process.env.NODE_ENV === "production";
-
     const srcPath = path.join(src, "../", "../", "src");
 
     GamePaths.createPath("entry", entry);
@@ -33,6 +32,8 @@ export class Structure {
     );
 
     this.gameDirectoryStructure.validadeInternalStructure();
+
+    GamePaths.createPath("saves", path.join(GamePaths.home, "data", "saves"));
 
     this.gameListeners = new GameListeners(GAME_EVENTS);
   }

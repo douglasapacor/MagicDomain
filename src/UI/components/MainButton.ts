@@ -1,10 +1,10 @@
 import { UIComponent } from "../../../src/lib/render";
 
-export class MainButton extends UIComponent {
+export class MainButton extends UIComponent<"div"> {
   private ancor: HTMLAnchorElement = document.createElement("a");
 
   constructor(id: string, text: string) {
-    super({ id, tag: "div" });
+    super(id, "div");
 
     this.setClass = "button";
     this.ancor.innerText = text;

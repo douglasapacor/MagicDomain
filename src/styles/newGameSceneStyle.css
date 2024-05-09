@@ -52,7 +52,6 @@
   position: fixed;
   display: inline-block;
   left: 80%;
-
   transform: translate(-50%);
   top: 32%;
 }
@@ -77,25 +76,55 @@
 #WorldTextFrame {
   background: var(--secondColor);
   width: 60%;
+  height: 230px;
+  overflow-y: scroll;
   min-height: 150px;
   position: fixed;
   left: 50%;
   top: 60%;
   transform: translate(-50%);
-  border-radius: 10px;
+  border-radius: 14px;
   margin-top: 5px;
   border: 3px solid var(--lightColor);
   box-sizing: border-box;
-  overflow: hidden;
   color: var(--white);
   font-size: 24px;
   padding: 15px;
-  user-select: none;
+  /* user-select: none; */
+}
+
+#WorldTextFrame::-webkit-scrollbar {
+  width: 12px;
+}
+
+#WorldTextFrame::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+  border-radius: 10px;
+}
+
+#WorldTextFrame::-webkit-scrollbar-thumb {
+  background: var(--lightColor);
+  border-radius: 10px;
+}
+
+#WorldTextFrame::-webkit-scrollbar-thumb:hover {
+  background: var(--shadowColor);
 }
 
 #WorldTextFrame h4 {
   user-select: none;
   margin-top: 0;
+}
+
+#WorldTextFrame h5 {
+  user-select: none;
+  margin-bottom: 0;
+}
+
+#WorldTextFrame ul {
+  user-select: none;
+  margin-bottom: 0;
+  margin-top: 5px;
 }
 
 .world {

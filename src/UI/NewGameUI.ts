@@ -6,6 +6,7 @@ import {
   setCSSMeasure,
   UIComponent,
 } from "../../src/lib/render";
+import { GAME_EVENTS } from "../../src/statics/eventlist";
 import { IconButton } from "./components/IconButton";
 import { LeftArrowIcon } from "./components/icons/LeftArrowIcon";
 import { RigthArrowIcon } from "./components/icons/RigthArrowIcon";
@@ -14,81 +15,76 @@ import { MainButton } from "./components/MainButton";
 const UI_NAME = "NewGameUI";
 
 export class NewGameUI extends GUI {
-  private gameNameInputLabel: UIComponent = new UIComponent({
-    id: "GameNameInputLabel",
-    tag: "label",
-  });
-
-  private gameNameInput: UIComponent = new UIComponent({
-    id: "GameNameInput",
-    tag: "input",
-  });
-
-  private worldSlot: UIComponent = new UIComponent({
-    id: "WorldSlot",
-    tag: "div",
-  });
-
-  private rightButtonSlot: UIComponent = new UIComponent({
-    id: "RightButtonSlot",
-    tag: "div",
-  });
-
+  private gameNameInputLabel: UIComponent<"label"> = new UIComponent<"label">(
+    "GameNameInputLabel",
+    "label",
+  );
+  private gameNameInput: UIComponent<"input"> = new UIComponent<"input">(
+    "GameNameInput",
+    "input",
+  );
+  private worldSlot: UIComponent<"div"> = new UIComponent<"div">(
+    "WorldSlot",
+    "div",
+  );
+  private rightButtonSlot: UIComponent<"div"> = new UIComponent<"div">(
+    "RightButtonSlot",
+    "div",
+  );
   private rightButton: IconButton = new IconButton(
     "rbtn",
     new RigthArrowIcon("rbtnIcon"),
   );
-
-  private leftButtonSlot: UIComponent = new UIComponent({
-    id: "LeftButtonSlot",
-    tag: "div",
-  });
-
+  private leftButtonSlot: UIComponent<"div"> = new UIComponent<"div">(
+    "LeftButtonSlot",
+    "div",
+  );
   private leftButton: IconButton = new IconButton(
     "lbtn",
     new LeftArrowIcon("lbtnIcon"),
   );
-
-  private confirmButtonSlot: UIComponent = new UIComponent({
-    id: "ConfirmButtonSlot",
-    tag: "div",
-  });
-
+  private confirmButtonSlot: UIComponent<"div"> = new UIComponent<"div">(
+    "ConfirmButtonSlot",
+    "div",
+  );
   private confirmButton: MainButton = new MainButton(
     "ConfirmButton",
     "iniciar",
   );
-
-  private worldTextFrame: UIComponent = new UIComponent({
-    id: "WorldTextFrame",
-    tag: "div",
-  });
-
-  private worldTextName: UIComponent = new UIComponent({
-    id: "WorldTextName",
-    tag: "h4",
-  });
-
-  private advantagesTitle: UIComponent = new UIComponent({
-    id: "AdvantagesTitle",
-    tag: "h5",
-  });
-
-  private advantagesItens: UIComponent = new UIComponent({
-    id: "AdvantagesItens",
-    tag: "ul",
-  });
-
-  private worldText: UIComponent = new UIComponent({
-    id: "WorldTextName",
-    tag: "p",
-  });
-
+  private worldTextFrame: UIComponent<"div"> = new UIComponent<"div">(
+    "WorldTextFrame",
+    "div",
+  );
+  private worldTextName: UIComponent<"h4"> = new UIComponent<"h4">(
+    "WorldTextName",
+    "h4",
+  );
+  private advantagesTitle: UIComponent<"h5"> = new UIComponent<"h5">(
+    "AdvantagesTitle",
+    "h5",
+  );
+  private disadvantgesTitle: UIComponent<"h5"> = new UIComponent<"h5">(
+    "DisadvantgesTitle",
+    "h5",
+  );
+  private advantagesItens: UIComponent<"ul"> = new UIComponent<"ul">(
+    "AdvantagesItens",
+    "ul",
+  );
+  private disdvantagesItens: UIComponent<"ul"> = new UIComponent<"ul">(
+    "AdvantagesItens",
+    "ul",
+  );
+  private worldText: UIComponent<"p"> = new UIComponent<"p">(
+    "WorldTextName",
+    "p",
+  );
   private worldPosition = 1;
   private worldSize = (this.worldSlot.element.clientWidth / 3) * 2;
   private worldMargin = this.worldSlot.element.clientWidth / 3 / 2;
   private worldDisplacement = getCSSMeasure("worldDisplacement");
   private maxDisplacement: number;
+  private datails: any = {};
 
   constructor(private uiAssets?: IUIConstructor) {
     super(UI_NAME);
@@ -97,14 +93,19 @@ export class NewGameUI extends GUI {
     this.gameNameInput.setAttributes = { type: "text" };
 
     this.rightButtonSlot.addChildren(this.rightButton.element);
+
     this.leftButtonSlot.addChildren(this.leftButton.element);
+
     this.confirmButtonSlot.addChildren(this.confirmButton.element);
 
     this.worldTextFrame.addChildren(this.worldTextName.element);
     this.worldTextFrame.addChildren(this.worldText.element);
-    this.worldTextFrame.addChildren(this.advantagesTitle.element);
 
+    this.worldTextFrame.addChildren(this.advantagesTitle.element);
     this.worldTextFrame.addChildren(this.advantagesItens.element);
+
+    this.worldTextFrame.addChildren(this.disadvantgesTitle.element);
+    this.worldTextFrame.addChildren(this.disdvantagesItens.element);
 
     this.addChildren(this.gameNameInputLabel.element);
     this.addChildren(this.gameNameInput.element);
@@ -126,21 +127,26 @@ export class NewGameUI extends GUI {
       this.uiAssets.sceneResources["mu_new_game"].image,
     );
 
-    const det = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
+    this.datails = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
       this.worldPosition,
     );
 
-    this.worldTextName.element.innerText = det.name;
-    this.worldText.element.innerText = det.description.pt_br;
-    this.advantagesTitle.innerText = "vantagens";
+    this.worldTextName.element.innerText = this.datails.name;
+    this.worldText.element.innerText = this.datails.description.pt_br;
 
-    this.worldTextName.element.innerText = det.name;
-    this.worldText.element.innerText = det.description.pt_br;
+    this.advantagesTitle.innerText = "VANTAGENS";
+    this.disadvantgesTitle.innerText = "DESVANTAGENS";
 
-    for (let index = 0; index < det.advantages.length; index++) {
+    for (let index = 0; index < this.datails.advantages.length; index++) {
       const it = document.createElement("li");
-      it.innerText = det.advantages[index];
+      it.innerText = this.datails.advantages[index];
       this.advantagesItens.element.append(it);
+    }
+
+    for (let index = 0; index < this.datails.disadvantges.length; index++) {
+      const it = document.createElement("li");
+      it.innerText = this.datails.disadvantges[index];
+      this.disdvantagesItens.element.append(it);
     }
 
     this.leftButton.element.onclick = this.moveToRight;
@@ -186,20 +192,26 @@ export class NewGameUI extends GUI {
 
       this.worldPosition -= 1;
 
-      const det = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
+      this.datails = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
         this.worldPosition,
       );
 
-      this.worldTextName.element.innerText = det.name;
+      this.worldTextName.element.innerText = this.datails.name;
+      this.worldText.element.innerText = this.datails.description.pt_br;
 
-      this.worldText.element.innerText = det.description.pt_br;
+      this.advantagesItens.element.innerHTML = "";
+      this.disdvantagesItens.element.innerHTML = "";
 
-      this.advantagesItens.element.remove();
-
-      for (let index = 0; index < det.advantages.length; index++) {
+      for (let index = 0; index < this.datails.advantages.length; index++) {
         const it = document.createElement("li");
-        it.innerText = det.advantages[index];
+        it.innerText = this.datails.advantages[index];
         this.advantagesItens.element.append(it);
+      }
+
+      for (let index = 0; index < this.datails.disadvantges.length; index++) {
+        const it = document.createElement("li");
+        it.innerText = this.datails.disadvantges[index];
+        this.disdvantagesItens.element.append(it);
       }
 
       document.documentElement.style.setProperty(
@@ -220,20 +232,26 @@ export class NewGameUI extends GUI {
 
       this.worldPosition += 1;
 
-      const det = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
+      this.datails = this.uiAssets.sceneData["WorldDetailsData"].getDetails(
         this.worldPosition,
       );
 
-      this.worldTextName.element.innerText = det.name;
+      this.worldTextName.element.innerText = this.datails.name;
+      this.worldText.element.innerText = this.datails.description.pt_br;
 
-      this.worldText.element.innerText = det.description.pt_br;
+      this.advantagesItens.element.innerHTML = "";
+      this.disdvantagesItens.element.innerHTML = "";
 
-      this.advantagesItens.element.replaceChildren();
-
-      for (let index = 0; index < det.advantages.length; index++) {
+      for (let index = 0; index < this.datails.advantages.length; index++) {
         const it = document.createElement("li");
-        it.innerText = det.advantages[index];
+        it.innerText = this.datails.advantages[index];
         this.advantagesItens.element.append(it);
+      }
+
+      for (let index = 0; index < this.datails.disadvantges.length; index++) {
+        const it = document.createElement("li");
+        it.innerText = this.datails.disadvantges[index];
+        this.disdvantagesItens.element.append(it);
       }
 
       document.documentElement.style.setProperty(
@@ -248,8 +266,17 @@ export class NewGameUI extends GUI {
   };
 
   private createNewGame = (): void => {
-    if (this.uiAssets)
-      if (this.uiAssets.sceneSounds)
-        this.uiAssets.sceneSounds["success-start"].play();
+    if (this.gameNameInput.element.value === "") {
+      this.uiAssets.sceneSounds["error-start"].play();
+      return;
+    } else {
+      window.bridge.send(GAME_EVENTS.REQUEST_NEW_GAME, {
+        gameSloteName: this.gameNameInput.element.value,
+        worldPosition: this.worldPosition,
+        worldDetails: this.datails,
+      });
+      this.uiAssets.sceneSounds["success-start"].play();
+      return;
+    }
   };
 }

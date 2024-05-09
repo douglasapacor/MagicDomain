@@ -1,11 +1,11 @@
 import { IHtmlAttributes } from "./Interfaces/IHtmlAttributes";
 
-export class UIComponent {
-  private _element: HTMLElement;
+export class UIComponent<T extends keyof HTMLElementTagNameMap> {
+  private _element: HTMLElementTagNameMap[T];
 
-  constructor(params: { id: string; tag: keyof HTMLElementTagNameMap }) {
-    this._element = document.createElement(params.tag);
-    this._element.setAttribute("id", params.id);
+  constructor(id: string, tag: T) {
+    this._element = document.createElement<T>(tag);
+    this._element.setAttribute("id", id);
   }
 
   public addChildren(children: HTMLElement | SVGSVGElement): void {
@@ -20,7 +20,7 @@ export class UIComponent {
     this._element.style.display = "none";
   }
 
-  public get element(): HTMLElement {
+  public get element(): HTMLElementTagNameMap[T] {
     return this._element;
   }
 

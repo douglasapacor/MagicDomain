@@ -11,6 +11,7 @@
     "outDir": "dist",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "strict": false,
     "paths": {
       "*": ["node_modules/*"]
     },

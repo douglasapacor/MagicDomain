@@ -15,6 +15,10 @@ export class GameFileSistem {
     fs.mkdirSync(directoryName);
   }
 
+  static async asyncCreateDirectory(directoryName: string): Promise<void> {
+    await fs.promises.mkdir(directoryName);
+  }
+
   static existFile(fileNameLocation: string): boolean {
     return fs.existsSync(fileNameLocation);
   }

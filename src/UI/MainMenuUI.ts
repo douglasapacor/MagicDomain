@@ -10,10 +10,10 @@ import { MainButton } from "./components/MainButton";
 const UI_NAME = "MainMenuUI";
 
 export class MainMenuUI extends GUI {
-  private titleContainer: UIComponent = new UIComponent({
-    id: "TitleContainer",
-    tag: "div",
-  });
+  private titleContainer: UIComponent<"div"> = new UIComponent<"div">(
+    "TitleContainer",
+    "div",
+  );
   private buttonNewGame: MainButton = new MainButton(
     "NewGameButton",
     "Novo Jogo",
@@ -23,10 +23,10 @@ export class MainMenuUI extends GUI {
     "ButtonLoadGame",
     "Carregar Jogo",
   );
-  private guiFrame: UIComponent = new UIComponent({
-    id: "MainMenuFrame",
-    tag: "div",
-  });
+  private guiFrame: UIComponent<"div"> = new UIComponent<"div">(
+    "MainMenuFrame",
+    "div",
+  );
 
   constructor(private uiAssets?: IUIConstructor) {
     super(UI_NAME);

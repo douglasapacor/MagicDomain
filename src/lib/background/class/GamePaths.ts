@@ -28,5 +28,9 @@ export class GamePaths {
   static get assets(): string {
     return this.gamePaths.get("assets");
   }
+
+  static get saves(): string {
+    return this.gamePaths.get("saves");
+  }
 }
 
